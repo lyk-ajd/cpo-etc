@@ -528,7 +528,10 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 
-const cdn = (name) => `/landing/soho/${name}`
+// BASE_URL 기반 cdn() — preview 빌드(/cpo-etc/soho/) + dev(/) 양쪽 자동 처리.
+// 개발자 인계 시 운영 CDN URL 한 줄로 교체. 예:
+//   const cdn = (name) => `https://cdn.ajd.kr/images/platform/landing/soho/${name}?q=80&f=webp`
+const cdn = (name) => `${import.meta.env.BASE_URL}landing/soho/${name}`
 
 const heroBgs = [
   '07-case-1.png',

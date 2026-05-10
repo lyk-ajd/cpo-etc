@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>아정당 랜딩 리뉴얼 — 미리보기</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        background: #f4f6fa;
+        color: #1f2429;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .wrap {
+        max-width: 640px;
+        width: 100%;
+        background: #fff;
+        border-radius: 16px;
+        padding: 40px 32px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      .lede {
+        margin: 0 0 28px;
+        font-size: 15px;
+        color: #6e757c;
+        line-height: 1.6;
+      }
+      ul.preview-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .preview-list a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 20px;
+        background: #f4f6fa;
+        border: 1px solid #dee2e6;
+        border-radius: 12px;
+        text-decoration: none;
+        color: #1f2429;
+        transition: border-color 0.15s ease, transform 0.15s ease;
+      }
+      .preview-list a:hover {
+        border-color: #145CE6;
+        transform: translateY(-1px);
+      }
+      .preview-list .label {
+        font-size: 17px;
+        font-weight: 600;
+      }
+      .preview-list .meta {
+        font-size: 13px;
+        color: #8c939a;
+      }
+      .preview-list .arrow {
+        color: #145CE6;
+        font-size: 18px;
+      }
+      footer {
+        margin-top: 28px;
+        padding-top: 20px;
+        border-top: 1px solid #dee2e6;
+        font-size: 12px;
+        color: #8c939a;
+        line-height: 1.6;
+      }
+      footer a { color: #145CE6; text-decoration: none; }
+      footer a:hover { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>아정당 랜딩 리뉴얼 미리보기</h1>
+      <p class="lede">
+        디자인 시스템 기준으로 리뉴얼한 메인 콘텐츠 영역의 미리보기입니다.
+        실제 운영 페이지에는 글로벌 헤더 / 푸터 / 플로팅 CTA / DB 제출폼이 추가로 포함됩니다.
+      </p>
+      <ul class="preview-list">
+        <li>
+          <a href="./interior/">
+            <div>
+              <div class="label">인테리어</div>
+              <div class="meta">11개 섹션 · 75장 이미지 · 기존 CDN 재사용</div>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="./soho/">
+            <div>
+              <div class="label">소호 (매장패키지)</div>
+              <div class="meta">12개 섹션 · 47장 이미지 · CDN 업로드 필요</div>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        </li>
+      </ul>
+      <footer>
+        Source: <a href="https://github.com/lyk-ajd/cpo-etc">github.com/lyk-ajd/cpo-etc</a><br/>
+        각 폴더의 README.md 에 개발자 인계 가이드가 있음.
+      </footer>
+    </main>
+  </body>
+</html>

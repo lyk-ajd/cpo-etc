@@ -10,7 +10,9 @@ const projectRoot = here('../../..')
 // Map the bare specifiers to absolute paths inside this preview's node_modules.
 const swiperBase = here('./node_modules/swiper')
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  // dev: '/' (local). build: '/cpo-etc/interior/' (GitHub Pages subpath).
+  base: command === 'build' ? '/cpo-etc/interior/' : '/',
   plugins: [vue()],
   resolve: {
     alias: [
@@ -31,4 +33,4 @@ export default defineConfig({
       allow: [projectRoot],
     },
   },
-})
+}))

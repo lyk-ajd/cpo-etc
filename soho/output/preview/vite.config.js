@@ -7,12 +7,11 @@ import path from 'node:path'
 const here = (p) => fileURLToPath(new URL(p, import.meta.url))
 const projectRoot = here('../../..')
 const imagesDir = here('../../source/images')
-
-// SFC at ../SohoContent.vue lives outside this preview, map bare swiper specifiers to local node_modules.
 const swiperBase = here('./node_modules/swiper')
 
-// Dev middleware: serve /landing/soho/<file> from ../../source/images/<file>
-// so the cdn() helper inside the SFC works with the placeholder base URL.
+// Dev: serve /landing/soho/<file> from ../../source/images/<file>.
+// Build: copy the same images into dist/landing/soho/ so the SFC's BASE_URL-aware
+// cdn() helper resolves to <base>/landing/soho/<file>.
 const sohoImagesPlugin = {
   name: 'serve-soho-images',
   configureServer(server) {
@@ -29,9 +28,22 @@ const sohoImagesPlugin = {
       next()
     })
   },
+  closeBundle() {
+    // Build hook — copy source/images/* (excluding -original backups) into dist/landing/soho/
+    const distLandingDir = path.resolve(here('./dist'), 'landing/soho')
+    if (!fs.existsSync(here('./dist'))) return // dev runs don't trigger build output
+    fs.mkdirSync(distLandingDir, { recursive: true })
+    for (const f of fs.readdirSync(imagesDir)) {
+      if (f.includes('-original')) continue
+      fs.copyFileSync(path.join(imagesDir, f), path.join(distLandingDir, f))
+    }
+  },
 }
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  // dev: '/' (local preview at localhost:<port>/).
+  // build: '/cpo-etc/soho/' (GitHub Pages project page subpath).
+  base: command === 'build' ? '/cpo-etc/soho/' : '/',
   plugins: [vue(), sohoImagesPlugin],
   resolve: {
     alias: [
@@ -49,4 +61,4 @@ export default defineConfig({
       allow: [projectRoot],
     },
   },
-})
+}))
