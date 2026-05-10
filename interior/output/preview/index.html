@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>인테리어 랜딩 미리보기</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"
+    />
+    <style>
+      /* reset + scaffolding (NOT part of the SFC — preview shell only) */
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: #fff;
+        font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      #app { min-height: 100vh; }
+      /* Mock floating CTA + form anchor (not in scope, just so #interior-form scroll works) */
+      .preview-fake-form {
+        max-width: 1024px;
+        margin: 60px auto;
+        padding: 60px 24px;
+        background: #f4f6fa;
+        text-align: center;
+        color: #6e757c;
+        border-radius: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- Stand-in for the actual DB form (kept by backend Vue code in production) -->
+    <section id="interior-form" class="preview-fake-form">
+      [DB 제출폼 영역 — 본 컴포넌트 작업 대상 아님 / 프로덕션에서는 기존 Vue 코드 유지]
+    </section>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "interior-preview",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host"
+  },
+  "dependencies": {
+    "swiper": "^11.1.14",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "ffmpeg-static": "^5.3.0",
+    "vite": "^6.0.7"
+  }
+}

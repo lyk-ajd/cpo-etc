@@ -1,0 +1,285 @@
+/**
+ * 아정당 랜딩페이지 디자인 토큰
+ * 
+ * ⚠️ 이 파일의 변수만 사용할 것. 직접 hex 값/px 값 작성 금지.
+ * 위반 시: 코드 리뷰에서 reject + 토큰으로 교체 후 재제출
+ *
+ * 사용 예:
+ *   color: var(--color-text-primary);    ✅
+ *   color: #1F2429;                       ❌
+ *   font: var(--font-heading-xxl);        ✅
+ *   font-size: 32px; font-weight: 700;    ❌
+ */
+
+:root {
+  /* ============================================
+     COLORS — Grayscale
+     ============================================ */
+  --color-white: #FFFFFF;
+  --color-gray-50: #F4F6FA;
+  --color-gray-100: #ECF0F4;
+  --color-gray-200: #DEE2E6;
+  --color-gray-300: #CFD4D9;
+  --color-gray-400: #ACB3BA;
+  --color-gray-500: #8C939A;
+  --color-gray-600: #6E757C;
+  --color-gray-700: #575E64;
+  --color-gray-800: #353A3F;
+  --color-gray-900: #1F2429;
+  --color-black: #000000;
+  --color-black-30: rgba(0, 0, 0, 0.3);
+
+  /* ============================================
+     COLORS — Primary (Blue)
+     ============================================ */
+  --color-primary-50: #ECF2FD;
+  --color-primary-100: #C7D8FA;
+  --color-primary-200: #A6C2F7;
+  --color-primary-300: #80A8F4;
+  --color-primary-400: #5B8EF1;
+  --color-primary-500: #3574ED;
+  --color-primary-600: #145CE6;  /* Primary action */
+  --color-primary-700: #114DC0;  /* Hover */
+  --color-primary-800: #0D3E9B;  /* Pressed */
+  --color-primary-900: #0A2F75;
+
+  /* ============================================
+     COLORS — Red (Error / Warning)
+     ============================================ */
+  --color-red-100: #FDECEC;
+  --color-red-200: #FFCFCF;
+  --color-red-300: #F7A6A6;
+  --color-red-400: #F48080;
+  --color-red-500: #F15B5B;
+  --color-red-600: #ED3535;  /* Primary */
+  --color-red-700: #E61414;  /* Hover */
+  --color-red-800: #C01111;  /* Pressed */
+  --color-red-900: #9B0D0D;
+
+  /* ============================================
+     COLORS — Yellow
+     ============================================ */
+  --color-yellow-100: #FFF7D9;
+  --color-yellow-200: #FFF0B3;
+  --color-yellow-300: #FFE066;
+  --color-yellow-400: #FFD633;
+  --color-yellow-500: #FFCC00;  /* Primary */
+  --color-yellow-600: #EEAB00;
+
+  /* ============================================
+     COLORS — Green (Success)
+     ============================================ */
+  --color-green-100: #E4FBEA;
+  --color-green-200: #B1F2CF;
+  --color-green-300: #71E6A7;
+  --color-green-400: #31D17B;
+  --color-green-500: #0CB459;  /* Primary */
+  --color-green-600: #009645;
+
+  /* ============================================
+     COLORS — Teal (Info)
+     ============================================ */
+  --color-teal-100: #E4F9FF;
+  --color-teal-200: #A9EDFF;
+  --color-teal-300: #7FE3FF;
+  --color-teal-400: #29D1FF;
+  --color-teal-500: #00AFE5;  /* Primary */
+  --color-teal-600: #0F88C8;
+
+  /* ============================================
+     COLORS — Purple
+     ============================================ */
+  --color-purple-100: #F5EBFF;
+  --color-purple-200: #D4C4F5;
+  --color-purple-300: #BD9FF5;
+  --color-purple-400: #A17DF5;
+  --color-purple-500: #8556E3;  /* Primary */
+  --color-purple-600: #6B3CC9;
+
+  /* ============================================
+     COLORS — Semantic (사용 권장)
+     ============================================ */
+  --color-text-primary: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-700);
+  --color-text-tertiary: var(--color-gray-600);
+  --color-text-on-dark: var(--color-white);
+  --color-text-accent: var(--color-primary-600);
+
+  --color-bg-default: var(--color-white);
+  --color-bg-subtle: var(--color-gray-50);
+  --color-bg-accent: var(--color-primary-50);
+
+  --color-border: var(--color-gray-200);
+  --color-border-strong: var(--color-gray-300);
+
+  --color-action: var(--color-primary-600);
+  --color-action-hover: var(--color-primary-700);
+  --color-action-pressed: var(--color-primary-800);
+
+  --color-success: var(--color-green-500);
+  --color-error: var(--color-red-700);
+  --color-warning: var(--color-yellow-500);
+  --color-info: var(--color-teal-500);
+
+  /* ============================================
+     TYPOGRAPHY — Font Family
+     ============================================ */
+  --font-family-base: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  /* ============================================
+     TYPOGRAPHY — Font Sizes (rem 기준, 1rem=16px)
+     ============================================ */
+  /* Display */
+  --font-size-display-l: 3.5rem;     /* 56px */
+  --font-size-display-m: 2.5rem;     /* 40px */
+
+  /* Heading */
+  --font-size-heading-xxl: 2rem;       /* 32px */
+  --font-size-heading-xl: 1.75rem;     /* 28px */
+  --font-size-heading-l: 1.5rem;       /* 24px */
+  --font-size-heading-m: 1.25rem;      /* 20px */
+  --font-size-heading-s: 1.125rem;     /* 18px */
+  --font-size-heading-xs: 1rem;        /* 16px */
+  --font-size-heading-xxs: 0.875rem;   /* 14px */
+
+  /* Body */
+  --font-size-body-xl: 1.3125rem;    /* 21px */
+  --font-size-body-l: 1.1875rem;     /* 19px */
+  --font-size-body-m: 1.0625rem;     /* 17px */
+  --font-size-body-s: 0.9375rem;     /* 15px */
+  --font-size-body-xs: 0.8125rem;    /* 13px */
+  --font-size-body-xxs: 0.6875rem;   /* 11px */
+
+  /* Button & Label */
+  --font-size-button-l: 1.0625rem;   /* 17px */
+  --font-size-button-m: 0.9375rem;   /* 15px */
+  --font-size-button-s: 0.8125rem;   /* 13px */
+  --font-size-button-xs: 0.75rem;    /* 12px */
+  --font-size-button-xxs: 0.625rem;  /* 10px */
+
+  /* ============================================
+     TYPOGRAPHY — Line Heights (rem)
+     ============================================ */
+  /* Display: × 1.2 */
+  --line-height-display-l: 4.25rem;     /* 68px */
+  --line-height-display-m: 3.25rem;     /* 52px */
+
+  /* Heading: × 1.4 */
+  --line-height-heading-xxl: 2.75rem;   /* 44px */
+  --line-height-heading-xl: 2.5rem;     /* 40px */
+  --line-height-heading-l: 2.125rem;    /* 34px */
+  --line-height-heading-m: 1.75rem;     /* 28px */
+  --line-height-heading-s: 1.625rem;    /* 26px */
+  --line-height-heading-xs: 1.375rem;   /* 22px */
+  --line-height-heading-xxs: 1.25rem;   /* 20px */
+
+  /* Body: × 1.6 */
+  --line-height-body-xl: 2.125rem;      /* 34px */
+  --line-height-body-l: 1.875rem;       /* 30px */
+  --line-height-body-m: 1.75rem;        /* 28px */
+  --line-height-body-s: 1.5rem;         /* 24px */
+  --line-height-body-xs: 1.25rem;       /* 20px */
+  --line-height-body-xxs: 1.125rem;     /* 18px */
+
+  /* Button: × 1.2 */
+  --line-height-button-l: 1.25rem;      /* 20px */
+  --line-height-button-m: 1.125rem;     /* 18px */
+  --line-height-button-s: 1rem;         /* 16px */
+  --line-height-button-xs: 0.875rem;    /* 14px */
+  --line-height-button-xxs: 0.75rem;    /* 12px */
+
+  /* ============================================
+     TYPOGRAPHY — Font Weights
+     ============================================ */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* ============================================
+     LAYOUT — Content Widths
+     ============================================ */
+  --layout-pc-default: 1024px;   /* PC 기본 */
+  --layout-pc-narrow: 768px;     /* PC 예외 (Center 정렬) */
+  --layout-pc-narrowest: 480px;  /* PC 예외 (Center 정렬) */
+  --layout-mobile-default: 768px;  /* Mobile 기본 */
+  --layout-mobile-narrow: 640px;
+  --layout-mobile-narrowest: 480px;
+
+  /* Breakpoint */
+  --breakpoint-pc: 1024px;
+
+  /* ============================================
+     SPACING — 8px 배수
+     ============================================ */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 1rem;      /* 16px */
+  --space-4: 1.25rem;   /* 20px */
+  --space-5: 1.5rem;    /* 24px */
+  --space-6: 2rem;      /* 32px */
+  --space-7: 2.5rem;    /* 40px */
+  --space-8: 3.75rem;   /* 60px - PC section gap */
+
+  /* Section gap (revised after interior page review — original page uses ~120px breathing room) */
+  --section-gap-pc: 7.5rem;      /* 120px */
+  --section-gap-mobile: 3.75rem; /* 60px */
+
+  /* ============================================
+     RADIUS (이 페이지에서 자주 보이는 값들)
+     ============================================ */
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-pill: 9999px;
+}
+
+/* ============================================
+   TYPOGRAPHY — Class 단위 사용 (편의)
+   ============================================ */
+
+/* Display */
+.text-display-l {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-display-l);
+  line-height: var(--line-height-display-l);
+  font-weight: var(--font-weight-bold);
+}
+.text-display-m {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-display-m);
+  line-height: var(--line-height-display-m);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Heading */
+.text-heading-xxl { font: var(--font-weight-bold) var(--font-size-heading-xxl)/var(--line-height-heading-xxl) var(--font-family-base); }
+.text-heading-xl  { font: var(--font-weight-bold) var(--font-size-heading-xl)/var(--line-height-heading-xl)   var(--font-family-base); }
+.text-heading-l   { font: var(--font-weight-bold) var(--font-size-heading-l)/var(--line-height-heading-l)     var(--font-family-base); }
+.text-heading-m   { font: var(--font-weight-bold) var(--font-size-heading-m)/var(--line-height-heading-m)     var(--font-family-base); }
+.text-heading-s   { font: var(--font-weight-bold) var(--font-size-heading-s)/var(--line-height-heading-s)     var(--font-family-base); }
+.text-heading-xs  { font: var(--font-weight-bold) var(--font-size-heading-xs)/var(--line-height-heading-xs)   var(--font-family-base); }
+.text-heading-xxs { font: var(--font-weight-bold) var(--font-size-heading-xxs)/var(--line-height-heading-xxs) var(--font-family-base); }
+
+/* Body — Medium 500 */
+.text-body-xl-medium  { font: var(--font-weight-medium) var(--font-size-body-xl)/var(--line-height-body-xl)   var(--font-family-base); }
+.text-body-l-medium   { font: var(--font-weight-medium) var(--font-size-body-l)/var(--line-height-body-l)     var(--font-family-base); }
+.text-body-m-medium   { font: var(--font-weight-medium) var(--font-size-body-m)/var(--line-height-body-m)     var(--font-family-base); }
+.text-body-s-medium   { font: var(--font-weight-medium) var(--font-size-body-s)/var(--line-height-body-s)     var(--font-family-base); }
+.text-body-xs-medium  { font: var(--font-weight-medium) var(--font-size-body-xs)/var(--line-height-body-xs)   var(--font-family-base); }
+.text-body-xxs-medium { font: var(--font-weight-medium) var(--font-size-body-xxs)/var(--line-height-body-xxs) var(--font-family-base); }
+
+/* Body — Regular 400 */
+.text-body-xl  { font: var(--font-weight-regular) var(--font-size-body-xl)/var(--line-height-body-xl)   var(--font-family-base); }
+.text-body-l   { font: var(--font-weight-regular) var(--font-size-body-l)/var(--line-height-body-l)     var(--font-family-base); }
+.text-body-m   { font: var(--font-weight-regular) var(--font-size-body-m)/var(--line-height-body-m)     var(--font-family-base); }
+.text-body-s   { font: var(--font-weight-regular) var(--font-size-body-s)/var(--line-height-body-s)     var(--font-family-base); }
+.text-body-xs  { font: var(--font-weight-regular) var(--font-size-body-xs)/var(--line-height-body-xs)   var(--font-family-base); }
+.text-body-xxs { font: var(--font-weight-regular) var(--font-size-body-xxs)/var(--line-height-body-xxs) var(--font-family-base); }
+
+/* Button & Label — Medium 500 */
+.text-button-l   { font: var(--font-weight-medium) var(--font-size-button-l)/var(--line-height-button-l)     var(--font-family-base); }
+.text-button-m   { font: var(--font-weight-medium) var(--font-size-button-m)/var(--line-height-button-m)     var(--font-family-base); }
+.text-button-s   { font: var(--font-weight-medium) var(--font-size-button-s)/var(--line-height-button-s)     var(--font-family-base); }
+.text-button-xs  { font: var(--font-weight-medium) var(--font-size-button-xs)/var(--line-height-button-xs)   var(--font-family-base); }
+.text-button-xxs { font: var(--font-weight-medium) var(--font-size-button-xxs)/var(--line-height-button-xxs) var(--font-family-base); }
