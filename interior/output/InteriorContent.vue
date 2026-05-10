@@ -42,7 +42,8 @@
     </section>
 
     <!-- ② Portfolio — Residential -->
-    <section v-reveal class="portfolio" aria-labelledby="portfolio-residential-title">
+    <!-- v-reveal 미부착: hero 바로 다음 섹션은 첫 화면 진입 시 즉시 보이도록 (component-rules §9) -->
+    <section class="portfolio" aria-labelledby="portfolio-residential-title">
       <header class="portfolio-header">
         <div class="portfolio-header-text">
           <h2 id="portfolio-residential-title" class="section-title">

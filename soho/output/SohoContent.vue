@@ -42,7 +42,8 @@
     </section>
 
     <!-- ② Reviews — clean white cards (Figma 원본 UI 기준) -->
-    <section v-reveal class="reviews" aria-labelledby="reviews-title">
+    <!-- v-reveal 미부착: hero 바로 다음 섹션은 첫 화면 진입 시 즉시 보이도록 (component-rules §9) -->
+    <section class="reviews" aria-labelledby="reviews-title">
       <header class="section-header center">
         <h2 id="reviews-title" class="section-title">
           성공한 사장님들의<br class="only-mo" />
