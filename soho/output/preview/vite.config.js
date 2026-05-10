@@ -29,12 +29,14 @@ const sohoImagesPlugin = {
     })
   },
   closeBundle() {
-    // Build hook — copy source/images/* (excluding -original backups) into dist/landing/soho/
+    // Build hook — copy ALL source/images/* into dist/landing/soho/.
+    // NB: '-original' suffix is NOT a "skip" marker. §7 Recommended cards
+    // reference 07-case-{1,2,3}-original.png as their production bright photos
+    // (Hero uses the dimmed 07-case-{1,2,3}.png). Skipping -original would 404 §7.
     const distLandingDir = path.resolve(here('./dist'), 'landing/soho')
     if (!fs.existsSync(here('./dist'))) return // dev runs don't trigger build output
     fs.mkdirSync(distLandingDir, { recursive: true })
     for (const f of fs.readdirSync(imagesDir)) {
-      if (f.includes('-original')) continue
       fs.copyFileSync(path.join(imagesDir, f), path.join(distLandingDir, f))
     }
   },
