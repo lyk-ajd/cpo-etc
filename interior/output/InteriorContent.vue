@@ -82,8 +82,8 @@
           <article class="portfolio-card">
             <div class="portfolio-card-image">
               <img :src="cdn(item.img)" :alt="item.name" loading="lazy" />
+              <p class="text-heading-s portfolio-card-name">{{ item.name }}</p>
             </div>
-            <p class="text-heading-s portfolio-card-name">{{ item.name }}</p>
             <p class="text-body-s portfolio-card-desc">{{ item.desc }}</p>
             <ul class="card-chips">
               <li
@@ -104,7 +104,8 @@
       <header class="portfolio-header">
         <div class="portfolio-header-text">
           <h2 id="portfolio-commercial-title" class="section-title">
-            고객의 경험을 설계하는 <span class="accent">상업 공간</span>
+            <span class="only-pc">고객의 경험을 설계하는 <span class="accent">상업 공간</span></span>
+            <span class="only-mo">고객 경험을 설계하는 <span class="accent">상업공간</span></span>
           </h2>
           <p class="portfolio-desc text-body-l">
             방문을 경험으로, 경험을 기억으로 바꾸는 솔루션
@@ -139,8 +140,8 @@
           <article class="portfolio-card">
             <div class="portfolio-card-image">
               <img :src="cdn(item.img)" :alt="item.name" loading="lazy" />
+              <p class="text-heading-s portfolio-card-name">{{ item.name }}</p>
             </div>
-            <p class="text-heading-s portfolio-card-name">{{ item.name }}</p>
             <p class="text-body-s portfolio-card-desc">{{ item.desc }}</p>
             <ul class="card-chips">
               <li
@@ -154,6 +155,14 @@
           </article>
         </SwiperSlide>
       </Swiper>
+      <a
+        :href="youtubeUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="more-link more-link--mobile-cta text-button-m only-mo"
+      >
+        유튜브에서 시공사례 더보기
+      </a>
     </section>
 
     <!-- ④ Decorative Banner — full viewport (breaks 1024 rule intentionally) -->
@@ -710,12 +719,19 @@ br.only-mo {
   display: none;
 }
 
+.only-mo {
+  display: none;
+}
+
 .only-pc {
   display: inline;
 }
 
 @media (max-width: 1024px) {
   br.only-mo {
+    display: inline;
+  }
+  .only-mo {
     display: inline;
   }
   .only-pc {
@@ -968,24 +984,31 @@ br.only-mo {
 .more-link:hover { background: var(--color-action-hover); }
 
 @media (max-width: 1024px) {
-  /* Demote to plain text link in the header row right side — YouTube is ours
-     but it's still a drop-off, so don't compete with primary CTA. */
+  /* Mobile: header 더보기 숨기고, 상업 섹션 끝의 단일 CTA로 대체 */
   .more-link--header {
-    background: transparent;
-    color: var(--color-text-secondary);
-    height: auto;
-    padding: 0;
-    border-radius: 0;
-    align-self: flex-end;
-    font-weight: var(--font-weight-medium);
+    display: none;
   }
-  .more-link--header::after {
+}
+
+/* Mobile-only YouTube CTA placed after commercial swiper —
+   secondary tone (gray) per design preferences (회피: 검은/노랑/오렌지) */
+.more-link--mobile-cta {
+  display: none;
+}
+@media (max-width: 1024px) {
+  .more-link--mobile-cta {
+    display: inline-flex;
+    width: min(320px, 100%);
+    margin: var(--space-5) auto 0;
+    background: var(--color-bg-subtle);
+    color: var(--color-text-primary);
+  }
+  .more-link--mobile-cta::after {
     content: ' ›';
-    margin-left: var(--space-1);
+    margin-left: var(--space-2);
   }
-  .more-link--header:hover {
-    background: transparent;
-    color: var(--color-text-accent);
+  .more-link--mobile-cta:hover {
+    background: var(--color-bg-subtle);
   }
 }
 
@@ -1005,6 +1028,7 @@ br.only-mo {
 }
 
 .portfolio-card-image {
+  position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
   border-radius: var(--radius-md);
@@ -1024,8 +1048,17 @@ br.only-mo {
 .portfolio-card:hover .portfolio-card-image img { transform: scale(1.05); }
 
 .portfolio-card-name {
-  color: var(--color-text-primary);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   margin: 0;
+  padding: var(--space-6) var(--space-4) var(--space-3);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55), 0 0 10px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.18) 55%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+  word-break: keep-all;
 }
 
 .portfolio-card-desc {
