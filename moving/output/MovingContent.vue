@@ -1392,8 +1392,9 @@ br.only-mo { display: none; }
     width: 140px;
     height: 140px;
     object-fit: contain;
-    margin: 0 auto;
+    margin: var(--space-1) auto var(--space-2);
   }
+  .barocare .section-header { margin-bottom: var(--space-1); }
 }
 .barocare-point-tag {
   align-self: flex-start;

@@ -1434,8 +1434,9 @@ br.only-mo { display: none; }
     width: 140px;
     height: 140px;
     object-fit: contain;
-    margin: 0 auto;
+    margin: var(--space-1) auto var(--space-2);
   }
+  .barocare .section-header { margin-bottom: var(--space-1); }
 }
 .barocare-point-tag {
   align-self: flex-start;
@@ -1632,6 +1633,7 @@ br.only-mo { display: none; }
 }
 
 @media (max-width: 1024px) {
+  .coverage-illust { margin-bottom: var(--space-4); }
   .coverage-swiper { padding-bottom: var(--space-5); }
   .coverage-card-chip { height: 22px; padding: 0 var(--space-2); }
   .coverage-card-title { font-size: var(--font-size-heading-s); }
