@@ -219,6 +219,7 @@
           <span class="accent">안심바로케어 서비스</span>
         </h2>
       </header>
+      <img :src="cdn('protect-badge-37806.svg')" alt="" class="barocare-mo-badge" aria-hidden="true" />
       <div class="barocare-points">
         <article class="barocare-point">
           <div class="barocare-point-text">
@@ -423,7 +424,6 @@ import 'swiper/css/autoplay'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
-// Preview/dev: vite middleware maps /landing/cleaning/* → ../../source/images/*
 // BASE_URL 기반 cdn() — preview 빌드(/cpo-etc/cleaning/) + dev(/) 양쪽 자동 처리.
 // 개발자 인계 시 운영 CDN URL 한 줄로 교체. 예:
 //   const cdn = (file) => `https://cdn.ajd.kr/images/platform/landing/cleaning/${file}?q=80&f=webp`
@@ -1390,6 +1390,7 @@ br.only-mo { display: none; }
   gap: var(--space-5);
   align-items: center;
   height: 100%;
+  overflow: hidden;
 }
 .barocare-point-text {
   display: flex;
@@ -1403,6 +1404,18 @@ br.only-mo { display: none; }
   object-fit: contain;
   flex-shrink: 0;
 }
+/* PC: 둘째 카드 악수 이미지를 카드 height 가득 채우고 좌우 크롭 */
+@media (min-width: 1025px) {
+  .barocare-point:nth-child(2) .barocare-point-img {
+    width: 220px;
+    height: auto;
+    align-self: stretch;
+    object-fit: cover;
+    margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) 0;
+  }
+}
+/* Mobile-only: 첫째 카드 위에 떠 있는 뱃지 이미지 (헤더↔카드 사이) */
+.barocare-mo-badge { display: none; }
 @media (max-width: 1024px) {
   .barocare-points { grid-template-columns: 1fr; }
   .barocare-point {
@@ -1413,15 +1426,16 @@ br.only-mo { display: none; }
   }
   .barocare-point-text { align-items: center; }
   .barocare-point-tag { align-self: center !important; }
-  .barocare-point-img {
-    width: 120px;
-    height: 120px;
-    align-self: center;
-    justify-self: center;
+  /* 카드 내부 이미지는 모바일에서 모두 숨김 — .barocare-mo-badge 가 헤더↔카드 사이에 노출 */
+  .barocare-point .barocare-point-img { display: none; }
+  .barocare-point:nth-child(2) { padding: var(--space-3) var(--space-4); }
+  .barocare-mo-badge {
+    display: block;
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
     margin: 0 auto;
   }
-  .barocare-point:nth-child(2) .barocare-point-img { display: none; }
-  .barocare-point:nth-child(2) { padding: var(--space-3) var(--space-4); }
 }
 .barocare-point-tag {
   align-self: flex-start;

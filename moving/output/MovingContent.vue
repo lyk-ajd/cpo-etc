@@ -168,6 +168,7 @@
           <span class="accent">안심바로케어 서비스</span>
         </h2>
       </header>
+      <img :src="cdn(assets.specialBadge37806)" alt="" class="barocare-mo-badge" aria-hidden="true" />
       <div class="barocare-points">
         <article class="barocare-point">
           <div class="barocare-point-text">
@@ -1345,6 +1346,7 @@ br.only-mo { display: none; }
   gap: var(--space-5);
   align-items: center;
   height: 100%;
+  overflow: hidden;
 }
 .barocare-point-text {
   display: flex;
@@ -1358,6 +1360,20 @@ br.only-mo { display: none; }
   object-fit: contain;
   flex-shrink: 0;
 }
+/* PC: 둘째 카드 사진을 카드 height 가득 채우고 좌우 크롭 */
+@media (min-width: 1025px) {
+  .barocare-point:nth-child(2) .barocare-point-img {
+    width: 220px;
+    height: auto;
+    align-self: stretch;
+    object-fit: cover;
+    margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) 0;
+  }
+}
+/* Mobile-only: 첫째 카드 위에 떠 있는 뱃지 이미지 (헤더↔카드 사이) */
+.barocare-mo-badge {
+  display: none;
+}
 @media (max-width: 1024px) {
   .barocare-points { grid-template-columns: 1fr; }
   .barocare-point {
@@ -1368,16 +1384,16 @@ br.only-mo { display: none; }
   }
   .barocare-point-text { align-items: center; }
   .barocare-point-tag { align-self: center !important; }
-  .barocare-point-img {
-    width: 120px;
-    height: 120px;
-    align-self: center;
-    justify-self: center;
+  /* 카드 내부 이미지는 모바일에서 모두 숨김 — 대신 .barocare-mo-badge 가 헤더↔카드 사이에 노출 */
+  .barocare-point .barocare-point-img { display: none; }
+  .barocare-point:nth-child(2) { padding: var(--space-3) var(--space-4); }
+  .barocare-mo-badge {
+    display: block;
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
     margin: 0 auto;
   }
-  /* second card: hide image on mobile, text-only with tighter padding */
-  .barocare-point:nth-child(2) .barocare-point-img { display: none; }
-  .barocare-point:nth-child(2) { padding: var(--space-3) var(--space-4); }
 }
 .barocare-point-tag {
   align-self: flex-start;
