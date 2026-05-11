@@ -42,12 +42,19 @@ jobs:
           npm install --no-audit --no-fund
           npm run build
 
-      - name: Assemble dist (interior + soho + moving + root index)
+      - name: Install + build cleaning
+        working-directory: cleaning/output/preview
         run: |
-          mkdir -p dist/interior dist/soho dist/moving
+          npm install --no-audit --no-fund
+          npm run build
+
+      - name: Assemble dist (interior + soho + moving + cleaning + root index)
+        run: |
+          mkdir -p dist/interior dist/soho dist/moving dist/cleaning
           cp -r interior/output/preview/dist/* dist/interior/
           cp -r soho/output/preview/dist/* dist/soho/
           cp -r moving/output/preview/dist/* dist/moving/
+          cp -r cleaning/output/preview/dist/* dist/cleaning/
           cp index.html dist/index.html
 
       - uses: actions/configure-pages@v5
