@@ -1860,7 +1860,7 @@ br.only-mo { display: none; }
   color: var(--color-text-primary);
   margin: 0 0 var(--space-1);
 }
-.rec-card .card-chips { justify-content: center; }
+.rec-card .card-chips { justify-content: center; margin-top: 0; }
 
 @media (max-width: 1024px) {
   .rec-grid { grid-template-columns: 1fr; gap: var(--space-5); }
