@@ -48,13 +48,20 @@ jobs:
           npm install --no-audit --no-fund
           npm run build
 
-      - name: Assemble dist (interior + soho + moving + cleaning + root index)
+      - name: Install + build realty
+        working-directory: realty/output/preview
         run: |
-          mkdir -p dist/interior dist/soho dist/moving dist/cleaning
+          npm install --no-audit --no-fund
+          npm run build
+
+      - name: Assemble dist (interior + soho + moving + cleaning + realty + root index)
+        run: |
+          mkdir -p dist/interior dist/soho dist/moving dist/cleaning dist/realty
           cp -r interior/output/preview/dist/* dist/interior/
           cp -r soho/output/preview/dist/* dist/soho/
           cp -r moving/output/preview/dist/* dist/moving/
           cp -r cleaning/output/preview/dist/* dist/cleaning/
+          cp -r realty/output/preview/dist/* dist/realty/
           cp index.html dist/index.html
 
       - uses: actions/configure-pages@v5

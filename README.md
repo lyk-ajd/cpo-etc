@@ -14,12 +14,33 @@ cpo-etc/
 │   ├── README.md                        ← 개발자 인계 가이드
 │   └── preview/                         ← Vite 미리보기 환경 (검증용)
 │
-└── soho/
-    ├── source/images/                   ← 이미지 자산 47개 (CDN 업로드용)
+├── soho/
+│   ├── source/images/                   ← 이미지 자산 47개 (CDN 업로드용)
+│   └── output/
+│       ├── SohoContent.vue              ← Vue 3 SFC (단일 파일)
+│       ├── README.md                    ← 개발자 인계 가이드
+│       └── preview/                     ← Vite 미리보기 환경
+│
+├── moving/                              ← 이사 (Figma 추출 자산)
+│   ├── source/images/                   ← 이미지 자산 (CDN 업로드용)
+│   └── output/
+│       ├── MovingContent.vue
+│       ├── README.md
+│       └── preview/
+│
+├── cleaning/                            ← 청소 (아정당 크린)
+│   ├── source/images/                   ← 이미지 자산 (CDN 업로드용)
+│   └── output/
+│       ├── CleaningContent.vue
+│       ├── README.md
+│       └── preview/
+│
+└── realty/                              ← 부동산 (Figma 추출 자산 281개)
+    ├── source/images/                   ← 이미지 자산 (CDN 업로드용)
     └── output/
-        ├── SohoContent.vue              ← Vue 3 SFC (단일 파일)
-        ├── README.md                    ← 개발자 인계 가이드
-        └── preview/                     ← Vite 미리보기 환경
+        ├── RealtyContent.vue
+        ├── README.md
+        └── preview/
 ```
 
 ## 미리보기 띄우기
