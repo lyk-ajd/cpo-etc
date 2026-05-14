@@ -23,7 +23,7 @@ swiper@^11
 
 | # | 섹션 | 패턴 | 비고 |
 |---|---|---|---|
-| ① | Hero | 1024 카드 + bg 슬라이더 + dim + 중앙 텍스트 | 인테리어 hero와 동일 패턴. symbol.svg 로고 + h1 "아정당 매장패키지" 좌상단 |
+| ① | Hero | 1024 카드 + bg 슬라이더 + dim + 중앙 텍스트. **PC 1024×320 절대 / MO 335:160 비율** | 1024 절대. symbol.svg 로고 + h1 "아정당 매장패키지" 좌상단 |
 | ② | Reviews (3개) | PC 3-up 그리드 / Mobile 1.125 swiper (no loop) | 인테리어 review-card 스타일 (full-bleed photo + shade + chips top + quote bottom). **3개뿐이라 loop 안 씀** |
 | ③ | Stats | 1024 다크 카드 (gray-900 + bg photo + dim + soft fade) | guarantee 카드 패턴. 안에 white 차트 카드 2장 |
 | ④ | Compare-Blue | 1024 블루 카드 (primary-600) | 안에 white 비교 패널 2장 |
@@ -97,7 +97,7 @@ Section 9 — Combo Catalog 의 캐리어 뱃지는 **브랜드 아이덴티티*
 
 ### 4. 모바일 분기
 순수 반응형이 아니라 **레이아웃 자체 재배치** (인테리어 동일 패턴):
-- Hero: 600px → 460px (480 viewport는 420)
+- Hero: PC 1024×320 절대 / MO aspect-ratio 335:160 (2026-05-14 변경)
 - Reviews: 3-up 그리드 → swiper (no loop, 3 슬라이드)
 - 비교 테이블 (⑩⑪): 카드 그리드 → 1열 stack
 - Combo Catalog: 2x2+1 → 1열 stack
@@ -120,6 +120,15 @@ Hero 제외 모든 섹션에 `v-reveal` 디렉티브 부착. IntersectionObserve
 - `<h2>`: 12개 (Hero 메인 카피 + 11개 섹션 타이틀)
 - `<h3>` 사용 안 함 (디자인 시스템 룰)
 - 비교는 `<dl>` `<dt>` `<dd>` 시맨틱 마크업 (`<table>` 미사용)
+
+## Hero 변경 이력 (2026-05-14)
+
+- 카드 사이즈: **PC 1024×320 절대**, MO `aspect-ratio: 335/160`
+- Hero CTA "무료 상담 받으러가기 ›" 삭제 (마크업 + CSS 둘 다 제거)
+- 모바일에선 `.hero-desc` 숨김 → `.hero-title` ("내 가게에 딱 맞는 솔루션, 아정당에서 시작하세요") 만 노출, font-size `heading-m`
+- `.hero-desc` font-weight `medium → bold` (PC 노출용)
+- 모바일 브랜드 코너: top/left `0.75rem` (PC space-5 의 50%), 아이콘 30.4×14.4 (38×18 의 80%), H1 0.9rem (1.125rem 의 80%)
+- 히어로 ↔ 다음 섹션 gap: `section-gap-pc/mobile` 의 **70%** (음수 margin-bottom)
 
 ## 알려진 이슈 / 향후 개선
 

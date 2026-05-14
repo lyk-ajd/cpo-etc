@@ -35,6 +35,22 @@
 - 공인중개사 16인 중 §3 노출은 14인, 나머지는 "더 보기" 토글 (`showAllAgents` ref)
 - FAQ/Procedure 등은 정적 — interactive 동작 없음
 
+## Hero 변경 이력 (2026-05-14)
+
+- 카드 사이즈: **PC 1024×320 절대**, MO `aspect-ratio: 335/160`
+- Hero CTA "내 조건에 맞는 매물 찾기 ›" 삭제 (마크업 + CSS 둘 다 제거)
+- `.hero-sub` ("원하는 조건만 말해주세요") 마크업 삭제 (PC/MO 모두 비노출)
+- 모바일에선 `.hero-eyebrow` ("전세는 불안하고, 월세는 부담스럽다면") 숨김 → `.hero-title` ("사기 걱정 없는 안심 부동산") 만 노출, font-size `heading-m`
+- `.hero-eyebrow` font-weight `medium → bold` (PC 노출용)
+- `.hero-title` `<br>` 을 `only-mo` 로 → **PC 한 줄, 모바일 두 줄**
+- 모바일 브랜드 코너: top/left `0.75rem` (50%), 로고 36.488px (45.61px 의 80%), H1 14.4px (18px 의 80%)
+- **원빈 (`.hero-1bin`)**:
+  - PC: height `83% → 92%`, max-width `45% → 28%` (좌 텍스트 / 우 원빈 2단 유지)
+  - MO: 기존엔 `display: none` 이었으나 이번에 작게 우측에 절대배치 (`height: 100%`, `max-width: 36%`)
+  - MO 텍스트 영역엔 `padding-right: 38%` 로 원빈 회피
+- 히어로 ↔ 다음 섹션 gap: `section-gap-pc/mobile` 의 **70%** (음수 margin-bottom)
+- 모바일 hero 섹션은 부모 `.realty-content` 가 이미 L/R padding 을 주므로 추가 padding 미적용 (이중 padding 버그 회피 — 타 페이지 대비 32px 좁아지던 이슈 수정)
+
 ## 알려진 1차 버전 한계 (v2 에서 보완)
 - §8 (생략) — 시안 미존재
 - §18 (DB 제출폼) 작업 대상 아님 — placeholder

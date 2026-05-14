@@ -19,9 +19,6 @@
             청소의 새로운 기준,<br />
             아정당 크린을 만나보세요!
           </h2>
-          <a href="#cleaning-form" class="hero-cta text-button-l">
-            지금 무료 견적받기 ›
-          </a>
         </div>
       </div>
     </section>
@@ -424,10 +421,10 @@ import 'swiper/css/autoplay'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
-// BASE_URL 기반 cdn() — preview 빌드(/cpo-etc/cleaning/) + dev(/) 양쪽 자동 처리.
-// 개발자 인계 시 운영 CDN URL 한 줄로 교체. 예:
-//   const cdn = (file) => `https://cdn.ajd.kr/images/platform/landing/cleaning/${file}?q=80&f=webp`
-const cdn = (file) => `${import.meta.env.BASE_URL}landing/cleaning/${file}`
+// Preview/dev: vite middleware maps /landing/cleaning/* → ../../source/images/*
+// Production: replace with absolute CDN URL like other SFCs
+//   `https://cdn.ajd.kr/images/platform/landing/cleaning/${file}?q=80&f=webp`
+const cdn = (file) => `/landing/cleaning/${file}`
 
 const logoUrl = cdn('symbol.svg')
 
@@ -738,12 +735,21 @@ br.only-mo { display: none; }
 }
 
 /* ============================================
-   ① Hero
+   ① Hero — PC: absolute 1024×320, MO: 335:160 ratio
    ============================================ */
+/* Drop section padding on PC so the card occupies the full 1024 width.
+   Also pull the next section up by 30% of the section-gap so the hero feels
+   closer to the first content section (~70% of the default gap). */
+.cleaning-content > section.hero {
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: calc(var(--section-gap-pc) * -0.3);
+}
+
 .hero-card {
   position: relative;
   width: 100%;
-  height: 600px;
+  height: 320px;
   border-radius: var(--radius-xl);
   overflow: hidden;
   isolation: isolate;
@@ -778,7 +784,7 @@ br.only-mo { display: none; }
   box-sizing: border-box;
 }
 .hero-eyebrow {
-  font: var(--font-weight-medium) var(--font-size-body-l)/1.4 var(--font-family-base);
+  font: var(--font-weight-bold) var(--font-size-body-l)/1.4 var(--font-family-base);
   color: var(--color-text-on-dark);
   margin: 0;
   opacity: 0.92;
@@ -787,25 +793,39 @@ br.only-mo { display: none; }
   font: var(--font-weight-bold) var(--font-size-display-m) / var(--line-height-display-m) var(--font-family-base);
   color: var(--color-text-on-dark); margin: 0; word-break: keep-all;
 }
-.hero-cta {
-  display: inline-flex; align-items: center; justify-content: center;
-  height: 56px; padding: 0 var(--space-7);
-  background: var(--color-action); color: var(--color-text-on-dark);
-  border-radius: var(--radius-pill); text-decoration: none;
-  margin-top: var(--space-3);
-  transition: background-color 0.15s ease, transform 0.15s ease;
-}
-.hero-cta:hover { background: var(--color-action-hover); transform: translateY(-2px); }
-.hero-cta:active { background: var(--color-action-pressed); }
-
 @media (max-width: 1024px) {
-  .hero-card { height: 460px; border-radius: var(--radius-lg); }
-  .hero-eyebrow { font-size: var(--font-size-body-m); line-height: var(--line-height-body-m); }
-  .hero-title { font-size: 1.625rem; line-height: 2.25rem; }
-  .hero-cta { height: 48px; padding: 0 var(--space-5); }
-}
-@media (max-width: 480px) {
-  .hero-card { height: 420px; }
+  /* Restore section L/R padding on mobile so the card sits within the 16px gutter.
+     Rebind the gap pull-up to the mobile section-gap variable. */
+  .cleaning-content > section.hero {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    margin-bottom: calc(var(--section-gap-mobile) * -0.3);
+  }
+  /* MO ratio: 335:160 — height tracks viewport width within the 16px gutter */
+  .hero-card {
+    height: auto;
+    aspect-ratio: 335 / 160;
+    border-radius: var(--radius-lg);
+  }
+  /* Brand corner: half the top/left inset, 80% of icon + font size */
+  .hero-brand {
+    top: 0.75rem;   /* 12px — half of PC space-5 (24px) */
+    left: 0.75rem;
+  }
+  .hero-brand-icon { height: 17.6px; }       /* 80% of 22px */
+  .hero-brand-icon-img { height: 17.6px; }
+  .hero-brand-text {
+    font-size: 0.9rem;     /* 80% of 18px → 14.4px */
+    line-height: 17.6px;   /* match the resized icon height */
+  }
+  /* Mobile: hide the eyebrow, show only the title (the kept "청소의 새로운 기준 ~ 만나보세요!" line) */
+  .hero-eyebrow {
+    display: none;
+  }
+  .hero-title {
+    font-size: var(--font-size-heading-m);
+    line-height: var(--line-height-heading-m);
+  }
 }
 
 /* ============================================

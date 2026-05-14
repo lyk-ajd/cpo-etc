@@ -15,11 +15,9 @@
           <div class="hero-text">
             <p class="hero-eyebrow">전세는 불안하고, 월세는 부담스럽다면</p>
             <p class="hero-title">
-              사기 걱정 없는<br />
+              사기 걱정 없는<br class="only-mo" />
               안심 부동산
             </p>
-            <p class="hero-sub">원하는 조건만 말해주세요</p>
-            <a href="#realty-form" class="hero-cta">내 조건에 맞는 매물 찾기 ›</a>
           </div>
         </div>
       </div>
@@ -361,9 +359,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-// 운영용 cdn URL 매핑 (CDN 업로드 후 1줄 교체):
-//   const cdn = (name) => `https://cdn.ajd.kr/images/platform/landing/realty/${name}?q=80&f=webp`
-const cdn = (name) => `${import.meta.env.BASE_URL}landing/realty/${name}`
+const cdn = (name) => `/landing/realty/${name}`
 
 const showAllAgents = ref(false)
 
@@ -561,9 +557,16 @@ const procedure = [
 /* ============================================
    §1 Hero
    ============================================ */
+/* PC: 1024×320 절대 — section L/R padding 제거 + 다음 섹션 gap 70% */
+.realty-content > section.hero {
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: calc(var(--section-gap-pc) * -0.3);
+}
+
 .hero-card {
   position: relative;
-  height: 580px;
+  height: 320px;
   border-radius: var(--radius-xl);
   overflow: hidden;
   isolation: isolate;
@@ -571,9 +574,9 @@ const procedure = [
 .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
 .hero-dim { position: absolute; inset: 0; background: rgba(0, 18, 56, 0.72); z-index: 1; }
 .hero-1bin {
-  position: absolute; right: var(--space-5); bottom: 0;
-  height: 83%;
-  width: auto; max-width: 45%;
+  position: absolute; right: var(--space-4); bottom: 0;
+  height: 92%;
+  width: auto; max-width: 28%;
   object-fit: contain;
   object-position: bottom right;
   z-index: 2;
@@ -594,47 +597,65 @@ const procedure = [
   position: relative; z-index: 2;
   height: 100%;
   display: grid; grid-template-columns: 1.1fr 1fr;
-  align-items: center; gap: var(--space-6);
-  padding: var(--space-7);
+  align-items: center; gap: var(--space-5);
+  padding: var(--space-5) var(--space-6);
 }
-.hero-text { color: var(--color-text-on-dark); padding-left: 80px; }
-.hero-eyebrow { font: var(--font-weight-medium) var(--font-size-heading-m)/1.3 var(--font-family-base); margin: 0 0 var(--space-3); opacity: 0.95; }
-.hero-title { font: var(--font-weight-bold) var(--font-size-display-m)/1.2 var(--font-family-base); margin: 0 0 var(--space-3); letter-spacing: -0.02em; }
-.hero-sub { font: var(--font-weight-regular) var(--font-size-heading-m)/1.4 var(--font-family-base); margin: 0 0 var(--space-6); opacity: 0.88; }
-.hero-cta {
-  display: inline-flex; align-items: center; justify-content: center;
-  height: 56px; padding: 0 var(--space-7);
-  background: var(--color-primary-600); color: var(--color-text-on-dark);
-  border-radius: var(--radius-pill);
-  font: var(--font-weight-bold) var(--font-size-button-l)/1 var(--font-family-base);
-  text-decoration: none;
-  transition: transform 0.15s, background 0.15s;
-}
-.hero-cta:hover { background: var(--color-primary-700); transform: translateY(-2px); }
+.hero-text { color: var(--color-text-on-dark); padding-left: 56px; }
+.hero-eyebrow { font: var(--font-weight-bold) var(--font-size-heading-m)/1.3 var(--font-family-base); margin: 0 0 var(--space-2); opacity: 0.95; }
+.hero-title { font: var(--font-weight-bold) var(--font-size-display-m)/1.2 var(--font-family-base); margin: 0; letter-spacing: -0.02em; }
+
 @media (max-width: 1024px) {
-  .hero-card { height: 460px; min-height: 0; border-radius: var(--radius-lg); }
-  .hero-1bin { display: none; }
-  .hero-sub { display: none; }
+  /* MO: 335:160 비율, gap 70%
+     주의: 부모 .realty-content 가 이미 L/R padding 을 주고 있어 hero 섹션엔 추가 padding 불필요 */
+  .realty-content > section.hero {
+    margin-bottom: calc(var(--section-gap-mobile) * -0.3);
+  }
+  .hero-card {
+    height: auto;
+    aspect-ratio: 335 / 160;
+    min-height: 0;
+    border-radius: var(--radius-lg);
+  }
+  /* Mobile: 원빈 우측에 절대 배치 (직전 45%의 80% = 36%), 텍스트는 좌정렬 */
+  .hero-1bin {
+    display: block;
+    height: 100%;
+    max-width: 36%;
+    right: var(--space-3);
+  }
   .hero-inner {
     grid-template-columns: 1fr;
-    padding: var(--space-5);
+    padding: var(--space-3) var(--space-4);
     align-items: center;
-    justify-items: center;
+    justify-items: start;
   }
   .hero-text {
     padding-left: 0;
+    padding-right: 38%;     /* 원빈 영역 비워두기 (max-width 36% + 여백) */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: var(--space-3);
+    align-items: flex-start;
+    text-align: left;
+    gap: var(--space-2);
   }
-  .hero-eyebrow { font-size: var(--font-size-body-m); margin: 0; }
-  .hero-title { font-size: 26px; line-height: 1.4; margin: 0; }
-  .hero-cta { height: 48px; padding: 0 var(--space-5); font-size: var(--font-size-body-m); margin-top: var(--space-2); }
-}
-@media (max-width: 480px) {
-  .hero-card { height: 420px; }
+  /* Mobile: hide eyebrow, show only the title */
+  .hero-eyebrow { display: none; }
+  .hero-title {
+    font-size: var(--font-size-heading-m);
+    line-height: var(--line-height-heading-m);
+    margin: 0;
+  }
+  /* Brand corner: half the top/left inset, 80% of logo + h1 font */
+  .hero-brand {
+    top: 0.75rem;
+    left: 0.75rem;
+  }
+  .hero-brand-logo {
+    width: 36.488px;       /* 80% of 45.61px */
+  }
+  .hero-brand-h1 {
+    font-size: 14.4px;     /* 80% of 18px */
+  }
 }
 
 /* ============================================

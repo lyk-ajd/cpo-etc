@@ -34,7 +34,7 @@ npm i swiper@^11
 
 | # | 색션 | 디자인 시스템 패턴 | 너비 |
 |---|---|---|---|
-| ① | Hero | Header (Background형, 12장 회전 슬라이더 autoplay) | full-bleed → content 1024 |
+| ① | Hero | Header (Background형, 12장 회전 슬라이더 autoplay). **PC 1024×320 절대 / MO 335:160 비율** | 1024 절대 (좌우 padding 0) |
 | ② | 주거 포트폴리오 | Section (Left Title) + Card Slider (autoplay) | 1024 / 768 mobile |
 | ③ | 상업 포트폴리오 | Section (Left Title) + Card Slider (autoplay 역방향) | 1024 / 768 mobile |
 | ④ | **데코 배너** | 예외 Case (풀블리드 인테리어 사진, 텍스트 없음) | full-bleed |
@@ -58,7 +58,7 @@ npm i swiper@^11
 - **포트폴리오 슬라이더 (상업)**: autoplay 3.5s, loop, hover 일시정지, **우→좌 역방향** (시각 변화)
 - **후기 슬라이더**: autoplay 4s, loop, hover 일시정지, 드래그 가능 스크롤바
 - **FAQ 아코디언**: 클릭 토글, **2개 이상 동시 Active 가능** (디자인 시스템 규칙 준수)
-- **Hero CTA "무료 상담 바로가기"**: `<a href="#interior-form">` 앵커 스크롤. 폼 영역의 기존 ID `interior-form` 그대로 사용
+- **Hero CTA 제거** (2026-05-14): 기존 "무료 상담 바로가기" 버튼 삭제. 하단 글로벌 플로팅 CTA 가 동일 역할 수행
 - **"더보기" 링크 (포트폴리오)**: 외부 YouTube 채널로 이동, `target="_blank" rel="noopener noreferrer"`
 - **연락처 띠배너**: `<a href="tel:1833-5052">` 전체 클릭
 
@@ -86,6 +86,15 @@ npm i swiper@^11
 - [x] 헤더/푸터/플로팅 CTA/DB 제출폼 미포함
 
 ---
+
+## Hero 변경 이력 (2026-05-14)
+
+- 카드 사이즈: **PC 1024×320 절대**, MO `aspect-ratio: 335/160`
+- Hero CTA 버튼 삭제 (`.hero-cta` 마크업 + CSS 둘 다 제거)
+- 모바일에선 `.hero-title` 숨김 → `.hero-desc` ("주거·상업·오피스·공공시설까지, 분야별 전문가가 함께합니다") 만 노출, font-size `heading-m`
+- `.hero-desc` font-weight `medium → bold`
+- 모바일 브랜드 코너: top/left `0.75rem` (PC 의 50%), 아이콘/H1 크기 PC 의 80%
+- 히어로 ↔ 다음 섹션 gap: `section-gap-pc/mobile` 의 **70%** (음수 margin-bottom 으로 구현)
 
 ## 추가 작업 시 참고
 

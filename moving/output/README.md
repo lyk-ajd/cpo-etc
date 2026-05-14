@@ -26,6 +26,16 @@
 - Hero 슬라이더 비활성 — 정적 SVG 1장
 - FAQ 는 기본 닫힘 + 클릭 펼침 (운영 캡쳐 동작과 동일)
 
+## Hero 변경 이력 (2026-05-14)
+
+- 카드 사이즈: **PC 1024×320 절대**, MO `aspect-ratio: 335/160`
+- Hero CTA "지금 무료 견적받기 ›" 삭제 (마크업 + CSS 둘 다 제거)
+- 모바일에선 `.hero-eyebrow` ("혜택을 아름답고 정당하게") 숨김 → `.hero-title` ("이사의 새로운 기준, 아정당을 지금 만나보세요!") 만 노출, font-size `heading-m`
+- `.hero-eyebrow` font-weight `medium → bold` (PC 노출용)
+- `.hero-dim` opacity `0.32 → 0.5` (정적 SVG 톤 보정)
+- 모바일 브랜드 코너: top/left `0.75rem` (50%), 아이콘 height 17.6px (22px 의 80%), H1 0.9rem (1.125rem 의 80%)
+- 히어로 ↔ 다음 섹션 gap: `section-gap-pc/mobile` 의 **70%** (음수 margin-bottom)
+
 ## 알려진 1차 버전 한계 (v2 에서 보완)
 - §7 체크리스트 무료 제공 — Figma 시안의 chat bubble 데코 미반영 (헤드라인만)
 - §13 놓치면 손해 — 회전 띠 데코 미반영

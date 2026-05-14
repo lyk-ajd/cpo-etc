@@ -34,9 +34,6 @@
             주거·상업·오피스·공공시설까지,<br class="only-mo" />
             분야별 전문가가 함께합니다
           </p>
-          <a href="#interior-form" class="hero-cta text-button-l">
-            무료 상담 바로가기 &gt;
-          </a>
         </div>
       </div>
     </section>
@@ -796,12 +793,21 @@ br.only-mo {
 }
 
 /* ============================================
-   ① Hero (1024 centered card)
+   ① Hero — PC: absolute 1024×320, MO: 335:160 ratio
    ============================================ */
+/* Drop section padding on PC so the card occupies the full 1024 width.
+   Also pull the next section up by 30% of the section-gap so the hero feels
+   closer to the first content section (~70% of the default gap). */
+.interior-content > section.hero {
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: calc(var(--section-gap-pc) * -0.3);
+}
+
 .hero-card {
   position: relative;
   width: 100%;
-  height: 600px;
+  height: 320px;
   border-radius: var(--radius-xl);
   overflow: hidden;
   isolation: isolate;
@@ -902,49 +908,54 @@ br.only-mo {
 }
 
 .hero-desc {
-  font: var(--font-weight-medium) var(--font-size-body-l) / var(--line-height-body-l) var(--font-family-base);
+  font: var(--font-weight-bold) var(--font-size-body-l) / var(--line-height-body-l) var(--font-family-base);
   color: var(--color-text-on-dark);
   margin: 0;
   word-break: keep-all;
   opacity: 0.92;
 }
 
-.hero-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 56px;
-  padding: 0 var(--space-7);
-  background: var(--color-action);
-  color: var(--color-text-on-dark);
-  border-radius: var(--radius-pill);
-  text-decoration: none;
-  margin-top: var(--space-3);
-  transition: background-color 0.15s ease, transform 0.15s ease;
-}
-
-.hero-cta:hover { background: var(--color-action-hover); transform: translateY(-2px); }
-.hero-cta:active { background: var(--color-action-pressed); }
-
 @media (max-width: 1024px) {
-  .hero-card { height: 460px; border-radius: var(--radius-lg); }
-  .hero-logo { height: 22px; top: var(--space-4); left: var(--space-4); }
-  /* Hero main title: 26px on mobile (between Heading-L 24 and Heading-XL 28).
-     Raw value, not in token scale yet — intentional design exception. */
+  /* Restore section L/R padding on mobile so the card sits within the 16px gutter.
+     Rebind the gap pull-up to the mobile section-gap variable. */
+  .interior-content > section.hero {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+    margin-bottom: calc(var(--section-gap-mobile) * -0.3);
+  }
+  /* MO ratio: 335:160 — height tracks viewport width within the 16px gutter */
+  .hero-card {
+    height: auto;
+    aspect-ratio: 335 / 160;
+    border-radius: var(--radius-lg);
+  }
+  /* Brand corner: half the top/left inset, 80% of icon + font size */
+  .hero-brand {
+    top: 0.75rem;   /* 12px — half of PC space-5 (24px) */
+    left: 0.75rem;
+  }
+  .hero-brand-icon {
+    /* 80% of 32×28 */
+    width: 25.6px;
+    height: 22.4px;
+  }
+  .hero-brand-icon-img {
+    /* 80% of 28px */
+    height: 22.4px;
+  }
+  .hero-brand-text {
+    /* 80% of 18px / 20px */
+    font-size: 0.9rem;     /* 14.4px */
+    line-height: 1rem;     /* 16px */
+  }
+  /* Mobile: hide the title, show only the desc, slightly larger than the PC body-l */
   .hero-title {
-    font-size: 1.625rem; /* 26px */
-    line-height: 2.25rem; /* 36px */
+    display: none;
   }
   .hero-desc {
-    font-size: var(--font-size-body-m);
-    line-height: var(--line-height-body-m);
+    font-size: var(--font-size-heading-m);
+    line-height: var(--line-height-heading-m);
   }
-  .hero-cta { height: 48px; padding: 0 var(--space-5); }
-}
-
-@media (max-width: 480px) {
-  .hero-card { height: 420px; }
-  /* Mobile hero title stays at Heading-L (24px) — no further downsize */
 }
 
 /* ============================================
