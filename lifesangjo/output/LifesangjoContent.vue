@@ -72,7 +72,6 @@
       <div class="two-products-grid">
         <article v-for="(p, i) in products" :key="i" class="product-card" :class="`product-card--${p.theme}`">
           <header class="product-card-header">
-            <span class="product-card-badge">{{ p.badge }}</span>
             <h3 class="product-card-name">{{ p.name }}</h3>
           </header>
           <div class="product-card-image" :style="{ backgroundImage: `url(${cdn(p.img)})` }" role="img" :aria-label="p.name"></div>
@@ -85,9 +84,6 @@
             </p>
             <hr class="product-card-divider" />
             <h4 class="product-card-tagline">{{ p.tagline }}</h4>
-            <ul class="product-card-bullets">
-              <li v-for="(b, bi) in p.bullets" :key="bi">{{ b }}</li>
-            </ul>
             <div class="product-card-ctas">
               <a v-for="(c, ci) in p.ctas" :key="ci" class="product-card-cta" :class="{ 'product-card-cta--sub': c.sub }" :href="c.href" target="_blank" rel="noopener noreferrer">
                 {{ c.label }} <span aria-hidden="true">›</span>
@@ -123,7 +119,7 @@
 
     <!-- §5 라이프 케어 플랜 상세 (USP 3 + 인기 가전 5 + 추가 혜택 2) -->
     <section v-reveal class="care-detail">
-      <div class="care-strip">상품 1. 라이프 케어 플랜</div>
+      <div class="care-strip">렌탈 혜택 알아보기</div>
       <header class="section-header center">
         <p class="section-desc">가전 렌탈부터 생활 할인까지</p>
         <h2 class="section-title">
@@ -380,8 +376,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 
-// Assets in <slug>/source/images/ — vite copy to dist/landing/lifesangjo/ at build.
-// PNG/JPG 는 사전 webp 변환됨 → 호출 시 자동 매핑. BASE_URL 로 GH Pages sub-path 호환.
+// Assets in public/landing/lifesangjo/ (Vercel static). PNG/JPG 는 사전 webp 변환됨 → 호출 시 자동 매핑.
 const cdn = (name) => `${import.meta.env.BASE_URL}landing/lifesangjo/${name.replace(/\.(png|jpe?g)$/i, '.webp')}`
 const CDN_LIFECARE = 'https://cdn.ajd.kr/images/platform/landing/lifecare'
 
@@ -445,36 +440,24 @@ const uspCards = [
 // §3 두 가지 상품 — CTA href 는 sj_sfile 원본 (ref/_sj_struct.html §3) 그대로
 const products = [
   {
-    badge: '상품 1',
     name: '라이프 케어 플랜',
     theme: 'care',
     img: 's03-care-illust.png',
     desc: '내일의 삶에 혜택의 즐거움을 더하는 플랜',
     price: '9,900',
     tagline: '지금부터 혜택을 받는 멤버십 형',
-    bullets: [
-      '가전 렌탈, 영화, 기차표 생활용품 할인',
-      '멤버십 몰까지 혜택을 내일부터 받아보세요',
-      '미래 장례 비용은 오늘 금액으로 보장되니 안심',
-    ],
     ctas: [
       { label: '플랜 자세히 보기', href: 'https://ajdlife.co.kr/plans/lifecare' },
       { label: '렌탈 가전 구경하기', href: 'https://lifecare-rental.ajd.co.kr/index.do', sub: true },
     ],
   },
   {
-    badge: '상품 2',
     name: '100원 상조 플랜',
     theme: 'low',
     img: 's03-coin-100won.png',
     desc: '월 100원 납부로 미래 장례 비용을 고정하는 플랜',
     price: '100',
     tagline: '부담 없이 시작하는 미래 준비형',
-    bullets: [
-      '10년 뒤에 오늘 계약한 금액으로',
-      '장례 지원을 보장해요',
-      '물가 걱정을 덜어내는 합리적인 플랜',
-    ],
     ctas: [
       { label: '플랜 자세히 보기', href: 'https://ajdlife.co.kr/plans/100won' },
     ],
@@ -486,7 +469,7 @@ const differences = [
   { titleEm: '예치금 보호', titleEmFirst: false, titleRest: '국민은행 계약 체결로', desc: '고객 예치금은 회사 계좌에<br />보관되지 않습니다', img: 's04-card-1-bg.png' },
   { titleEm: '100% 환급', titleEmFirst: false, titleRest: '만기 시 납입금', desc: '만기 시 납입한 전액을<br />환급해 드립니다', img: 's04-card-2-bg.png' },
   { titleEm: '추가 비용 없는', titleEmFirst: true,  titleRest: '투명한 정찰제', desc: '추가 비용 · 숨은조건 없이 명확한<br />가격을 알려드립니다', img: 's04-card-3-bg.png' },
-  { titleEm: '멤버십 혜택', titleEmFirst: false, titleRest: '프리미엄', desc: '영화 · 건강검진 · 여행 할인, 가전 렌탈 등<br />라이프 서비스, 최대 5천만원 무료보험 혜택 등', img: 's04-card-4-bg-a.png' },
+  { titleEm: '멤버십 혜택', titleEmFirst: false, titleRest: '프리미엄', desc: '영화·건강검진·여행 할인부터<br />가전 렌탈·생활 보험 혜택까지', img: 's04-card-4-bg-a.png' },
 ]
 
 // §5 라이프 케어 플랜 상세
@@ -553,7 +536,7 @@ const membershipBenefits = [
   { img: 's07-rect-25340.png', title: '여행 할인', desc: '국내·해외 여행 패키지 할인' },
   { img: 's07-rect-25341.png', title: '생활 서비스', desc: '하우스 클리닝·세탁 서비스' },
   { img: 's07-rect-25342.png', title: '쇼핑 할인', desc: '멤버십 몰 최대 20% 할인' },
-  { img: 's07-getty-a12296758.png', title: '최대 5천만원 무료보험', desc: '4가지 생활 보험 자동 가입' },
+  { img: 's07-getty-a12296758.png', title: '최대 5천만원 무료보험', desc: '4종 생활 보험 자동 가입' },
 ]
 
 // §8 100원 상조 상세
@@ -687,7 +670,7 @@ const vReveal = {
 }
 .section-desc strong { font-weight: var(--font-weight-bold); color: var(--color-text-primary); }
 .accent { color: var(--color-text-accent); }
-.accent--green { color: var(--color-green-600); }
+.accent--green { color: var(--color-primary-600); }
 @media (max-width: 1024px) {
   /* Per design lead: section title 22px on mobile (between Heading-M 20 and Heading-L 24). */
   .section-title { font-size: 1.375rem; line-height: 1.875rem; }
@@ -950,56 +933,31 @@ const vReveal = {
   grid-template-columns: 1fr 1fr;
   gap: var(--space-5);
 }
+/* Minimal product cards — mono primary, subtle border, no shadow, single accent line per theme */
 .product-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--color-white);
-  box-shadow: 0 2px 4px rgba(20, 36, 41, 0.04), 0 12px 32px rgba(20, 36, 41, 0.06);
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  border: 1px solid var(--color-border);
+  transition: border-color 200ms ease;
 }
-.product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 8px rgba(20, 36, 41, 0.06), 0 20px 48px rgba(20, 36, 41, 0.10);
-}
-/* tinted top stripe per theme — subtle accent without filling the whole card */
-.product-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 6px;
-  z-index: 1;
-}
-.product-card--care::before { background: var(--color-green-500); }
-.product-card--low::before  { background: var(--color-primary-600); }
+.product-card:hover { border-color: var(--color-primary-300); }
 
 .product-card-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-3);
-  padding: calc(var(--space-7) + 6px) var(--space-3) var(--space-4);
+  padding: var(--space-7) var(--space-3) var(--space-4);
 }
-.product-card-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 12px;
-  border-radius: var(--radius-pill);
-  font: var(--font-weight-bold) var(--font-size-button-s)/1 var(--font-family-base);
-  letter-spacing: -0.01em;
-}
-.product-card--care .product-card-badge { background: var(--color-green-100); color: var(--color-green-600); }
-.product-card--low  .product-card-badge { background: var(--color-primary-50); color: var(--color-primary-700); }
 .product-card-name {
   margin: 0;
   font: var(--font-weight-bold) var(--font-size-heading-xl)/1.15 var(--font-family-base);
   color: var(--color-text-primary);
   letter-spacing: -0.02em;
 }
-.product-card--care .product-card-name { color: var(--color-green-600); }
-.product-card--low  .product-card-name { color: var(--color-primary-700); }
 
 .product-card-image {
   height: 220px;
@@ -1007,10 +965,9 @@ const vReveal = {
   background-position: center;
   background-repeat: no-repeat;
   margin: 0 var(--space-5);
-  border-radius: var(--radius-lg);
+  background-color: var(--color-gray-50);
+  border-radius: var(--radius-md);
 }
-.product-card--care .product-card-image { background-color: var(--color-green-100); }
-.product-card--low  .product-card-image { background-color: var(--color-primary-50); }
 
 .product-card-body {
   padding: var(--space-5) var(--space-6) var(--space-6);
@@ -1033,10 +990,9 @@ const vReveal = {
   justify-content: center;
   gap: var(--space-1);
   padding: var(--space-2) 0 var(--space-3);
-  border-bottom: 1px dashed var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-primary);
 }
-.product-card--care .product-card-price { color: var(--color-green-600); }
-.product-card--low  .product-card-price { color: var(--color-primary-700); }
 .product-card-price-unit   { font: var(--font-weight-bold) var(--font-size-heading-s)/1 var(--font-family-base); opacity: 0.8; }
 .product-card-price-num    { font: var(--font-weight-bold) var(--font-size-display-l)/1 var(--font-family-base); letter-spacing: -0.03em; }
 .product-card-price-suffix { font: var(--font-weight-bold) var(--font-size-body-l)/1 var(--font-family-base); opacity: 0.8; }
@@ -1049,33 +1005,6 @@ const vReveal = {
   color: var(--color-text-primary);
   letter-spacing: -0.01em;
 }
-.product-card-bullets {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  text-align: center;
-  font: var(--font-weight-regular) var(--font-size-body-s)/1.55 var(--font-family-base);
-  color: var(--color-text-secondary);
-}
-.product-card-bullets li {
-  position: relative;
-  padding-left: var(--space-3);
-}
-.product-card-bullets li::before {
-  content: '';
-  position: absolute;
-  top: 0.6em;
-  left: 0;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--color-gray-300);
-}
-.product-card--care .product-card-bullets li::before { background: var(--color-green-300); }
-.product-card--low  .product-card-bullets li::before { background: var(--color-primary-200); }
 .product-card-ctas {
   margin-top: auto;
   display: flex;
@@ -1094,23 +1023,17 @@ const vReveal = {
   font: var(--font-weight-bold) var(--font-size-button-l)/1 var(--font-family-base);
   transition: background 120ms ease;
 }
-.product-card--care .product-card-cta { background: var(--color-green-500); }
-.product-card--care .product-card-cta:hover { background: var(--color-green-600); }
 .product-card-cta:hover { background: var(--color-primary-700); }
-/* Secondary CTA — outline 변형 (회피 룰: 오렌지 X) */
 .product-card-cta--sub {
   background: var(--color-white);
   color: var(--color-text-primary);
-  box-shadow: inset 0 0 0 1px var(--color-gray-300);
+  box-shadow: inset 0 0 0 1px var(--color-border);
 }
-.product-card--care .product-card-cta--sub { color: var(--color-green-600); box-shadow: inset 0 0 0 1px var(--color-green-300); background: var(--color-white); }
-.product-card--low  .product-card-cta--sub { color: var(--color-primary-700); box-shadow: inset 0 0 0 1px var(--color-primary-200); background: var(--color-white); }
-.product-card--care .product-card-cta--sub:hover { background: var(--color-green-100); }
-.product-card--low  .product-card-cta--sub:hover { background: var(--color-primary-50); }
+.product-card-cta--sub:hover { background: var(--color-gray-50); }
 
 @media (max-width: 1024px) {
   .two-products-grid { grid-template-columns: 1fr; gap: var(--space-4); }
-  .product-card-header { padding: calc(var(--space-5) + 6px) var(--space-3) var(--space-3); gap: var(--space-2); }
+  .product-card-header { padding: var(--space-5) var(--space-3) var(--space-3); }
   .product-card-name { font-size: var(--font-size-heading-l); line-height: 1.2; }
   .product-card-image { height: 180px; margin: 0 var(--space-4); }
   .product-card-body { padding: var(--space-5) var(--space-4) var(--space-5); }
@@ -1180,27 +1103,27 @@ const vReveal = {
 /* ============================================
    §5 라이프 케어 플랜 상세 (USP 3 + Catalog 5 + Bonus 2)
    ============================================ */
-.care-detail { background: var(--color-green-100); padding-top: 0 !important; }
+.care-detail { background: var(--color-bg-subtle); padding-top: 0 !important; }
 .care-strip {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-5);
-  background: var(--color-white);
-  color: var(--color-green-600);
+  padding: 6px var(--space-4);
+  background: transparent;
+  color: var(--color-text-tertiary);
   text-align: center;
   border-radius: var(--radius-pill);
-  border: 1px solid var(--color-green-300);
-  font: var(--font-weight-bold) var(--font-size-button-l)/1 var(--font-family-base);
+  border: 1px solid var(--color-border);
+  font: var(--font-weight-medium) var(--font-size-button-s)/1 var(--font-family-base);
   margin: var(--space-8) auto var(--space-5);
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 .care-strip::before {
   content: '';
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: var(--color-green-500);
+  background: var(--color-primary-500);
   flex-shrink: 0;
 }
 .care-detail { display: flex; flex-direction: column; align-items: center; }
@@ -1215,7 +1138,7 @@ const vReveal = {
   gap: var(--space-1);
 }
 .care-detail-title-eyebrow { font: var(--font-weight-regular) var(--font-size-body-l)/var(--line-height-body-l) var(--font-family-base); color: var(--color-text-secondary); margin-bottom: var(--space-2); }
-.care-detail-title-em { color: var(--color-green-600); }
+.care-detail-title-em { color: var(--color-primary-600); }
 .care-usp {
   list-style: none;
   margin: 0 0 var(--space-8);
@@ -1235,10 +1158,7 @@ const vReveal = {
   color: var(--color-white);
   min-height: 184px;
 }
-.care-usp-card { background: var(--color-white); border: 1px solid transparent; }
-.care-usp-card--green { border-color: var(--color-green-300); }
-.care-usp-card--blue  { border-color: var(--color-primary-200); }
-.care-usp-card--gray  { border-color: var(--color-gray-200); }
+.care-usp-card { background: var(--color-white); border: 1px solid var(--color-border); }
 .care-usp-icon {
   width: 64px;
   height: 64px;
@@ -1246,7 +1166,6 @@ const vReveal = {
   background-position: center;
   background-repeat: no-repeat;
 }
-.care-usp-card--green .care-usp-icon { filter: hue-rotate(0); }
 .care-usp-title {
   margin: 0;
   text-align: center;
@@ -1254,8 +1173,6 @@ const vReveal = {
   color: var(--color-text-secondary);
 }
 .care-usp-title strong { font-weight: var(--font-weight-bold); color: var(--color-text-primary); }
-.care-usp-card--green .care-usp-title strong { color: var(--color-green-600); }
-.care-usp-card--blue  .care-usp-title strong { color: var(--color-primary-600); }
 
 .rental-title {
   margin: 0 0 var(--space-6);
@@ -1329,13 +1246,13 @@ const vReveal = {
   height: 56px;
   line-height: 56px;
   text-align: center;
-  background: var(--color-green-500);
+  background: var(--color-primary-600);
   color: var(--color-white);
   text-decoration: none;
   border-radius: var(--radius-pill);
   font: var(--font-weight-bold) var(--font-size-button-l)/56px var(--font-family-base);
 }
-.care-detail-cta:hover { background: var(--color-green-600); }
+.care-detail-cta:hover { background: var(--color-primary-700); }
 
 .bonus-title {
   margin: 0 0 var(--space-6);
@@ -1366,7 +1283,7 @@ const vReveal = {
   position: absolute;
   top: 0;
   left: 0;
-  background: var(--color-green-500);
+  background: var(--color-primary-600);
   color: var(--color-white);
   padding: var(--space-2) var(--space-3);
   border-bottom-right-radius: var(--radius-lg);
@@ -1392,7 +1309,7 @@ const vReveal = {
   font: var(--font-weight-bold) var(--font-size-heading-m)/1.3 var(--font-family-base);
   color: var(--color-text-primary);
 }
-.bonus-card-text strong { color: var(--color-green-600); }
+.bonus-card-text strong { color: var(--color-primary-600); }
 @media (max-width: 1024px) {
   .care-detail-title { font-size: var(--font-size-heading-xl); line-height: var(--line-height-heading-xl); }
   .care-usp { grid-template-columns: 1fr; }
@@ -1448,7 +1365,7 @@ const vReveal = {
 }
 .plan-card-tag--purple { background: var(--color-purple-100); color: var(--color-purple-500); }
 .plan-card-tag--blue   { background: var(--color-primary-50); color: var(--color-primary-600); }
-.plan-card-tag--green  { background: var(--color-green-100); color: var(--color-green-600); }
+.plan-card-tag--green  { background: var(--color-gray-100); color: var(--color-text-secondary); }
 .plan-card-name {
   margin: 0 0 var(--space-3);
   font: var(--font-weight-bold) var(--font-size-heading-l)/var(--line-height-heading-l) var(--font-family-base);
@@ -1518,7 +1435,7 @@ const vReveal = {
 /* ============================================
    §7 멤버십 혜택 — light primary BG + 6 카드
    ============================================ */
-.membership { background: var(--color-bg-accent); }
+.membership { background: transparent; }
 .membership-title {
   margin: 0 0 var(--space-8);
   text-align: center;
@@ -1541,66 +1458,74 @@ const vReveal = {
   position: relative;
   background: var(--color-white);
   border-radius: var(--radius-lg);
-  padding: var(--space-5);
+  padding: var(--space-4);
   text-align: left;
-  border: 1px solid transparent;
+  border: 1px solid var(--color-border);
   transition: border-color 160ms ease, transform 160ms ease;
 }
 .membership-card:hover {
-  border-color: var(--color-primary-200);
+  border-color: var(--color-primary-300);
   transform: translateY(-2px);
 }
 .membership-card-img {
   width: 100%;
-  height: 160px;
+  height: 120px;
   background-size: cover;
   background-position: center;
   background-color: var(--color-gray-50);
   border-radius: var(--radius-md);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 .membership-card-title {
-  margin: 0 0 var(--space-2);
-  font: var(--font-weight-bold) var(--font-size-heading-s)/var(--line-height-heading-s) var(--font-family-base);
+  margin: 0 0 4px;
+  font: var(--font-weight-bold) var(--font-size-heading-s)/1.25 var(--font-family-base);
   color: var(--color-text-primary);
   letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .membership-card-desc {
   margin: 0;
-  font: var(--font-weight-regular) var(--font-size-body-s)/var(--line-height-body-s) var(--font-family-base);
+  font: var(--font-weight-regular) var(--font-size-body-s)/1.4 var(--font-family-base);
   color: var(--color-text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 @media (max-width: 1024px) {
   .membership-title { font-size: var(--font-size-heading-xl); line-height: var(--line-height-heading-xl); }
   .membership-grid { grid-template-columns: repeat(2, 1fr); }
-  .membership-card-img { height: 120px; }
+  .membership-card-img { height: 100px; }
+  .membership-card-title { white-space: normal; overflow: visible; text-overflow: unset; }
+  .membership-card-desc { white-space: normal; overflow: visible; text-overflow: unset; }
 }
 
 /* ============================================
    §8 100원 상조 상세 (3 USP + staff 3 + supply 9)
    ============================================ */
-.onecoin-detail { background: var(--color-primary-50); padding-top: 0 !important; display: flex; flex-direction: column; align-items: center; }
+.onecoin-detail { background: var(--color-bg-subtle); padding-top: 0 !important; display: flex; flex-direction: column; align-items: center; }
 .onecoin-detail > :not(.onecoin-strip) { align-self: stretch; }
 .onecoin-strip {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-5);
-  background: var(--color-white);
-  color: var(--color-primary-700);
+  padding: 6px var(--space-4);
+  background: transparent;
+  color: var(--color-text-tertiary);
   text-align: center;
   border-radius: var(--radius-pill);
-  border: 1px solid var(--color-primary-200);
-  font: var(--font-weight-bold) var(--font-size-button-l)/1 var(--font-family-base);
+  border: 1px solid var(--color-border);
+  font: var(--font-weight-medium) var(--font-size-button-s)/1 var(--font-family-base);
   margin: var(--space-8) auto var(--space-5);
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 .onecoin-strip::before {
   content: '';
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: var(--color-primary-600);
+  background: var(--color-primary-500);
   flex-shrink: 0;
 }
 .onecoin-detail-title {
@@ -2094,7 +2019,8 @@ const vReveal = {
 .contact-banner-shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(20, 92, 230, 0.86), rgba(31, 36, 41, 0.78));
+  background: var(--color-gray-900);
+  opacity: 0.78;
   z-index: 1;
 }
 .contact-banner-text {
