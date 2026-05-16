@@ -427,7 +427,8 @@
 <script setup>
 import { ref } from 'vue'
 
-const cdn = (name) => `/landing/moving/${name}`
+// PNG/JPG 는 사전 webp 변환됨 → 호출 시 자동 매핑. BASE_URL 로 GH Pages sub-path 호환.
+const cdn = (name) => `${import.meta.env.BASE_URL}landing/moving/${name.replace(/\.(png|jpe?g)$/i, '.webp')}`
 
 const assets = {
   // §4 Specials — REF SVG 직접 차용

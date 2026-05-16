@@ -4,9 +4,9 @@
     <!-- §1 Hero — hero1.svg 풀 배경 + 좌상단 로고/h1 + 좌측 카피 -->
     <section class="hero">
       <div class="hero-card">
-        <img :src="cdn('s01-hero1.svg')" alt="" class="hero-bg" loading="eager" />
+        <img :src="cdn('s01-hero1.webp')" alt="" class="hero-bg" loading="eager" />
         <div class="hero-dim" aria-hidden="true"></div>
-        <img :src="cdn('s01-1bin.svg')" alt="" class="hero-1bin" loading="eager" />
+        <img :src="cdn('s01-1bin.webp')" alt="" class="hero-1bin" loading="eager" />
         <div class="hero-brand">
           <img :src="cdn('s08-05-allinone-logo.svg')" alt="" class="hero-brand-logo" />
           <h1 class="hero-brand-h1">아정당 부동산</h1>
@@ -143,7 +143,7 @@
         <p class="appmock-note">* 평균 1일 약 150건, 1개월 기준 약 5,000건</p>
       </div>
       <div class="appmock-art" aria-hidden="true">
-        <img :src="cdn('s06-01-appmock-phone.svg')" alt="" class="appmock-phone" loading="lazy" />
+        <img :src="cdn('s06-01-appmock-phone.webp')" alt="" class="appmock-phone" loading="lazy" />
       </div>
     </section>
 
@@ -288,7 +288,7 @@
     <!-- §15 체크리스트 책 — split dark + book mockup -->
     <section class="checklist">
       <div class="checklist-card">
-        <img :src="cdn('s15-back.svg')" alt="" class="checklist-bg" loading="lazy" />
+        <img :src="cdn('s15-back.webp')" alt="" class="checklist-bg" loading="lazy" />
         <div class="checklist-dim" aria-hidden="true"></div>
         <div class="checklist-inner">
           <div class="checklist-text">
@@ -359,7 +359,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const cdn = (name) => `/landing/realty/${name}`
+// PNG/JPG 는 사전 webp 변환됨 → 호출 시 자동 매핑. BASE_URL 로 GH Pages sub-path 호환.
+const cdn = (name) => `${import.meta.env.BASE_URL}landing/realty/${name.replace(/\.(png|jpe?g)$/i, '.webp')}`
 
 const showAllAgents = ref(false)
 
@@ -434,8 +435,8 @@ const branches = [
 const allinone = [
   { label: '인터넷', img: 'allinone-인터넷2.webp' },
   { label: '정수기', img: 'allinone-정수기2.webp' },
-  { label: '이사', img: 's08-03-allinone-moving.svg' },
-  { label: '청소', img: 's08-04-allinone-cleaning.svg' },
+  { label: '이사', img: 's08-03-allinone-moving.webp' },
+  { label: '청소', img: 's08-04-allinone-cleaning.webp' },
 ]
 
 const painpoints = [

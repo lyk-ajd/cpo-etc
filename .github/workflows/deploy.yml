@@ -54,14 +54,21 @@ jobs:
           npm install --no-audit --no-fund
           npm run build
 
-      - name: Assemble dist (interior + soho + moving + cleaning + realty + root index)
+      - name: Install + build lifesangjo
+        working-directory: lifesangjo/output/preview
         run: |
-          mkdir -p dist/interior dist/soho dist/moving dist/cleaning dist/realty
+          npm install --no-audit --no-fund
+          npm run build
+
+      - name: Assemble dist (interior + soho + moving + cleaning + realty + lifesangjo + root index)
+        run: |
+          mkdir -p dist/interior dist/soho dist/moving dist/cleaning dist/realty dist/lifesangjo
           cp -r interior/output/preview/dist/* dist/interior/
           cp -r soho/output/preview/dist/* dist/soho/
           cp -r moving/output/preview/dist/* dist/moving/
           cp -r cleaning/output/preview/dist/* dist/cleaning/
           cp -r realty/output/preview/dist/* dist/realty/
+          cp -r lifesangjo/output/preview/dist/* dist/lifesangjo/
           cp index.html dist/index.html
 
       - uses: actions/configure-pages@v5

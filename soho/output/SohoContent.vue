@@ -526,7 +526,8 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 
-const cdn = (name) => `/landing/soho/${name}`
+// PNG/JPG 는 사전 webp 변환됨 → 호출 시 자동 매핑. BASE_URL 로 GH Pages sub-path 호환.
+const cdn = (name) => `${import.meta.env.BASE_URL}landing/soho/${name.replace(/\.(png|jpe?g)$/i, '.webp')}`
 
 const heroBgs = [
   '07-case-1.png',

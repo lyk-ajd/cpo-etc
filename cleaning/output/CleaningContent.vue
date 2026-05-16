@@ -422,9 +422,8 @@ import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
 // Preview/dev: vite middleware maps /landing/cleaning/* → ../../source/images/*
-// Production: replace with absolute CDN URL like other SFCs
-//   `https://cdn.ajd.kr/images/platform/landing/cleaning/${file}?q=80&f=webp`
-const cdn = (file) => `/landing/cleaning/${file}`
+// PNG/JPG 는 사전 webp 변환됨 → 호출 시 자동 매핑. BASE_URL 로 GH Pages sub-path 호환.
+const cdn = (file) => `${import.meta.env.BASE_URL}landing/cleaning/${file.replace(/\.(png|jpe?g)$/i, '.webp')}`
 
 const logoUrl = cdn('symbol.svg')
 
