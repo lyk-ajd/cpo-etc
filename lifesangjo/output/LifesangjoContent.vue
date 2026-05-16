@@ -84,6 +84,9 @@
             </p>
             <hr class="product-card-divider" />
             <h4 class="product-card-tagline">{{ p.tagline }}</h4>
+            <ul class="product-card-bullets">
+              <li v-for="(b, bi) in p.bullets" :key="bi">{{ b }}</li>
+            </ul>
             <div class="product-card-ctas">
               <a v-for="(c, ci) in p.ctas" :key="ci" class="product-card-cta" :class="{ 'product-card-cta--sub': c.sub }" :href="c.href" target="_blank" rel="noopener noreferrer">
                 {{ c.label }} <span aria-hidden="true">›</span>
@@ -446,9 +449,14 @@ const products = [
     desc: '내일의 삶에 혜택의 즐거움을 더하는 플랜',
     price: '9,900',
     tagline: '지금부터 혜택을 받는 멤버십 형',
+    bullets: [
+      '가전 렌탈, 영화, 기차표 생활용품 할인',
+      '멤버십 몰까지 혜택을 내일부터 받아보세요',
+      '미래 장례 비용은 오늘 금액으로 보장되니 안심',
+    ],
     ctas: [
       { label: '플랜 자세히 보기', href: 'https://ajdlife.co.kr/plans/lifecare' },
-      { label: '렌탈 가전 구경하기', href: 'https://lifecare-rental.ajd.co.kr/index.do', sub: true },
+      { label: '렌탈 혜택 알아보기', href: 'https://lifecare-rental.ajd.co.kr/index.do', sub: true },
     ],
   },
   {
@@ -458,6 +466,11 @@ const products = [
     desc: '월 100원 납부로 미래 장례 비용을 고정하는 플랜',
     price: '100',
     tagline: '부담 없이 시작하는 미래 준비형',
+    bullets: [
+      '10년 뒤에 오늘 계약한 금액으로',
+      '장례 지원을 보장해요',
+      '물가 걱정을 덜어내는 합리적인 플랜',
+    ],
     ctas: [
       { label: '플랜 자세히 보기', href: 'https://ajdlife.co.kr/plans/100won' },
     ],
@@ -1004,6 +1017,17 @@ const vReveal = {
   font: var(--font-weight-bold) var(--font-size-heading-m)/var(--line-height-heading-m) var(--font-family-base);
   color: var(--color-text-primary);
   letter-spacing: -0.01em;
+}
+.product-card-bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  text-align: center;
+  font: var(--font-weight-regular) var(--font-size-body-s)/1.55 var(--font-family-base);
+  color: var(--color-text-secondary);
 }
 .product-card-ctas {
   margin-top: auto;
