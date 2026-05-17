@@ -19,8 +19,8 @@
           <h1 class="hero-brand-text">아정당 라이프 상조</h1>
         </div>
         <div class="hero-copy">
-          <p class="hero-eyebrow">오늘을 즐겁게, 마지막까지 안심되게</p>
-          <h2 class="hero-title">월 <strong>100원</strong>으로 시작하는<br />합리적인 준비</h2>
+          <h2 class="hero-title">월 <strong>100원</strong>으로 시작하는<br class="break-mobile" /> 합리적인 준비</h2>
+          <p class="hero-sub">오늘을 즐겁게, 마지막까지 안심되게</p>
         </div>
       </div>
     </section>
@@ -28,17 +28,19 @@
     <!-- §2 페인포인트 3 (원본 zigzag 말풍선) + 헤더 + USP 카드 3 -->
     <section v-reveal class="painpoint">
       <header class="section-header center painpoint-intro">
-        <h2 class="section-title">
+        <h2 class="painpoint-message">
           상조 가입! <span class="accent">걱정되시나요?</span>
         </h2>
       </header>
       <ul class="painpoint-pills">
-        <li v-for="(p, i) in painPills" :key="i" class="painpoint-pill">
+        <li v-for="(p, i) in painPills" :key="i" class="painpoint-pill" :class="`painpoint-pill--${i % 2 === 0 ? 'left' : 'right'}`">
           <div class="painpoint-portrait" :style="{ backgroundImage: `url(${cdn(p.portrait)})` }" :aria-label="`페인 ${i + 1} 인물`" role="img"></div>
-          <p class="painpoint-pill-text">
-            <span>{{ p.top }}</span>
-            <strong>{{ p.main }}</strong>
-          </p>
+          <div class="painpoint-bubble">
+            <p class="painpoint-bubble-text">
+              <span>{{ p.top }}</span>
+              <strong>{{ p.main }}</strong>
+            </p>
+          </div>
         </li>
       </ul>
       <header class="section-header center painpoint-resolve">
@@ -49,19 +51,39 @@
       </header>
       <ul class="usp-grid">
         <li v-for="(u, i) in uspCards" :key="i" class="usp-card">
-          <h3 class="usp-card-title">
-            <img :src="cdn('s13-check-icon.svg')" alt="" class="usp-card-check" />
-            <span>{{ u.title }}</span>
-          </h3>
-          <div class="usp-card-img" :style="{ backgroundImage: `url(${u.img})` }" role="img" :aria-label="u.title"></div>
-          <p class="usp-card-body">
-            <span v-for="(line, li) in u.lines" :key="li">{{ line }}<br v-if="li < u.lines.length - 1" /></span>
-          </p>
+          <div class="usp-card-media" :style="{ backgroundImage: `url(${u.img})` }" role="img" :aria-label="u.title">
+            <h3 class="usp-card-title">{{ u.title }}</h3>
+            <p class="usp-card-body">
+              <span v-for="(line, li) in u.lines" :key="li">{{ line }}<br v-if="li < u.lines.length - 1" /></span>
+            </p>
+          </div>
         </li>
       </ul>
     </section>
 
-    <!-- §3 두 가지 상품 (라이프 케어 / 100원 상조) — Compare 2-up -->
+    <!-- §3 작은 차이들 4 — Value Props 4-up -->
+    <section v-reveal class="differences">
+      <header class="section-header center">
+        <h2 class="section-title">
+          큰 변화를 만드는<br />
+          <span class="accent">아정당 라이프 상조의 작은 차이들</span>
+        </h2>
+      </header>
+      <ul class="differences-grid">
+        <li v-for="(d, i) in differences" :key="i" class="diff-item">
+          <div class="diff-item-media" :style="{ backgroundImage: `url(${cdn(d.img)})` }" role="img" :aria-label="d.titleEm">
+            <h3 class="diff-item-title">
+              <span v-if="d.titleEmFirst" class="diff-item-title-em">{{ d.titleEm }}</span>
+              <span class="diff-item-title-rest">{{ d.titleRest }}</span>
+              <span v-if="!d.titleEmFirst" class="diff-item-title-em">{{ d.titleEm }}</span>
+            </h3>
+          </div>
+          <p class="diff-item-desc" v-html="d.desc"></p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- §4 두 가지 상품 (라이프 케어 / 100원 상조) — Compare 2-up -->
     <section v-reveal class="two-products">
       <header class="section-header center">
         <h2 class="section-title">
@@ -72,7 +94,7 @@
       <div class="two-products-grid">
         <article v-for="(p, i) in products" :key="i" class="product-card" :class="`product-card--${p.theme}`">
           <header class="product-card-header">
-            <h3 class="product-card-name">{{ p.name }}</h3>
+            <h3 class="product-card-name"><span class="title-hl title-hl--green">{{ p.name }}</span></h3>
           </header>
           <div class="product-card-image" :style="{ backgroundImage: `url(${cdn(p.img)})` }" role="img" :aria-label="p.name"></div>
           <div class="product-card-body">
@@ -89,7 +111,7 @@
             </ul>
             <div class="product-card-ctas">
               <a v-for="(c, ci) in p.ctas" :key="ci" class="product-card-cta" :class="{ 'product-card-cta--sub': c.sub }" :href="c.href" target="_blank" rel="noopener noreferrer">
-                {{ c.label }} <span aria-hidden="true">›</span>
+                {{ c.label }}
               </a>
             </div>
           </div>
@@ -97,76 +119,63 @@
       </div>
     </section>
 
-    <!-- §4 작은 차이들 4 — Value Props 4-up -->
-    <section v-reveal class="differences">
-      <header class="section-header center">
-        <h2 class="section-title">
-          큰 변화를 만드는<br />
-          <span class="accent">아정당 라이프 상조의 작은 차이들</span>
-        </h2>
-      </header>
-      <ul class="differences-grid">
-        <li v-for="(d, i) in differences" :key="i" class="diff-card">
-          <div class="diff-card-text">
-            <h3 class="diff-card-title">
-              <span v-if="d.titleEmFirst" class="diff-card-title-em">{{ d.titleEm }}</span>
-              <span>{{ d.titleRest }}</span>
-              <span v-if="!d.titleEmFirst" class="diff-card-title-em">{{ d.titleEm }}</span>
-            </h3>
-            <p class="diff-card-desc" v-html="d.desc"></p>
-          </div>
-          <div class="diff-card-img" :style="{ backgroundImage: `url(${cdn(d.img)})` }" role="img" :aria-label="d.titleEm"></div>
-        </li>
-      </ul>
-    </section>
-
-    <!-- §5 라이프 케어 플랜 상세 (USP 3 + 인기 가전 5 + 추가 혜택 2) -->
+    <!-- §5 라이프 케어 플랜 상세 (intro → 첫번째 혜택 deep-dive → 3 USP + 인기 가전 5) -->
     <section v-reveal class="care-detail">
-      <div class="care-strip">렌탈 혜택 알아보기</div>
-      <header class="section-header center">
-        <p class="section-desc">가전 렌탈부터 생활 할인까지</p>
-        <h2 class="section-title">
-          내일부터 누리는 즐거움<br />
-          <span class="accent accent--green">라이프케어 플랜 멤버십에 가입해 보세요!</span>
+      <header class="section-header center care-detail-head">
+        <h2 class="section-title"><span class="title-hl title-hl--green">라이프 케어 플랜</span>만의 혜택</h2>
+      </header>
+
+      <!-- 첫번째 혜택 — 가전 렌탈 -->
+      <header class="benefit-head section-header center">
+        <h2 class="benefit-chip benefit-headline-text">
+          상조는 기본,&nbsp;<span class="accent accent--green">렌탈까지 한번에</span>
         </h2>
+        <p class="section-desc benefit-desc">
+          상조와 가전 렌탈 동시에 가능한 결합상조입니다.<br />
+          한번의 가입으로 상조와 렌탈 혜택을 동시에 누리세요.
+        </p>
       </header>
+      <div class="rental-framed">
+        <ul class="rental-grid">
+          <li v-for="(r, i) in rentals" :key="i" class="rental-card">
+            <div class="rental-card-img" :style="{ backgroundImage: `url(${cdn(r.img)})` }" role="img" :aria-label="r.nameAlt"></div>
+            <p class="rental-card-name" v-html="r.name"></p>
+          </li>
+        </ul>
+        <a href="https://lifecare-rental.ajd.co.kr/index.do" target="_blank" rel="noopener noreferrer" class="care-detail-cta">가능한 렌탈 상품 구경하기</a>
+      </div>
 
-      <ul class="care-usp">
-        <li v-for="(u, i) in careUsp" :key="i" class="care-usp-card" :class="`care-usp-card--${u.theme}`">
-          <div class="care-usp-icon" :style="{ backgroundImage: `url(${cdn(u.icon)})` }" role="img" :aria-label="u.title"></div>
-          <h3 class="care-usp-title" v-html="u.title"></h3>
+      <!-- 두번째 혜택 — 일상 할인 혜택 (ref 혜택2) -->
+      <header class="benefit-head section-header center">
+        <h2 class="benefit-chip benefit-headline-text">
+          원할 때 언제든 받는,&nbsp;<span class="accent accent--green">일상 할인 혜택</span>
+        </h2>
+        <p class="section-desc benefit-desc">
+          회원몰부터 영화·강의·여행까지<br />
+          라이프케어 전용 6가지 단독 혜택을 만나보세요.
+        </p>
+      </header>
+      <ul class="benefit-perk-grid benefit-perk-grid--framed">
+        <li v-for="(b, i) in dailyBenefits" :key="i" class="benefit-perk benefit-perk--icon-top">
+          <div class="benefit-perk-img benefit-perk-img--icon" :style="{ backgroundImage: `url(${cdn(b.img)})` }" role="img" :aria-label="b.title"></div>
+          <h3 class="benefit-perk-title">{{ b.title }}</h3>
+          <p class="benefit-perk-desc" style="white-space: pre-line">{{ b.desc }}</p>
         </li>
       </ul>
 
-      <header class="section-header center">
-        <p class="section-desc">라이프케어 멤버 Pick</p>
-        <h3 class="section-title">가장 인기많은 <span class="accent accent--green">렌탈 가전 5</span></h3>
+      <!-- 세번째 혜택 — 전환 서비스 (ref 혜택3) -->
+      <header class="benefit-head section-header center">
+        <h2 class="benefit-chip benefit-headline-text">
+          취향대로 선택하는,&nbsp;<span class="accent accent--green">전환 서비스</span>
+        </h2>
+        <p class="section-desc benefit-desc">
+          장례 대신 크루즈·어학연수·웨딩·골프 등<br />
+          원하는 6가지 프리미엄 상품으로 전환할 수 있어요.
+        </p>
       </header>
-      <ul class="rental-grid">
-        <li v-for="(r, i) in rentals" :key="i" class="rental-card">
-          <div class="rental-card-img" :style="{ backgroundImage: `url(${cdn(r.img)})` }" role="img" :aria-label="r.name"></div>
-          <p class="rental-card-name" v-html="r.name"></p>
-          <p v-if="r.sub" class="rental-card-sub">{{ r.sub }}</p>
-          <div v-if="r.badges?.length" class="rental-card-badges">
-            <span v-for="(b, bi) in r.badges" :key="bi" class="rental-card-badge" :class="`rental-card-badge--${b.tone}`">{{ b.text }}</span>
-          </div>
-        </li>
-      </ul>
-      <a href="#lifesangjo-form" class="care-detail-cta">플랜 자세히 보기 <span aria-hidden="true">›</span></a>
-
-      <header class="section-header center">
-        <h3 class="section-title">
-          가전 렌탈을 고민중이라면<br />
-          <span class="accent accent--green">추가 혜택도 꼭 챙기세요!</span>
-        </h3>
-      </header>
-      <ul class="bonus-grid">
-        <li v-for="(b, i) in bonuses" :key="i" class="bonus-card">
-          <span class="bonus-card-tag">추가 혜택 {{ i + 1 }}.</span>
-          <div class="bonus-card-body">
-            <div class="bonus-card-img" :style="{ backgroundImage: `url(${cdn(b.img)})` }" role="img" :aria-label="b.text"></div>
-            <p class="bonus-card-text" v-html="b.text"></p>
-          </div>
+      <ul class="benefit-perk-grid benefit-perk-grid--service">
+        <li v-for="(c, i) in conversionOptions" :key="i" class="benefit-perk benefit-perk--service">
+          <img class="benefit-perk-service-img" :src="cdn(c.img)" :alt="c.title" loading="lazy" />
         </li>
       </ul>
     </section>
@@ -178,7 +187,7 @@
           <span class="accent">나에게 필요한 플랜을</span><br />
           확인해 보세요
         </h2>
-        <p class="section-desc">가장 인기 많은 플랜 TOP3</p>
+        <p class="section-desc"><span class="benefit-grid-label-hl">가장 인기 많은 플랜 TOP3</span></p>
       </header>
       <ul class="plan-list">
         <li v-for="(p, i) in plans" :key="i" class="plan-card">
@@ -187,101 +196,90 @@
               <span v-for="(t, ti) in p.tags" :key="ti" class="plan-card-tag" :class="`plan-card-tag--${t.tone}`">{{ t.text }}</span>
             </div>
             <h3 class="plan-card-name">아정당 라이프 상조<br />{{ p.price }}원 플랜</h3>
-            <p class="plan-card-price"><strong>{{ p.price }}원</strong> <span>/월</span></p>
           </div>
           <ul class="plan-card-bullets">
             <li v-for="(b, bi) in p.bullets" :key="bi">{{ b }}</li>
           </ul>
-          <a class="plan-card-cta" href="#lifesangjo-form">상품 자세히 보기 <span aria-hidden="true">›</span></a>
+          <a class="plan-card-cta" href="#lifesangjo-form">상품 자세히 보기</a>
         </li>
       </ul>
-      <a href="#lifesangjo-form" class="plan-top3-more">6개의 '라이프케어 플랜' 더 알아보기 <span aria-hidden="true">›</span></a>
+      <a href="https://www.ajdlife.co.kr/plans/lifecare" target="_blank" rel="noopener noreferrer" class="plan-top3-more">라이프케어 플랜 전체 보기</a>
     </section>
 
-    <!-- §7 멤버십 혜택 (Promise 변형 — light primary BG) -->
-    <section v-reveal class="membership">
-      <header class="section-header center">
-        <h2 class="section-title">
-          <span class="accent">월 9,900원으로</span><br />
-          매일 만나는 멤버십 혜택
-        </h2>
-      </header>
-      <ul class="membership-grid">
-        <li v-for="(m, i) in membershipBenefits" :key="i" class="membership-card">
-          <div class="membership-card-img" :style="{ backgroundImage: `url(${cdn(m.img)})` }" role="img" :aria-label="m.title"></div>
-          <h3 class="membership-card-title">{{ m.title }}</h3>
-          <p class="membership-card-desc">{{ m.desc }}</p>
-        </li>
-      </ul>
-    </section>
 
-    <!-- §8 100원 상조 상세 (3 USP + 장례인력 3 + 장례용품 9) -->
+    <!-- §8 100원 상조 상세 (source HTML lifecare-plan02 매핑) -->
     <section v-reveal class="onecoin-detail">
-      <div class="onecoin-strip">상품 2. 100원 상조 플랜</div>
-      <header class="section-header center">
-        <p class="section-desc">월 100원이, 마지막 순간을 평온하게 만듭니다</p>
-        <h2 class="section-title">아정당 라이프 상조 <span class="accent">100원 장례</span>를 소개해요</h2>
+      <header class="section-header center onecoin-detail-head">
+        <h2 class="section-title"><span class="title-hl title-hl--green">100원 상조 플랜</span>만의 혜택</h2>
       </header>
-      <ul class="onecoin-usp">
-        <li v-for="(u, i) in onecoinUsp" :key="i" class="onecoin-usp-card">
-          <div class="onecoin-usp-icon" :style="{ backgroundImage: `url(${cdn(u.icon)})` }" role="img" :aria-label="u.title"></div>
-          <p class="onecoin-usp-text" v-html="u.text"></p>
-        </li>
-      </ul>
+      <div class="onecoin-hero">
+        <img class="onecoin-hero-img" :src="cdn('s08-100.webp')" alt="100" loading="lazy" />
+        <p class="onecoin-hero-desc">월 100원이 마지막 순간을 평온하게 만듭니다</p>
+      </div>
 
-      <header class="section-header center">
-        <h3 class="section-title">100원 값하는 장례일까 걱정 되나요?</h3>
-        <p class="section-desc">
-          100원 장례 상품은 10년 뒤 물가 상승으로 장례비가 올라도
-          <strong>지금 계약한 비용으로 장례를 치를 수 있도록 보장하는</strong>
+      <div class="onecoin-connector" aria-hidden="true"></div>
+
+      <!-- 차트 — graph.webp 매핑 (현재 → 5년 뒤 → 10년 뒤, 대시선 + 보장 원형 callout) -->
+      <div class="onecoin-chart onecoin-chart-frame">
+        <header class="section-header center onecoin-chart-head">
+          <p class="section-desc">장례비용도 매년 40만원씩 오른다고?</p>
+          <h3 class="onecoin-chart-title">
+            월 100원으로<br />
+            <span class="accent accent--green">미래 장례 비용을 절약</span> 하세요!
+          </h3>
+        </header>
+        <div class="chart-wrap">
+          <ul class="chart-bars">
+            <li v-for="(b, i) in chartBars" :key="i" class="chart-bar" :class="{ 'chart-bar--current': b.current }">
+              <p v-if="b.current" class="chart-bar-flag">{{ b.amount }}</p>
+              <div class="chart-bar-rect" :style="{ height: b.height + 'px' }">
+                <span v-if="!b.current" class="chart-bar-rect-amount">{{ b.amount }}</span>
+              </div>
+              <p class="chart-bar-label" :class="{ 'chart-bar-label--current': b.current }">{{ b.label }}</p>
+            </li>
+          </ul>
+          <div class="chart-dash" aria-hidden="true"></div>
+          <div class="chart-callout">
+            <p>월 100원이면<br />현재 가격으로<br />만기까지 <strong>보장</strong></p>
+          </div>
+        </div>
+        <p class="chart-footnote">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 12 10 18 20 6"/></svg>
+          <span>상담 없이 다이렉트 가입 가능</span>
+        </p>
+      </div>
+
+      <div class="onecoin-info">
+        <h3 class="onecoin-info-title"><span class="title-hl title-hl--blue">100원 값하는 장례일까 걱정 되나요?</span></h3>
+        <p class="onecoin-info-desc">
+          100원 상조는 10년 뒤 물가 상승으로 장례비가 올라도<br />
+          <em>지금 계약한 비용으로 장례를 치를 수 있도록 보장하는</em><br />
           미래를 가장 현명하게 대비하는 상품입니다.
         </p>
-      </header>
-
-      <h3 class="staff-section-title">장례인력</h3>
-      <ul class="staff-grid">
-        <li v-for="(s, i) in staff" :key="i" class="staff-card">
-          <div class="staff-img" :style="{ backgroundImage: `url(${s.img})` }" role="img" :aria-label="s.name"></div>
-          <p class="staff-name">{{ s.name }}</p>
-        </li>
-      </ul>
-
-      <h3 class="supply-section-title">
-        <span>장례용품</span>
-        <span class="supply-section-desc">사용되는 모든 물품과 서비스는 프리미엄 급으로 제공됩니다.</span>
-      </h3>
-      <ul class="supply-grid">
-        <li v-for="(s, i) in supplies" :key="i" class="supply-card">
-          <div class="supply-img" :style="{ backgroundImage: `url(${s.img})` }" role="img" :aria-label="s.name"></div>
-          <p class="supply-name">{{ s.name }}</p>
-        </li>
-      </ul>
-      <p class="supply-note">* 플랜별 구성이 달라질 수 있습니다.</p>
-      <a href="#lifesangjo-form" class="onecoin-cta">100원 상조 플랜 더 알아보기 <span aria-hidden="true">›</span></a>
-    </section>
-
-    <!-- §9 100원 보장 차트 — Stats (chart) -->
-    <section v-reveal class="chart-section">
-      <header class="section-header center">
-        <p class="section-desc">장례비용도 매년 40만원씩 오른다고?</p>
-        <h2 class="section-title">
-          월 100원으로<br />
-          <span class="accent">미래 장례 비용을 절약</span> 하세요!
-        </h2>
-      </header>
-      <div class="chart-wrap">
-        <ul class="chart-bars">
-          <li v-for="(b, i) in chartBars" :key="i" class="chart-bar" :class="{ 'chart-bar--current': b.current }">
-            <p class="chart-bar-amount" :class="{ 'chart-bar-amount--current': b.current }">{{ b.amount }}</p>
-            <div class="chart-bar-rect" :style="{ height: b.height + 'px' }"></div>
-            <p class="chart-bar-label" :class="{ 'chart-bar-label--current': b.current }">{{ b.label }}</p>
-          </li>
-        </ul>
-        <div class="chart-callout" aria-hidden="true">
-          <p>100원으로<br /><strong>현재 가격</strong>으로<br />만기까지 <strong>보장</strong></p>
+        <div class="onecoin-info-cont">
+          <div class="onecoin-info-item">
+            <p class="onecoin-info-item-title">장례인력</p>
+            <ul>
+              <li v-for="(s, i) in staff" :key="i">
+                <img :src="s.img" :alt="s.name" loading="lazy" />
+                <span>{{ s.name }}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="onecoin-info-item">
+            <p class="onecoin-info-item-title">장례용품</p>
+            <p class="onecoin-info-item-desc">사용되는 모든 물품과 서비스는 프리미엄 급으로 제공됩니다.</p>
+            <ul>
+              <li v-for="(s, i) in supplies" :key="i">
+                <img :src="s.img" :alt="s.name" loading="lazy" />
+                <span>{{ s.name }}</span>
+              </li>
+            </ul>
+            <p class="onecoin-info-item-note">* 플랜별 구성이 달라질 수 있습니다.</p>
+          </div>
         </div>
       </div>
-      <a href="#lifesangjo-form" class="chart-cta">지금 100원으로 - 10년 뒤 장례비 최저가 예약 <span aria-hidden="true">›</span></a>
+      <a href="https://ajdlife.co.kr/plans/100won" target="_blank" rel="noopener noreferrer" class="onecoin-cta">100원 상조 플랜 더 알아보기</a>
     </section>
 
     <!-- §10 전문성 4 카드 — Value Props 4-up -->
@@ -304,70 +302,65 @@
       </ul>
     </section>
 
-    <!-- §11 전국 10지부 (Solution Map) -->
-    <section v-reveal class="branches">
-      <header class="section-header center">
-        <h2 class="section-title">
-          전국 어디서든,<br />
-          <span class="accent">365일 24시간 출동</span>
-        </h2>
-        <p class="section-desc">
-          갑작스러운 순간에도 지체 없이, <strong>가장 가까운 지부의 장례지도사가</strong><br />
-          <strong>바로 현장으로 출동</strong>합니다
-        </p>
-      </header>
-      <div class="branches-stage">
-        <ul class="branches-list">
-          <li v-for="(b, i) in branches" :key="i" class="branches-chip">{{ b }}</li>
-        </ul>
-        <div class="branches-stat">
-          <p class="branches-stat-num"><strong>10</strong>개</p>
-          <p class="branches-stat-label">전국 지부 네트워크</p>
+    <!-- §11 전국 어디서든 (lifecare-nationwide source 매칭 — 좌우 레이아웃, 1024 wide) -->
+    <section v-reveal class="nationwide">
+      <div class="nationwide-inner">
+        <header class="nationwide-title-wrap">
+          <h2 class="section-title">
+            전국 어디서든, <span class="accent accent--green">365일 24시간 출동</span>
+          </h2>
+          <p class="section-desc">
+            갑작스러운 순간에도 지체 없이,<br />
+            <strong>가장 가까운 지부의 장례지도사가<br />바로 현장으로 출동</strong>합니다
+          </p>
+        </header>
+        <div class="nationwide-content">
+          <img :src="cdn('s11-map.webp')" alt="서울지부, 경기지부, 충청지부, 전북지부, 전남지부, 제주지부, 경남지부, 부산지부, 대구지부, 강원지부" loading="lazy" class="nationwide-map" />
         </div>
       </div>
     </section>
 
-    <!-- §12 FAQ (interior 캐논 — accordion) -->
+    <!-- §12 FAQ (interior 캐논 — accordion with chevron SVG) -->
     <section v-reveal class="faq" aria-labelledby="faq-title">
       <header class="section-header center">
         <h2 id="faq-title" class="section-title">자주 묻는 질문</h2>
       </header>
       <ul class="faq-list">
-        <li v-for="(f, i) in faqs" :key="i" class="faq-item" :class="{ 'is-open': openFaqs.has(i) }">
-          <button type="button" class="faq-q" @click="toggleFaq(i)" :aria-expanded="openFaqs.has(i)">
-            <span class="faq-q-num">{{ String(i + 1).padStart(2, '0') }}.</span>
-            <span class="faq-q-text">{{ f.q }}</span>
-            <span class="faq-q-icon" aria-hidden="true">{{ openFaqs.has(i) ? '−' : '+' }}</span>
+        <li v-for="(f, i) in faqs" :key="f.q" class="faq-item">
+          <button
+            type="button"
+            class="faq-question"
+            :aria-expanded="openFaqs.has(i)"
+            :aria-controls="`faq-answer-${i}`"
+            @click="toggleFaq(i)"
+          >
+            <span class="faq-num">{{ String(i + 1).padStart(2, '0') }}.</span>
+            <span class="faq-text">{{ f.q }}</span>
+            <svg
+              class="faq-chevron"
+              :class="{ 'is-open': openFaqs.has(i) }"
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
           </button>
-          <div v-show="openFaqs.has(i)" class="faq-a" v-html="f.a"></div>
+          <div
+            v-show="openFaqs.has(i)"
+            :id="`faq-answer-${i}`"
+            class="faq-answer"
+          >
+            <p v-html="f.a"></p>
+          </div>
         </li>
       </ul>
-    </section>
-
-    <!-- §13 DB 폼 anchor (개발팀 컴포넌트로 교체될 영역) -->
-    <section id="lifesangjo-form" class="form-anchor">
-      <div class="form-anchor-inner">
-        <header class="section-header center">
-          <p class="section-desc accent">상조의 새로운 기준</p>
-          <h2 class="section-title">아정당 라이프 상조,<br />지금 바로 신청하세요</h2>
-        </header>
-        <p class="form-anchor-note">[DB 제출폼 — 기존 Vue 컴포넌트 영역 / 본 작업 대상 아님]</p>
-      </div>
-    </section>
-
-    <!-- §14 Tel CTA — 사진 BG 띠배너 + 전화 -->
-    <section v-reveal class="contact">
-      <div class="contact-banner">
-        <img :src="cdn('s14-bg-photo.png')" alt="" class="contact-banner-bg" loading="lazy" />
-        <div class="contact-banner-shade" aria-hidden="true"></div>
-        <div class="contact-banner-text">
-          <p class="contact-hours">평일 9:00 - 18:00<br />주말 및 공휴일 휴무</p>
-          <a href="tel:1833-7377" class="contact-tel">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
-            <span>1833-7377</span>
-          </a>
-        </div>
-      </div>
     </section>
 
   </main>
@@ -418,9 +411,9 @@ function toggleFaq(i) {
 
 // §2 페인포인트 pill 3 + USP 카드 3
 const painPills = [
-  { portrait: 's02-pain-portrait-1.png', top: '견적보다', main: '추가비용이 자꾸 붙어요' },
-  { portrait: 's02-pain-portrait-2.png', top: '해지, 환급 조건이', main: '복잡해 불안해요' },
-  { portrait: 's02-pain-portrait-3.png', top: '상조는 막상 가입하려니', main: '혜택이 달라졌어요' },
+  { portrait: 's02-pain-portrait-1.png', top: '견적보다',                main: '추가비용이 자꾸 붙어요'  },
+  { portrait: 's02-pain-portrait-2.png', top: '해지, 환급 조건이',     main: '복잡해 불안해요'         },
+  { portrait: 's02-pain-portrait-3.png', top: '상조는 막상 가입하려니', main: '혜택이 달라졌어요'      },
 ]
 const uspCards = [
   {
@@ -446,17 +439,15 @@ const products = [
     name: '라이프 케어 플랜',
     theme: 'care',
     img: 's03-care-illust.png',
-    desc: '내일의 삶에 혜택의 즐거움을 더하는 플랜',
+    desc: '렌탈, 일상할인, 상품전환까지 가능한 플랜',
     price: '9,900',
     tagline: '지금부터 혜택을 받는 멤버십 형',
     bullets: [
       '가전 렌탈, 영화, 기차표 생활용품 할인',
       '멤버십 몰까지 혜택을 내일부터 받아보세요',
-      '미래 장례 비용은 오늘 금액으로 보장되니 안심',
     ],
     ctas: [
       { label: '플랜 자세히 보기', href: 'https://ajdlife.co.kr/plans/lifecare' },
-      { label: '렌탈 혜택 알아보기', href: 'https://lifecare-rental.ajd.co.kr/index.do', sub: true },
     ],
   },
   {
@@ -469,7 +460,6 @@ const products = [
     bullets: [
       '10년 뒤에 오늘 계약한 금액으로',
       '장례 지원을 보장해요',
-      '물가 걱정을 덜어내는 합리적인 플랜',
     ],
     ctas: [
       { label: '플랜 자세히 보기', href: 'https://ajdlife.co.kr/plans/100won' },
@@ -479,30 +469,47 @@ const products = [
 
 // §4 작은 차이들 4
 const differences = [
-  { titleEm: '예치금 보호', titleEmFirst: false, titleRest: '국민은행 계약 체결로', desc: '고객 예치금은 회사 계좌에<br />보관되지 않습니다', img: 's04-card-1-bg.png' },
-  { titleEm: '100% 환급', titleEmFirst: false, titleRest: '만기 시 납입금', desc: '만기 시 납입한 전액을<br />환급해 드립니다', img: 's04-card-2-bg.png' },
-  { titleEm: '추가 비용 없는', titleEmFirst: true,  titleRest: '투명한 정찰제', desc: '추가 비용 · 숨은조건 없이 명확한<br />가격을 알려드립니다', img: 's04-card-3-bg.png' },
-  { titleEm: '멤버십 혜택', titleEmFirst: false, titleRest: '프리미엄', desc: '영화·건강검진·여행 할인부터<br />가전 렌탈·생활 보험 혜택까지', img: 's04-card-4-bg-a.png' },
+  { titleEm: '예치금 보호', titleEmFirst: false, titleRest: '국민은행 계약 체결로', desc: '고객 예치금은 회사 계좌에 보관되지 않습니다', img: 's04-card-1-bg.png' },
+  { titleEm: '100% 환급', titleEmFirst: false, titleRest: '만기 시 납입금', desc: '만기 시 납입한 전액을 환급해 드립니다', img: 's04-card-2-bg.png' },
+  { titleEm: '추가 비용 없음', titleEmFirst: false, titleRest: '투명한 정찰제', desc: '추가 비용 없는 가격 제시', img: 's04-card-3-bg.png' },
+  { titleEm: '멤버십 혜택', titleEmFirst: false, titleRest: '프리미엄', desc: '영화·여행 할인부터 가전렌탈·보험 혜택까지', img: 's04-card-4-bg-a.png' },
 ]
 
 // §5 라이프 케어 플랜 상세
+const CARE_RENTAL_ICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="white"><path fill-rule="evenodd" d="M14 4 L50 4 a4 4 0 0 1 4 4 L54 56 a4 4 0 0 1 -4 4 L14 60 a4 4 0 0 1 -4 -4 L10 8 a4 4 0 0 1 4 -4 Z M20 36 L44 36 L44 52 L20 52 Z"/><rect x="30" y="32" width="4" height="8"/><circle cx="32" cy="44" r="2"/><rect x="20" y="14" width="24" height="3" rx="1.5"/></svg>'
+const CARE_CONVERT_ICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="white"><circle cx="22" cy="14" r="8"/><circle cx="42" cy="14" r="8"/><rect x="5" y="20" width="54" height="10" rx="2"/><rect x="9" y="30" width="46" height="28" rx="2"/><rect x="28" y="14" width="8" height="44"/></svg>'
 const careUsp = [
-  { theme: 'green', title: '영화, 여행, 건강검진 등<br /><strong>일상 할인 지원</strong>', icon: 's05-icon-discount.svg' },
-  { theme: 'blue',  title: '<strong>4가지 생활 보험</strong><br />지원 서비스',      icon: 's05-icon-insurance-1.svg' },
-  { theme: 'gray',  title: '만기 시 <strong>100% 환급</strong>',                     icon: 's05-icon-refund.svg' },
-]
-const rentals = [
-  { name: '쿠쿠 인스퓨어<br />지하수 냉온정수기', sub: 'CP-WR602HW(48M/4C)방문', img: 's05-rental-cuckoo.png', badges: [{ tone: 'dark', text: '기존 대비 X4배 지원중' }, { tone: 'primary', text: '현금 사은품' }] },
-  { name: '에어랩 i.d. 멀티 스타일러<br />앤 드라이어(모든색상)', img: 's05-rental-airwrap.png' },
-  { name: '식기세척기 카운터탑<br />6인용 (열풍건조)', sub: 'DW30FB305CE0(화이트,베이지)', img: 's05-rental-dishwasher.png' },
-  { name: '엘지 스탠바이미<br />27인치 TV', sub: '27ART10DSPL', img: 's05-rental-standbyme.png' },
-  { name: '삼성 냉장고 298L<br />(메탈 리파인드이녹스)', img: 's05-rental-fridge.png' },
-]
-const bonuses = [
-  { img: 's05-bonus-dryer-9kg.png', text: '제휴카드 사용 시,<br /><strong>렌탈 비용 최대 0원</strong>' },
-  { img: 's05-bonus-gift-3.png',    text: '최대 <strong>100만원 페이백</strong>' },
+  { titlePlain: '가전 렌탈',          title: '특가로 저렴하게<br /><strong>가전 렌탈</strong>',                                  icon: `data:image/svg+xml;utf8,${encodeURIComponent(CARE_RENTAL_ICON_SVG)}` },
+  { titlePlain: '일상 할인 지원',     title: '영화, 여행, 건강검진 등<br /><strong>일상 할인 지원</strong>',                     icon: `${CDN_LIFECARE}/plan01-icon3.webp?q=80&f=webp` },
+  { titlePlain: '만기 시 상품 전환', title: '만기 시, 크루즈·어학연수·웨딩<br /><strong>등 상품으로 전환 가능</strong>',     icon: `data:image/svg+xml;utf8,${encodeURIComponent(CARE_CONVERT_ICON_SVG)}` },
 ]
 
+// §5b 두번째 혜택 — 일상 할인 (ref 혜택2.PNG 매핑, 6 cards)
+const dailyBenefits = [
+  { img: 's07-866.png', title: '아정당 라이프 상조 전용 회원몰', desc: '회원몰에서만 가능한\n24시간 특가·타임세일 등 단독 혜택' },
+  { img: 's07-857.png', title: '영화관람권 최대 20% 할인',        desc: 'CGV·메가박스·롯데시네마 모두 가능!\n월 1회 동반 1인 한정' },
+  { img: 's07-859.png', title: '온라인 강의 최대 60% 할인',       desc: '어학, 투자, 직무 강의 등\n온라인 자기계발 콘텐츠 할인 제공' },
+  { img: 's07-864.png', title: '건강검진 최대 할인 혜택',          desc: '기업체 임직원 전용 검진가로\n본인, 부모, 가족, 지인까지 이용' },
+  { img: 's07-860.png', title: '여행·기차 특가 서비스',            desc: '코레일 여행 상품 최대 20% 특가 할인\n여행사 별 국내/해외 상품 상시 할인' },
+  { img: 's07-865.png', title: '파라다이스 외 200여개 리조트',     desc: '기업체 임직원 전용 금액으로\n본인, 부모, 가족, 지인까지 이용' },
+]
+
+// §5c 세번째 혜택 — 전환 서비스 (원본 lifecare-benefit-service: text 가 이미지 내부에 베이크된 세로 카드)
+const conversionOptions = [
+  { img: 's05c-service-01.webp', title: '크루즈 여행' },
+  { img: 's05c-service-02.webp', title: '영화관람권 최대 20% 할인' },
+  { img: 's05c-service-03.webp', title: '아정당 인테리어 서비스 / 아정당 단독 혜택' },
+  { img: 's05c-service-06.webp', title: '국내·외 프라이빗 골프클럽 라운딩 지원' },
+  { img: 's05c-service-07.webp', title: '5성급 호텔 예식 제휴' },
+  { img: 's05c-service-04.webp', title: '아정당 청소 서비스 / 아정당 단독 혜택' },
+]
+const rentals = [
+  { nameAlt: '쿠쿠 인스퓨어 지하수 냉온정수기',  name: '쿠쿠 인스퓨어<br /><strong>지하수 냉온정수기</strong>',  img: 's05-rental-cuckoo.png'     },
+  { nameAlt: '다이슨 에어랩 멀티 스타일러',     name: '다이슨 에어랩<br /><strong>멀티 스타일러</strong>',     img: 's05-rental-airwrap.png'    },
+  { nameAlt: '삼성 카운터탑 6인용 식기세척기', name: '삼성 카운터탑<br /><strong>6인용 식기세척기</strong>', img: 's05-rental-dishwasher.png' },
+  { nameAlt: 'LG전자 27인치 스탠바이미',        name: 'LG 전자 27인치<br /><strong>스탠바이미</strong>',        img: 's05-rental-standbyme.png'  },
+  { nameAlt: '삼성 298ℓ 투도어 냉장고',          name: '삼성 298ℓ<br /><strong>투도어 냉장고</strong>',          img: 's05-rental-fridge.png'     },
+]
 // §6 플랜 TOP3
 const plans = [
   {
@@ -536,63 +543,44 @@ const plans = [
     bullets: [
       '만기 시 돈은 100% 환급 돼요',
       '모든 멤버십 혜택을 다 누릴 수 있어요',
-      '2인을 위한 장례를 이 상품 하나로 진행할 수 있어요',
+      '2인을 위한 장례를 이 상품 하나로',
       '완납 후 장례 대신 10가지 상품 중 골라 할인가로 전환할 수 있어요',
     ],
   },
 ]
 
-// §7 멤버십 혜택 (시안 §7 의 다수 일러스트 카드 중 핵심 6개로 요약)
-const membershipBenefits = [
-  { img: 's07-rect-25337.png', title: '영화 할인', desc: 'CGV·메가박스 등 영화관 할인' },
-  { img: 's07-rect-25339.png', title: '건강검진 지원', desc: '연 1회 종합 건강검진' },
-  { img: 's07-rect-25340.png', title: '여행 할인', desc: '국내·해외 여행 패키지 할인' },
-  { img: 's07-rect-25341.png', title: '생활 서비스', desc: '하우스 클리닝·세탁 서비스' },
-  { img: 's07-rect-25342.png', title: '쇼핑 할인', desc: '멤버십 몰 최대 20% 할인' },
-  { img: 's07-getty-a12296758.png', title: '최대 5천만원 무료보험', desc: '4종 생활 보험 자동 가입' },
-]
-
-// §8 100원 상조 상세
-const onecoinUsp = [
-  { icon: 's08-chart-arrow.svg',   text: '<strong>100원으로 지금 장례 가격 그대로</strong><br />미래 장례 비용을 보장해요.' },
-  { icon: 's08-icon-signature.svg', text: '불필요한 상담 없이 <strong>전자서명 다이렉트 가입</strong>이 가능해요.' },
-  { icon: 's08-icon-shield.svg',    text: '<strong>예치금 50% 보호</strong><br />표준약관 준수 즉시 행사 가능해요' },
-]
-// 장례인력 / 장례용품 — sj_sfile 의 100-info-icon-{1..12}.webp CDN 직접 사용 (피그마 추출 자산은 동일 이미지 재사용으로 부정확)
+// §8 장례인력 (3) + 장례용품 (9) — local s08-staff-*/s08-supply-* (lifecare CDN 100-info-icon-N 다운로드)
 const staff = [
-  { name: '장례지도사',    img: `${CDN_LIFECARE}/100-info-icon-1.webp?q=80&f=webp` },
-  { name: '입관보조',      img: `${CDN_LIFECARE}/100-info-icon-2.webp?q=80&f=webp` },
-  { name: '장례도우미',    img: `${CDN_LIFECARE}/100-info-icon-3.webp?q=80&f=webp` },
+  { name: '장례지도사',    img: cdn('s08-staff-1.webp') },
+  { name: '입관보조',      img: cdn('s08-staff-2.webp') },
+  { name: '장례도우미',    img: cdn('s08-staff-3.webp') },
 ]
 const supplies = [
-  { name: '관',            img: `${CDN_LIFECARE}/100-info-icon-4.webp?q=80&f=webp` },
-  { name: '유골함',        img: `${CDN_LIFECARE}/100-info-icon-5.webp?q=80&f=webp` },
-  { name: '저마수의',      img: `${CDN_LIFECARE}/100-info-icon-6.webp?q=80&f=webp` },
-  { name: '상복',          img: `${CDN_LIFECARE}/100-info-icon-7.webp?q=80&f=webp` },
-  { name: '의전용품',      img: `${CDN_LIFECARE}/100-info-icon-8.webp?q=80&f=webp` },
-  { name: '차량',          img: `${CDN_LIFECARE}/100-info-icon-9.webp?q=80&f=webp` },
-  { name: '입관용품',      img: `${CDN_LIFECARE}/100-info-icon-10.webp?q=80&f=webp` },
-  { name: '고인 이송차량', img: `${CDN_LIFECARE}/100-info-icon-11.webp?q=80&f=webp` },
-  { name: '헌화꽃',        img: `${CDN_LIFECARE}/100-info-icon-12.webp?q=80&f=webp` },
+  { name: '관',            img: cdn('s08-supply-1.webp') },
+  { name: '유골함',        img: cdn('s08-supply-2.webp') },
+  { name: '저마수의',      img: cdn('s08-supply-3.webp') },
+  { name: '상복',          img: cdn('s08-supply-4.webp') },
+  { name: '의전용품',      img: cdn('s08-supply-5.webp') },
+  { name: '차량',          img: cdn('s08-supply-6.webp') },
+  { name: '입관용품',      img: cdn('s08-supply-7.webp') },
+  { name: '고인 이송차량', img: cdn('s08-supply-8.webp') },
+  { name: '헌화꽃',        img: cdn('s08-supply-9.webp') },
 ]
 
-// §9 100원 보장 차트
+// §8 차트 — 현재 → 5년 → 10년 (graph.webp 매핑, 250/330/480 만원)
 const chartBars = [
-  { label: '5년 뒤',  amount: '330만원', height: 162, current: false },
-  { label: '10년 뒤', amount: '480만원', height: 200, current: false },
-  { label: '현재',    amount: '250만원', height:  95, current: true  },
+  { label: '현재',    amount: '250만원', height: 125, current: true  },
+  { label: '5년 뒤',  amount: '330만원', height: 165, current: false },
+  { label: '10년 뒤', amount: '480만원', height: 240, current: false },
 ]
 
 // §10 전문성 4 카드
 const expertise = [
   { title: '1:1 전담 장례지도사 배정',         desc: '전담 장례지도사가 배정되어<br />처음부터 끝까지 함께합니다.',                              img: 's10-card-1-bg.png' },
   { title: '대통령장 진행 전문 업체 제휴',     desc: '국가 의전급 장례 경험을 가진<br />전문 파트너와 함께 진행합니다.',                          img: 's10-card-2-bg.png' },
-  { title: '유가족 편의 서비스',               desc: '부고알림, 조문 답례품, 사후 행정지원,<br />기일 알림까지 라이프케어가 지원합니다.',         img: 's10-card-3-bg.png' },
-  { title: '고객 만족 1위 제사 음식 브랜드 제휴', desc: '고객 만족 1위 제사 음식 브랜드와 제휴하여<br />조문객 대접에도 소홀하지 않습니다',         img: 's10-card-4-bg.png' },
+  { title: '유가족 편의 서비스',               desc: '부고알림, 조문 답례품, 사후 행정지원,<br />기일 알림까지 지원합니다.',                       img: 's10-card-3-bg.png' },
+  { title: '고객 만족 1위 제사 음식 브랜드 제휴', desc: '고객만족 1위 브랜드 제휴로<br />조문객 대접에도 소홀하지 않습니다.',                       img: 's10-card-4-bg.png' },
 ]
-
-// §11 전국 11지부
-const branches = ['서울지부', '강원지부', '경기지부', '충청지부', '대구지부', '전북지부', '부산지부', '전남지부', '경남지부', '제주지부']
 
 const vReveal = {
   mounted(el) {
@@ -668,6 +656,14 @@ const vReveal = {
   word-break: keep-all;
   letter-spacing: -0.02em;
 }
+.title-hl {
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: 100% 38%;
+  padding: 0 2px;
+}
+.title-hl--green { background-image: linear-gradient(transparent 0, rgba(60, 194, 99, 0.35) 0); }
+.title-hl--blue  { background-image: linear-gradient(transparent 0, rgba(20, 92, 230, 0.20) 0); }
 .section-header {
   display: flex;
   flex-direction: column;
@@ -780,8 +776,16 @@ const vReveal = {
   color: var(--color-white);
   letter-spacing: -0.02em;
   word-break: keep-all;
+  white-space: nowrap;
 }
 .hero-title strong { font-weight: var(--font-weight-bold); color: var(--color-white); }
+.hero-sub {
+  margin: var(--space-3) 0 0;
+  font: var(--font-weight-regular) var(--font-size-body-l)/1.4 var(--font-family-base);
+  color: var(--color-white);
+  opacity: 0.92;
+}
+.hero-title .break-mobile { display: none; }
 .hero-usp {
   list-style: none;
   margin: 0 0 var(--space-4);
@@ -826,8 +830,10 @@ const vReveal = {
   .hero-brand { top: 0.75rem; left: 0.75rem; }
   .hero-brand-icon, .hero-brand-icon-img { height: 17.6px; }
   .hero-brand-text { font-size: 0.9rem; line-height: 17.6px; }
-  .hero-title { font-size: var(--font-size-heading-m); line-height: var(--line-height-heading-m); margin-bottom: var(--space-3); }
+  .hero-title { font-size: var(--font-size-heading-m); line-height: var(--line-height-heading-m); margin-bottom: var(--space-3); white-space: normal; }
+  .hero-title .break-mobile { display: inline; }
   .hero-eyebrow { font-size: var(--font-size-body-xs); margin-bottom: var(--space-1); }
+  .hero-sub { display: none; }
   .hero-cta { height: 40px; line-height: 40px; padding: 0 var(--space-4); font-size: var(--font-size-button-m); }
 }
 
@@ -836,26 +842,64 @@ const vReveal = {
    ============================================ */
 .painpoint { background: var(--color-bg-default); }
 
-/* simple horizontal pills (처음 디자인) — light gray BG
-   margin-bottom > section-header 기본값 — "걱정" 섹션과 "해결" 섹션 사이 의미적 분리 */
+/* §2 opener — section-title 보다 작고 "한마디 메시지" 느낌. 좌우 hairline 으로 tagline 분위기 */
+.painpoint-message {
+  margin: 0;
+  text-align: center;
+  font: var(--font-weight-medium) 19px/1.4 var(--font-family-base);
+  color: var(--color-text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  word-break: keep-all;
+}
+.painpoint-message::before,
+.painpoint-message::after {
+  content: '';
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  background: var(--color-border);
+  flex-shrink: 0;
+}
+.painpoint-message .accent {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-600);
+}
+@media (max-width: 1024px) {
+  .painpoint-message { font-size: var(--font-size-body-l); gap: var(--space-3); }
+  .painpoint-message::before,
+  .painpoint-message::after { width: 20px; }
+}
+
+/* 지그재그 말풍선 — portrait + light-gray bubble (꼬리표 포함), 세로 오버랩
+   하단에 다음 섹션 타이틀로 이어지는 vertical line (::after) */
 .painpoint-pills {
   list-style: none;
-  margin: 0 0 calc(var(--space-8) + var(--space-4));   /* 80px PC */
+  margin: 0 auto;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-3);
-  align-items: stretch;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+}
+.painpoint-pills::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 96px;
+  background: linear-gradient(to bottom, var(--color-gray-300), var(--color-gray-200));
+  margin: var(--space-6) auto 0;
 }
 .painpoint-pill {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-bg-subtle);
-  border-radius: var(--radius-pill);
-  min-height: 88px;
+  max-width: 90%;
+  position: relative;
 }
+.painpoint-pill + .painpoint-pill { margin-top: var(--space-3); }
+.painpoint-pill--left  { align-self: flex-start; }
+.painpoint-pill--right { align-self: flex-end; flex-direction: row-reverse; }
 .painpoint-portrait {
   flex-shrink: 0;
   width: 56px;
@@ -864,20 +908,46 @@ const vReveal = {
   background-size: cover;
   background-position: center;
   background-color: var(--color-gray-200);
+  position: relative;
+  z-index: 2;
 }
-.painpoint-pill-text {
+.painpoint-bubble {
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-gray-100);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-lg);
+  position: relative;
+}
+/* 꼬리표 — rotated square가 portrait 쪽으로 삐져나옴 (bubble과 동일 컬러라 안쪽은 자연 merge) */
+.painpoint-bubble::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  background: var(--color-gray-100);
+  transform: translateY(-50%) rotate(45deg);
+  border-radius: 2px;
+}
+.painpoint-pill--left  .painpoint-bubble::before { left: -5px; }
+.painpoint-pill--right .painpoint-bubble::before { right: -5px; }
+
+.painpoint-bubble-text {
   margin: 0;
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 6px;
   font: var(--font-weight-regular) var(--font-size-body-s)/1.4 var(--font-family-base);
   color: var(--color-text-secondary);
+  white-space: nowrap;
 }
-.painpoint-pill-text strong {
+.painpoint-bubble-text strong {
   font: var(--font-weight-bold) var(--font-size-body-m)/1.4 var(--font-family-base);
   color: var(--color-text-primary);
   letter-spacing: -0.01em;
 }
+.painpoint-resolve { margin-top: var(--space-5); }
 
 /* USP grid — centered text, no connector */
 .usp-grid {
@@ -893,46 +963,60 @@ const vReveal = {
   flex-direction: column;
   gap: var(--space-3);
   background: transparent;
-  text-align: center;
 }
-.usp-card-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  margin: 0;
-  color: var(--color-text-primary);
-  font: var(--font-weight-bold) var(--font-size-heading-m)/1.3 var(--font-family-base);
-  letter-spacing: -0.01em;
-}
-.usp-card-check {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  display: block;
-}
-.usp-card-img {
-  height: 184px;
+.usp-card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
   background-size: cover;
   background-position: center;
   background-color: var(--color-gray-100);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-4);
+  box-sizing: border-box;
+}
+.usp-card-media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0) 85%);
+  pointer-events: none;
+}
+.usp-card-title {
+  position: relative;
+  margin: 0;
+  color: #fff;
+  font: var(--font-weight-bold) var(--font-size-heading-l)/1.2 var(--font-family-base);
+  letter-spacing: -0.01em;
+  text-align: center;
+  word-break: keep-all;
 }
 .usp-card-body {
+  position: relative;
   margin: 0;
   padding: 0;
   text-align: center;
   font: var(--font-weight-regular) var(--font-size-body-s)/1.55 var(--font-family-base);
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.92);
+  word-break: keep-all;
 }
 
 @media (max-width: 1024px) {
-  .painpoint-pills { grid-template-columns: 1fr; gap: var(--space-2); margin-bottom: calc(var(--space-7) + var(--space-3)); }   /* 56px Mo */
-  .painpoint-pill { min-height: 76px; padding: var(--space-2) var(--space-4); }
+  .painpoint-pills { max-width: 100%; gap: var(--space-1); }
+  .painpoint-pill + .painpoint-pill { margin-top: 0; }
+  .painpoint-pills::after { height: 64px; margin-top: var(--space-5); }
   .painpoint-portrait { width: 48px; height: 48px; }
-  .painpoint-pill-text strong { font-size: var(--font-size-body-s); }
+  .painpoint-bubble { padding: var(--space-2) var(--space-4); }
+  .painpoint-bubble-text strong { font-size: var(--font-size-body-s); }
   .usp-grid { grid-template-columns: 1fr; gap: var(--space-5); }
-  .usp-card-img { height: 160px; }
+  .usp-card-media { padding: var(--space-3); }
+  .usp-card-title { font-size: var(--font-size-heading-m); }
 }
 
 /* ============================================
@@ -1068,7 +1152,7 @@ const vReveal = {
 /* ============================================
    §4 작은 차이들 4 — Value Props 4-up
    ============================================ */
-.differences { background: var(--color-bg-accent); }
+.differences { background: transparent; }
 .differences-title {
   margin: 0 0 var(--space-8);
   text-align: center;
@@ -1084,74 +1168,104 @@ const vReveal = {
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-5);
 }
-.diff-card {
-  display: flex;
-  flex-direction: column;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background: var(--color-white);
-}
-.diff-card-text {
-  padding: var(--space-6) var(--space-5);
-}
-.diff-card-title {
-  margin: 0 0 var(--space-3);
-  font: var(--font-weight-bold) var(--font-size-heading-l)/var(--line-height-heading-l) var(--font-family-base);
-  color: var(--color-text-primary);
+.diff-item {
   display: flex;
   flex-direction: column;
 }
-.diff-card-title-em { color: var(--color-primary-600); }
-.diff-card-desc {
-  margin: 0;
-  font: var(--font-weight-regular) var(--font-size-body-s)/var(--line-height-body-s) var(--font-family-base);
-  color: var(--color-text-secondary);
-}
-.diff-card-img {
-  height: 160px;
+.diff-item-media { margin-bottom: var(--space-3); }
+.diff-item-title + .diff-item-desc { margin-top: 2px; }
+.diff-item-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
   background-size: cover;
   background-position: center;
   background-color: var(--color-gray-100);
-  margin-top: auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-4);
+  box-sizing: border-box;
 }
+.diff-item-media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 80%);
+  pointer-events: none;
+}
+.diff-item-title {
+  position: relative;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-start;
+  column-gap: 6px;
+  row-gap: 2px;
+  color: #fff;
+  word-break: keep-all;
+  text-align: left;
+}
+.diff-item-title-rest {
+  font: var(--font-weight-regular) var(--font-size-body-s)/1.3 var(--font-family-base);
+  color: rgba(255, 255, 255, 0.85);
+}
+.diff-item-title-em {
+  font: var(--font-weight-bold) var(--font-size-heading-m)/1.2 var(--font-family-base);
+  color: #fff;
+}
+.diff-item-desc {
+  margin: 0;
+  padding-left: var(--space-3);
+  font: var(--font-weight-regular) var(--font-size-body-s)/var(--line-height-body-s) var(--font-family-base);
+  color: var(--color-text-secondary);
+  word-break: keep-all;
+  text-align: left;
+}
+.diff-item-desc :deep(br) { display: inline; }
 @media (max-width: 1024px) {
-  .differences-title { font-size: var(--font-size-heading-xl); line-height: var(--line-height-heading-xl); margin-bottom: var(--space-6); }
-  .differences-grid { grid-template-columns: 1fr; }
-  .diff-card-text { padding: var(--space-5) var(--space-4); }
-  .diff-card-img { height: 128px; }
+  /* 횡스크롤: 1개 + 다음 카드 peek */
+  .differences-grid {
+    display: flex;
+    flex-direction: row;
+    grid-template-columns: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--space-3);
+    gap: var(--space-3);
+    padding: 0 var(--space-3) var(--space-3);
+    margin: 0 calc(-1 * var(--space-3));
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .differences-grid::-webkit-scrollbar { display: none; }
+  .diff-item {
+    flex: 0 0 86%;
+    scroll-snap-align: start;
+  }
+  .diff-item:first-child { margin-left: var(--space-3); }
+  .diff-item-title-em { font-size: var(--font-size-heading-m); }
 }
 
 /* ============================================
    §5 라이프 케어 플랜 상세 (USP 3 + Catalog 5 + Bonus 2)
    ============================================ */
-.care-detail { background: var(--color-bg-subtle); padding-top: 0 !important; }
-.care-strip {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: 6px var(--space-4);
+.care-detail {
   background: transparent;
-  color: var(--color-text-tertiary);
-  text-align: center;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--color-border);
-  font: var(--font-weight-medium) var(--font-size-button-s)/1 var(--font-family-base);
-  margin: var(--space-8) auto var(--space-5);
-  letter-spacing: 0;
+  padding-top: 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.care-strip::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-primary-500);
-  flex-shrink: 0;
-}
-.care-detail { display: flex; flex-direction: column; align-items: center; }
-.care-detail > :not(.care-strip) { align-self: stretch; }
+.care-detail > * { align-self: stretch; }
+.care-detail-head { margin-bottom: var(--space-6); }
 .care-detail-title {
   margin: var(--space-8) 0;
   text-align: center;
@@ -1163,10 +1277,35 @@ const vReveal = {
 }
 .care-detail-title-eyebrow { font: var(--font-weight-regular) var(--font-size-body-l)/var(--line-height-body-l) var(--font-family-base); color: var(--color-text-secondary); margin-bottom: var(--space-2); }
 .care-detail-title-em { color: var(--color-primary-600); }
+.care-intro-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-7);
+  margin: 0 auto var(--space-8);
+}
+.care-intro-person {
+  width: 120px;
+  height: auto;
+  flex-shrink: 0;
+  pointer-events: none;
+  user-select: none;
+}
+.care-intro-title {
+  margin: 0;
+  text-align: center;
+  font: var(--font-weight-bold) var(--font-size-heading-l)/1.35 var(--font-family-base);
+  color: var(--color-text-primary);
+  word-break: keep-all;
+}
+.care-intro-title .accent--green {
+  color: var(--color-primary-600);
+}
 .care-usp {
   list-style: none;
-  margin: 0 0 var(--space-8);
+  margin: 0 auto var(--space-8);
   padding: 0;
+  max-width: 1080px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-3);
@@ -1178,22 +1317,21 @@ const vReveal = {
   justify-content: center;
   gap: var(--space-3);
   padding: var(--space-6) var(--space-3);
-  border-radius: var(--radius-md);
-  color: var(--color-white);
+  border-radius: var(--radius-lg);
   min-height: 184px;
+  background: var(--color-gray-50);
 }
-.care-usp-card { background: var(--color-white); border: 1px solid var(--color-border); }
 .care-usp-icon {
-  width: 64px;
-  height: 64px;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+  width: 80px;
+  height: 80px;
+  -webkit-mask: var(--icon-url) center / contain no-repeat;
+          mask: var(--icon-url) center / contain no-repeat;
+  background-color: var(--color-primary-600);
 }
 .care-usp-title {
   margin: 0;
   text-align: center;
-  font: var(--font-weight-regular) var(--font-size-heading-m)/var(--line-height-heading-m) var(--font-family-base);
+  font: var(--font-weight-regular) var(--font-size-heading-s)/1.4 var(--font-family-base);
   color: var(--color-text-secondary);
 }
 .care-usp-title strong { font-weight: var(--font-weight-bold); color: var(--color-text-primary); }
@@ -1216,19 +1354,26 @@ const vReveal = {
   grid-template-columns: repeat(5, 1fr);
   gap: var(--space-2);
 }
+.rental-framed {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5) var(--space-4);
+  margin: 0 0 var(--space-8);
+}
+.rental-framed > .rental-grid { margin-bottom: var(--space-5); }
+.rental-framed > .care-detail-cta { margin: 0 auto; }
 .rental-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3);
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-3);
   background: var(--color-white);
   border-radius: var(--radius-lg);
-  min-height: 240px;
 }
 .rental-card-img {
   width: 100%;
-  height: 110px;
+  height: 130px;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -1236,40 +1381,24 @@ const vReveal = {
 .rental-card-name {
   margin: 0;
   text-align: center;
-  font: var(--font-weight-bold) var(--font-size-button-l)/var(--line-height-button-l) var(--font-family-base);
+  font: var(--font-weight-regular) 15px/1.45 var(--font-family-base);
+  color: var(--color-text-secondary);
+  word-break: keep-all;
+}
+.rental-card-name strong {
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
 }
-.rental-card-sub {
-  margin: 0;
-  text-align: center;
-  font-size: 10px;
-  color: var(--color-text-tertiary);
-}
-.rental-card-badges {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  margin-top: auto;
-  width: 100%;
-}
-.rental-card-badge {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  font-size: 12px;
-  text-align: center;
-  color: var(--color-white);
-}
-.rental-card-badge--dark { background: var(--color-gray-100); color: var(--color-gray-800); }
-.rental-card-badge--primary { background: var(--color-primary-50); color: var(--color-primary-700); }
 
 .care-detail-cta {
   display: block;
+  width: fit-content;
   margin: 0 auto var(--space-8);
-  max-width: 360px;
+  padding: 0 var(--space-7);
   height: 56px;
   line-height: 56px;
   text-align: center;
+  white-space: nowrap;
   background: var(--color-primary-600);
   color: var(--color-white);
   text-decoration: none;
@@ -1277,6 +1406,230 @@ const vReveal = {
   font: var(--font-weight-bold) var(--font-size-button-l)/56px var(--font-family-base);
 }
 .care-detail-cta:hover { background: var(--color-primary-700); }
+
+/* ============================================
+   §5a/b/c 혜택 상세 — 라이프 케어 플랜 3가지 혜택 deep-dive
+   ============================================ */
+.benefit-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.benefit-detail > * { align-self: stretch; }
+.benefit-desc {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: var(--space-3);
+  margin-bottom: 0;
+  font: var(--font-weight-regular) 17px/1.5 var(--font-family-base);
+  color: var(--color-text-secondary);
+}
+.benefit-desc strong { font-weight: var(--font-weight-bold); color: var(--color-text-primary); }
+
+/* 혜택 헤더 — 보더 없이 chip + desc */
+.benefit-head { margin-bottom: var(--space-4); }
+.benefit-head + .benefit-head { margin-top: var(--space-8); }
+
+/* 혜택 타이틀을 한 pill chip 으로 감싸기 */
+.benefit-chip {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  padding: var(--space-3) var(--space-7);
+  background: var(--color-primary-50);
+  border-radius: var(--radius-pill);
+  margin: 0;
+}
+.benefit-headline-text {
+  margin: 0;
+  text-align: center;
+  font: var(--font-weight-bold) 19px/1.2 var(--font-family-base);
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .benefit-chip { padding: var(--space-2) var(--space-5); }
+  .benefit-headline-text { font-size: 17px; white-space: normal; }
+  .benefit-desc { font-size: 15px; text-align: center; margin-top: var(--space-2); }
+  .benefit-head .section-header,
+  .benefit-head { gap: var(--space-2); }
+}
+
+/* 그리드 위 라벨 — 2줄, 첫 줄에 마커 하이라이트, 줄 간격 최소 */
+.benefit-grid-label {
+  margin: 0 0 var(--space-5);
+  text-align: center;
+  font: var(--font-weight-regular) var(--font-size-body-l)/1.3 var(--font-family-base);
+  color: var(--color-text-secondary);
+  align-self: center !important;
+  word-break: keep-all;
+}
+.benefit-grid-label-hl {
+  background: linear-gradient(transparent 60%, var(--color-primary-100) 60%);
+  padding: 0 4px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+.benefit-grid-label strong {
+  display: inline-block;
+  margin-top: 0;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-heading-m);
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+/* 6-item perk 그리드 (두번째 혜택) — border 없는 image + title + desc */
+.benefit-perk-grid {
+  list-style: none;
+  margin: 0 0 var(--space-8);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+.benefit-perk-grid--service {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.benefit-perk-grid--framed {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5) var(--space-4);
+  gap: var(--space-4);
+}
+.benefit-perk {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-gray-50);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+}
+
+/* §5b: 세로 스택 — 아이콘 위 + 타이틀/디스크립션 아래 (ref 혜택2.PNG 매핑). 3-col, 1024 full */
+.benefit-perk--icon-top {
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  padding: var(--space-4) var(--space-3);
+  border-radius: 0;
+  gap: var(--space-2);
+}
+.benefit-perk--icon-top .benefit-perk-img {
+  width: 96px;
+  height: 96px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  margin-bottom: var(--space-1);
+}
+.benefit-perk--icon-top .benefit-perk-title,
+.benefit-perk--icon-top .benefit-perk-desc { text-align: center; }
+
+/* §5c: 이미지 오버레이 — 타이틀이 이미지 안에 들어감, 회색 배경 없음 */
+.benefit-perk--overlay {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  gap: var(--space-3);
+}
+.benefit-perk-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--color-gray-100);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: var(--space-4);
+  box-sizing: border-box;
+}
+.benefit-perk-media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.25) 45%, rgba(0, 0, 0, 0) 75%);
+  pointer-events: none;
+}
+.benefit-perk--overlay .benefit-perk-title {
+  position: relative;
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  font: var(--font-weight-bold) var(--font-size-heading-s)/1.2 var(--font-family-base);
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+}
+/* §5c 전환 서비스 — 원본 service-*.webp (텍스트가 이미지에 베이크). 이미지 그대로 출력 */
+.benefit-perk--service {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  overflow: hidden;
+}
+.benefit-perk-service-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-lg);
+}
+
+/* 아정당 단독 혜택 배지 — 이미지 상단 우측 */
+.benefit-perk-badge {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 2;
+  background: var(--color-primary-600);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font: var(--font-weight-medium) 11px/1.2 var(--font-family-base);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.benefit-perk-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--color-gray-50);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+}
+.benefit-perk-img--icon {
+  aspect-ratio: 1 / 1;
+  background-size: contain;
+  background-color: transparent;
+}
+.benefit-perk-title {
+  margin: 0 0 4px;
+  text-align: center;
+  font: var(--font-weight-bold) var(--font-size-heading-s)/1.3 var(--font-family-base);
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+.benefit-perk-desc {
+  margin: 0;
+  text-align: center;
+  font: var(--font-weight-regular) var(--font-size-body-s)/1.5 var(--font-family-base);
+  color: var(--color-text-secondary);
+  word-break: keep-all;
+}
+
+@media (max-width: 1024px) {
+  .benefit-perk-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  .benefit-perk--icon-top .benefit-perk-img { width: 80px; height: 80px; }
+  .benefit-perk--icon-top .benefit-perk-title { font-size: 15px; font-weight: var(--font-weight-bold); }
+  .benefit-perk--icon-top .benefit-perk-desc { font-size: 13px; }
+}
 
 .bonus-title {
   margin: 0 0 var(--space-6);
@@ -1336,8 +1689,16 @@ const vReveal = {
 .bonus-card-text strong { color: var(--color-primary-600); }
 @media (max-width: 1024px) {
   .care-detail-title { font-size: var(--font-size-heading-xl); line-height: var(--line-height-heading-xl); }
+  .care-intro-row { gap: var(--space-4); margin-bottom: var(--space-6); }
+  .care-intro-person { width: 72px; }
+  .care-intro-title { font-size: var(--font-size-heading-m); }
   .care-usp { grid-template-columns: 1fr; }
+  .care-usp-card { min-height: 0; padding: var(--space-5) var(--space-3); }
   .rental-grid { grid-template-columns: repeat(2, 1fr); }
+  .rental-card:nth-child(5) { display: none; }
+  .rental-card { gap: var(--space-1); padding: var(--space-2) var(--space-2); }
+  .rental-card-img { height: 96px; }
+  .rental-card-name { line-height: 1.3; }
   .bonus-grid { grid-template-columns: 1fr; }
   .bonus-card-body { padding-top: var(--space-4); }
 }
@@ -1345,7 +1706,7 @@ const vReveal = {
 /* ============================================
    §6 플랜 TOP3 — vertical comparison
    ============================================ */
-.plan-top3 { background: var(--color-bg-subtle); }
+.plan-top3 { background: transparent; margin-top: calc(-1 * var(--space-8)); }
 .plan-top3-title {
   margin: 0 0 var(--space-3);
   text-align: center;
@@ -1366,20 +1727,20 @@ const vReveal = {
   list-style: none;
   margin: 0 auto var(--space-6);
   padding: 0;
-  max-width: 720px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
 }
 .plan-card {
   background: var(--color-white);
-  border-radius: var(--radius-md);
-  padding: var(--space-6) var(--space-7);
-  display: grid;
-  grid-template-columns: 1fr 1.5fr auto;
-  gap: var(--space-7);
-  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
 }
+.plan-card-head { display: flex; flex-direction: column; gap: var(--space-2); }
 .plan-card-tags { display: flex; gap: var(--space-1); flex-wrap: wrap; margin-bottom: var(--space-3); }
 .plan-card-tag {
   display: inline-block;
@@ -1408,6 +1769,7 @@ const vReveal = {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  flex: 1;
 }
 .plan-card-bullets li {
   font: var(--font-weight-regular) var(--font-size-body-s)/var(--line-height-body-s) var(--font-family-base);
@@ -1423,19 +1785,20 @@ const vReveal = {
   font-weight: var(--font-weight-bold);
 }
 .plan-card-cta {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
+  width: 100%;
+  height: 44px;
   padding: 0 var(--space-4);
-  background: var(--color-primary-600);
-  color: var(--color-white);
+  background: var(--color-gray-100);
+  color: var(--color-text-primary);
   text-decoration: none;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   font: var(--font-weight-bold) var(--font-size-button-m)/1 var(--font-family-base);
   white-space: nowrap;
 }
-.plan-card-cta:hover { background: var(--color-primary-700); }
+.plan-card-cta:hover { background: var(--color-gray-200); }
 .plan-top3-more {
   display: block;
   margin: 0 auto;
@@ -1452,8 +1815,25 @@ const vReveal = {
 .plan-top3-more:hover { background: var(--color-primary-700); }
 @media (max-width: 1024px) {
   .plan-top3-title { font-size: var(--font-size-heading-xl); line-height: var(--line-height-heading-xl); }
-  .plan-card { grid-template-columns: 1fr; gap: var(--space-4); padding: var(--space-5) var(--space-4); text-align: left; }
-  .plan-card-cta { width: 100%; }
+  .plan-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: var(--space-3);
+    padding-bottom: var(--space-3);
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .plan-list::-webkit-scrollbar { display: none; }
+  .plan-card {
+    flex: 0 0 82%;
+    min-width: 260px;
+    max-width: 320px;
+    padding: var(--space-5) var(--space-4);
+    scroll-snap-align: start;
+  }
 }
 
 /* ============================================
@@ -1528,73 +1908,116 @@ const vReveal = {
 /* ============================================
    §8 100원 상조 상세 (3 USP + staff 3 + supply 9)
    ============================================ */
-.onecoin-detail { background: var(--color-bg-subtle); padding-top: 0 !important; display: flex; flex-direction: column; align-items: center; }
-.onecoin-detail > :not(.onecoin-strip) { align-self: stretch; }
-.onecoin-strip {
-  display: inline-flex;
+.onecoin-detail {
+  padding-top: 0 !important;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
-  padding: 6px var(--space-4);
+}
+.onecoin-detail > * { align-self: stretch; }
+.lifesangjo-content > section.onecoin-detail {
+  max-width: 675px;
   background: transparent;
-  color: var(--color-text-tertiary);
-  text-align: center;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--color-border);
-  font: var(--font-weight-medium) var(--font-size-button-s)/1 var(--font-family-base);
-  margin: var(--space-8) auto var(--space-5);
-  letter-spacing: 0;
+  border-radius: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  /* padding-left/right 는 .lifesangjo-content > section 기본 (var(--space-3)) 상속 */
 }
-.onecoin-strip::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-primary-500);
-  flex-shrink: 0;
-}
-.onecoin-detail-title {
-  margin: var(--space-8) 0;
+.onecoin-detail-head { margin-bottom: var(--space-6); }
+/* hero — 100 image + desc (centered) */
+.onecoin-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  font: var(--font-weight-bold) var(--font-size-heading-xxl)/var(--line-height-heading-xxl) var(--font-family-base);
+  padding: var(--space-5) 0 var(--space-3);
+}
+.onecoin-hero-img { width: 120px; height: auto; margin-bottom: var(--space-3); }
+.onecoin-hero-desc {
+  margin: 0 0 var(--space-2);
+  font: var(--font-weight-regular) var(--font-size-body-l)/1.4 var(--font-family-base);
+  color: var(--color-text-secondary);
+}
+.onecoin-hero-title {
+  margin: 0;
+  font: var(--font-weight-bold) var(--font-size-heading-xl)/1.3 var(--font-family-base);
   color: var(--color-text-primary);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  letter-spacing: -0.01em;
 }
-.onecoin-detail-title-eyebrow { font: var(--font-weight-regular) var(--font-size-body-l)/var(--line-height-body-l) var(--font-family-base); color: var(--color-text-secondary); }
-.onecoin-usp {
-  list-style: none;
-  margin: 0 0 var(--space-8);
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.onecoin-usp-card {
-  background: var(--color-white);
-  border-radius: var(--radius-md);
-  padding: var(--space-5) var(--space-7);
+
+/* USP — 아이콘 + 텍스트 (배경 없음, 3개 블록은 중앙정렬 — 아이콘끼리는 좌측정렬) */
+/* 차트 frame 하단 footnote — check icon + 텍스트 */
+.chart-footnote {
+  margin: var(--space-5) 0 0;
   display: flex;
   align-items: center;
-  gap: var(--space-7);
+  justify-content: center;
+  gap: var(--space-2);
+  color: var(--color-primary-600);
+  font: var(--font-weight-medium) 14px/1 var(--font-family-base);
 }
-.onecoin-usp-icon {
-  flex-shrink: 0;
-  width: 96px;
-  height: 96px;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+.chart-footnote svg { flex-shrink: 0; }
+
+/* info — title 말풍선 + desc + 장례인력/장례용품 grid */
+.onecoin-info {
+  padding: var(--space-8) 0 var(--space-5);
+  text-align: center;
 }
-.onecoin-usp-text {
+.onecoin-info-title {
+  margin: 0 0 var(--space-4);
+  font: var(--font-weight-bold) 24px/1.3 var(--font-family-base);
+  color: var(--color-text-primary);
+  text-align: center;
+}
+.onecoin-info-desc {
+  margin: 0 auto var(--space-7);
+  text-align: center;
+  font: var(--font-weight-regular) var(--font-size-body-m)/1.55 var(--font-family-base);
+  color: var(--color-text-secondary);
+}
+.onecoin-info-desc em {
+  font-style: normal;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-700);
+}
+.onecoin-info-cont { display: flex; flex-direction: column; gap: var(--space-6); text-align: left; }
+.onecoin-info-item-title {
   margin: 0;
-  font: var(--font-weight-medium) var(--font-size-heading-m)/1.3 var(--font-family-base);
+  font: var(--font-weight-bold) var(--font-size-heading-m)/1.3 var(--font-family-base);
   color: var(--color-text-primary);
 }
-.onecoin-usp-text strong { color: var(--color-primary-600); font-weight: var(--font-weight-bold); }
+.onecoin-info-item-desc {
+  margin: var(--space-1) 0 0;
+  font: var(--font-weight-regular) var(--font-size-body-s)/1.4 var(--font-family-base);
+  color: var(--color-text-tertiary);
+}
+.onecoin-info-item ul {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+.onecoin-info-item ul li {
+  background: var(--color-gray-50);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+.onecoin-info-item ul li img { width: 60px; height: auto; }
+.onecoin-info-item ul li span {
+  font: var(--font-weight-regular) var(--font-size-body-s)/1 var(--font-family-base);
+  color: var(--color-text-primary);
+}
+.onecoin-info-item-note {
+  margin: var(--space-2) 0 0;
+  font: var(--font-weight-regular) var(--font-size-body-xs)/1.4 var(--font-family-base);
+  color: var(--color-text-tertiary);
+}
 .staff-title {
   margin: 0 0 var(--space-4);
   text-align: center;
@@ -1687,44 +2110,59 @@ const vReveal = {
 }
 .onecoin-cta {
   display: block;
-  max-width: 480px;
+  width: fit-content;
+  max-width: 100%;
   margin: 0 auto;
   height: 56px;
   line-height: 56px;
+  padding: 0 var(--space-8);
   text-align: center;
   background: var(--color-primary-600);
   color: var(--color-white);
   text-decoration: none;
   border-radius: var(--radius-pill);
   font: var(--font-weight-bold) var(--font-size-button-l)/56px var(--font-family-base);
+  white-space: nowrap;
 }
 .onecoin-cta:hover { background: var(--color-primary-700); }
 @media (max-width: 1024px) {
-  .onecoin-detail-title { font-size: var(--font-size-heading-xl); line-height: var(--line-height-heading-xl); }
-  .onecoin-usp-card { padding: var(--space-4); gap: var(--space-4); }
-  .onecoin-usp-icon { width: 64px; height: 64px; }
-  .onecoin-usp-text { font-size: var(--font-size-body-m); }
-  .staff-grid, .supply-grid { grid-template-columns: repeat(3, 1fr); }
+  .onecoin-hero-desc { font-size: 15px; }
 }
 
 /* ============================================
-   §9 100원 보장 차트 — Stats chart
+   §8 차트 (구 §9) — graph.webp 매핑 (현재 → 5년 → 10년, dashed + green callout)
    ============================================ */
-.chart-section { background: linear-gradient(to bottom, var(--color-white), var(--color-primary-50)); }
-.chart-title {
-  margin: 0 0 var(--space-8);
-  text-align: center;
-  font: var(--font-weight-bold) var(--font-size-heading-xxl)/var(--line-height-heading-xxl) var(--font-family-base);
-  color: var(--color-text-primary);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
+/* hero ↔ chart 연결선 (§2 painpoint-pills::after 와 동일 패턴) */
+.onecoin-connector {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--color-gray-300), var(--color-gray-200));
+  margin: var(--space-2) auto var(--space-3);
 }
-.chart-title-eyebrow { font: var(--font-weight-regular) var(--font-size-body-l)/var(--line-height-body-l) var(--font-family-base); color: var(--color-text-secondary); margin-bottom: var(--space-2); }
+
+.onecoin-chart { padding: 0 0 var(--space-5); }
+.onecoin-chart-frame {
+  background: var(--color-gray-50);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6) var(--space-5);
+  margin: 0 0 var(--space-5);
+}
+.onecoin-chart-head { margin-bottom: var(--space-6); }
+.onecoin-chart-title {
+  margin: 0;
+  font: var(--font-weight-bold) var(--font-size-heading-l)/1.3 var(--font-family-base);
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+/* 전체 차트 — 430px 안에 bar 3개 + callout circle 포함 */
 .chart-wrap {
-  max-width: 580px;
-  margin: 0 auto var(--space-7);
   position: relative;
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding-top: 56px;       /* 위: flag/amount 여백 */
+  padding-right: 110px;    /* 우: callout 원형 */
 }
 .chart-bars {
   list-style: none;
@@ -1732,77 +2170,104 @@ const vReveal = {
   padding: 0;
   display: flex;
   align-items: flex-end;
-  justify-content: space-around;
-  height: 280px;
-  border-bottom: 1px dashed var(--color-border);
+  justify-content: space-between;
+  height: 220px;
+  gap: var(--space-3);
 }
 .chart-bar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
-  flex: 0 0 80px;
+  flex: 1 1 0;
+  max-width: 88px;
+  position: relative;
 }
-.chart-bar-amount {
-  margin: 0;
-  font: var(--font-weight-bold) var(--font-size-heading-m)/1 var(--font-family-base);
+.chart-bar-flag {
+  position: relative;
+  margin: 0 0 14px;
+  padding: 8px 14px;
+  background: var(--color-primary-600);
+  color: var(--color-white);
+  border-radius: var(--radius-pill);
+  font: var(--font-weight-bold) 16px/1 var(--font-family-base);
+  white-space: nowrap;
+}
+.chart-bar-flag::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 8px solid var(--color-primary-600);
+}
+.chart-bar-rect {
+  width: 100%;
+  max-width: 88px;
+  background: var(--color-gray-200);
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: center;
+}
+.chart-bar-rect-amount {
+  display: block;
+  padding-top: 10px;
+  font: var(--font-weight-bold) 16px/1 var(--font-family-base);
   color: var(--color-text-primary);
 }
-.chart-bar-amount--current { color: var(--color-primary-600); }
-.chart-bar-rect {
-  width: 80px;
-  background: var(--color-gray-200);
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
-}
-.chart-bar--current .chart-bar-rect {
-  background: linear-gradient(to bottom, var(--color-primary-600), var(--color-primary-500));
-}
+.chart-bar--current .chart-bar-rect { background: var(--color-primary-600); }
 .chart-bar-label {
-  margin: var(--space-1) 0 0;
-  font: var(--font-weight-medium) var(--font-size-body-m)/1 var(--font-family-base);
+  margin: var(--space-2) 0 0;
+  font: var(--font-weight-medium) 14px/1 var(--font-family-base);
   color: var(--color-text-tertiary);
 }
-.chart-bar-label--current { color: var(--color-primary-600); }
+.chart-bar-label--current { color: var(--color-primary-600); font-weight: var(--font-weight-bold); }
+
+/* 현재 bar top → callout 까지 가로 dash */
+.chart-dash {
+  position: absolute;
+  left: 88px;       /* 첫 bar 폭 */
+  right: 100px;     /* callout 직전 */
+  bottom: 125px;    /* 현재 bar height = 125 */
+  border-top: 2px dashed var(--color-gray-300);
+  pointer-events: none;
+}
+
+/* 검정 원형 callout */
 .chart-callout {
   position: absolute;
-  bottom: 32px;
-  right: -32px;
-  width: 112px;
-  height: 112px;
+  right: 0;
+  bottom: 75px;     /* 125 - 50 → dash 중앙 */
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  background: var(--color-primary-600);
+  background: var(--color-gray-900);
   color: var(--color-white);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  z-index: 2;
 }
-.chart-callout p { margin: 0; font: var(--font-weight-bold) 13px/1.4 var(--font-family-base); }
+.chart-callout p { margin: 0; font: var(--font-weight-medium) 12px/1.4 var(--font-family-base); }
 .chart-callout strong { font-weight: var(--font-weight-bold); }
-.chart-cta {
-  display: block;
-  max-width: 580px;
-  margin: 0 auto;
-  height: 56px;
-  line-height: 56px;
-  text-align: center;
-  background: var(--color-primary-600);
-  color: var(--color-white);
-  text-decoration: none;
-  border-radius: var(--radius-pill);
-  font: var(--font-weight-bold) var(--font-size-button-l)/56px var(--font-family-base);
-}
-.chart-cta:hover { background: var(--color-primary-700); }
+
 @media (max-width: 1024px) {
-  .chart-title { font-size: var(--font-size-heading-xl); line-height: var(--line-height-heading-xl); }
-  .chart-callout { right: 0; width: 88px; height: 88px; }
-  .chart-callout p { font-size: 11px; }
+  .onecoin-chart-title { font-size: var(--font-size-heading-m); }
+  .chart-bar-flag { font-size: 14px; padding: 8px 12px; }
+  .chart-bar-rect-amount { font-size: 14px; }
+  .onecoin-info-title { font-size: 20px; }
+  .onecoin-info-desc { font-size: 15px; }
 }
 
 /* ============================================
    §10 전문성 4 카드
    ============================================ */
-.expertise { background: var(--color-bg-subtle); }
+.expertise { background: transparent; }
+.lifesangjo-content > section.expertise { max-width: 675px; }
 .expertise-title {
   margin: 0 0 var(--space-8);
   text-align: center;
@@ -1829,7 +2294,7 @@ const vReveal = {
   flex-direction: column;
 }
 .expertise-card-img {
-  height: 184px;
+  height: 160px;
   background-size: cover;
   background-position: center;
   background-color: var(--color-gray-100);
@@ -1842,11 +2307,13 @@ const vReveal = {
   gap: var(--space-2);
   align-items: center;
   text-align: center;
+  background: var(--color-gray-50);
 }
 .expertise-card-title {
   margin: 0;
-  font: var(--font-weight-bold) var(--font-size-heading-m)/var(--line-height-heading-m) var(--font-family-base);
+  font: var(--font-weight-bold) 16px/1.4 var(--font-family-base);
   color: var(--color-text-primary);
+  white-space: nowrap;
 }
 .expertise-card-desc {
   margin: 0;
@@ -1855,227 +2322,120 @@ const vReveal = {
 }
 @media (max-width: 1024px) {
   .expertise-title { font-size: var(--font-size-heading-xl); line-height: var(--line-height-heading-xl); }
-  .expertise-grid { grid-template-columns: 1fr; }
+  /* 횡스크롤 1-row: 1개 + peek */
+  .expertise-grid {
+    display: flex;
+    flex-direction: row;
+    grid-template-columns: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--space-3);
+    gap: var(--space-3);
+    padding: 0 var(--space-3) var(--space-3);
+    margin: 0 calc(-1 * var(--space-3));
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .expertise-grid::-webkit-scrollbar { display: none; }
+  .expertise-card {
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+  }
+  .expertise-card:first-child { margin-left: var(--space-3); }
   .expertise-card-img { height: 140px; }
+  .expertise-card-body { padding: var(--space-4) var(--space-4) var(--space-3); }
 }
 
 /* ============================================
-   §11 전국 11지부 — Solution Map (chip stack)
+   §11 전국 어디서든 — source lifecare-nationwide (좌우 레이아웃, PC 1024 wide)
    ============================================ */
-.branches { background: var(--color-bg-default); }
-.branches-title {
-  margin: 0 0 var(--space-3);
-  text-align: center;
-  font: var(--font-weight-bold) var(--font-size-display-m)/var(--line-height-display-m) var(--font-family-base);
-  color: var(--color-text-primary);
+.nationwide { background: transparent; }
+.nationwide-inner {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-.branches-title-em { color: var(--color-primary-600); }
-.branches-desc {
-  margin: 0 0 var(--space-7);
-  text-align: center;
-  font: var(--font-weight-regular) var(--font-size-body-l)/var(--line-height-body-l) var(--font-family-base);
-  color: var(--color-text-secondary);
-}
-.branches-desc strong { color: var(--color-text-primary); font-weight: var(--font-weight-bold); }
-.branches-stage {
-  position: relative;
-  max-width: 720px;
-  margin: 0 auto;
-  padding: var(--space-7) var(--space-5);
-  background: var(--color-white);
-  border: 1px solid var(--color-primary-100);
-  border-radius: var(--radius-xl);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
   align-items: center;
+  gap: var(--space-8);
 }
-.branches-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.nationwide-title-wrap {
+  flex: 1 1 0;
+  text-align: left;
+}
+.nationwide-title-wrap .section-title { margin: 0 0 var(--space-4); }
+.nationwide-title-wrap .section-desc { margin: 0; }
+.nationwide-content {
+  flex: 1 1 0;
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
   justify-content: center;
 }
-.branches-chip {
-  padding: var(--space-2) var(--space-4);
-  background: var(--color-primary-50);
-  color: var(--color-primary-700);
-  border-radius: var(--radius-pill);
-  font: var(--font-weight-bold) var(--font-size-body-m)/1 var(--font-family-base);
-}
-.branches-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-1);
-  padding-top: var(--space-4);
-  border-top: 1px dashed var(--color-border);
+.nationwide-map {
   width: 100%;
-}
-.branches-stat-num {
-  margin: 0;
-  font: var(--font-weight-bold) var(--font-size-body-l)/1 var(--font-family-base);
-  color: var(--color-text-tertiary);
-}
-.branches-stat-num strong {
-  font-size: var(--font-size-display-l);
-  color: var(--color-primary-600);
-  margin-right: var(--space-1);
-  letter-spacing: -0.02em;
-}
-.branches-stat-label {
-  margin: 0;
-  font: var(--font-weight-medium) var(--font-size-body-s)/1 var(--font-family-base);
-  color: var(--color-text-secondary);
+  max-width: 460px;
+  height: auto;
+  display: block;
 }
 @media (max-width: 1024px) {
-  .branches-title { font-size: var(--font-size-heading-xl); line-height: var(--line-height-heading-xl); }
-  .branches-stage { padding: var(--space-5) var(--space-3); gap: var(--space-4); }
-  .branches-stat-num strong { font-size: var(--font-size-heading-xxl); }
+  .nationwide-inner { flex-direction: column; align-items: stretch; gap: var(--space-6); }
+  .nationwide-title-wrap { text-align: center; }
+  .nationwide-map { max-width: 100%; }
 }
 
 /* ============================================
    §12 FAQ (interior canon)
    ============================================ */
-.faq { background: var(--color-bg-subtle); }
-.faq-title {
-  margin: 0 0 var(--space-7);
-  text-align: center;
-  font: var(--font-weight-bold) var(--font-size-heading-xxl)/var(--line-height-heading-xxl) var(--font-family-base);
-  color: var(--color-text-primary);
+.faq { background: transparent; }
+.faq-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--color-border);
 }
-.faq-list { list-style: none; margin: 0; padding: 0; max-width: 850px; margin-left: auto; margin-right: auto; }
-.faq-item {
-  border-bottom: 1px solid var(--color-border);
-}
-.faq-q {
+.faq-item { border-bottom: 1px solid var(--color-border); background: transparent; border-radius: 0; }
+.faq-question {
   width: 100%;
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-5) var(--space-2);
   background: transparent;
   border: 0;
-  cursor: pointer;
-  text-align: left;
-  font: var(--font-weight-bold) var(--font-size-heading-l)/var(--line-height-heading-l) var(--font-family-base);
-  color: var(--color-text-primary);
-}
-.faq-q-num { color: var(--color-primary-600); flex-shrink: 0; }
-.faq-q-text { flex: 1; }
-.faq-q-icon {
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  color: var(--color-text-tertiary);
-  line-height: 1;
-}
-.faq-a {
-  padding: 0 var(--space-2) var(--space-5) calc(var(--space-3) + 2.5em);
-  font: var(--font-weight-regular) var(--font-size-body-m)/var(--line-height-body-m) var(--font-family-base);
-  color: var(--color-text-tertiary);
-}
-@media (max-width: 1024px) {
-  .faq-q { font-size: var(--font-size-heading-s); line-height: var(--line-height-heading-s); padding: var(--space-4) var(--space-2); }
-  .faq-a { font-size: var(--font-size-body-s); line-height: var(--line-height-body-s); padding-left: calc(var(--space-3) + 2em); }
-}
-
-/* ============================================
-   §13 Form Anchor
-   ============================================ */
-.form-anchor { background: var(--color-bg-subtle); }
-.form-anchor-inner {
-  max-width: 720px;
-  margin: 0 auto;
-  text-align: center;
-}
-.form-anchor-eyebrow {
-  margin: 0 0 var(--space-2);
-  font: var(--font-weight-bold) var(--font-size-heading-m)/var(--line-height-heading-m) var(--font-family-base);
-  color: var(--color-primary-600);
-}
-.form-anchor-title {
-  margin: 0 0 var(--space-5);
-  font: var(--font-weight-bold) var(--font-size-heading-xxl)/var(--line-height-heading-xxl) var(--font-family-base);
-  color: var(--color-text-primary);
-}
-.form-anchor-note {
-  margin: 0;
-  padding: var(--space-7) var(--space-5);
-  background: var(--color-white);
-  border: 1px dashed var(--color-border);
-  border-radius: var(--radius-lg);
-  font: var(--font-weight-regular) var(--font-size-body-s)/var(--line-height-body-s) var(--font-family-base);
-  color: var(--color-text-tertiary);
-}
-
-/* ============================================
-   §14 Tel CTA — soho/interior 캐논 띠배너
-   ============================================ */
-.contact { padding: var(--section-gap-pc) var(--space-3); }
-.contact-banner {
-  position: relative;
-  max-width: var(--layout-pc-default);
-  margin: 0 auto;
-  height: 240px;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  isolation: isolate;
-}
-.contact-banner-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-.contact-banner-shade {
-  position: absolute;
-  inset: 0;
-  background: var(--color-gray-900);
-  opacity: 0.78;
-  z-index: 1;
-}
-.contact-banner-text {
-  position: relative;
-  z-index: 2;
-  height: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-4);
-  color: var(--color-white);
-  text-align: center;
-}
-.contact-hours {
-  margin: 0;
-  font: var(--font-weight-regular) var(--font-size-body-l)/var(--line-height-body-l) var(--font-family-base);
-  color: var(--color-white);
-}
-.contact-tel {
-  display: inline-flex;
   align-items: center;
   gap: var(--space-3);
-  color: var(--color-white);
-  text-decoration: none;
-  font: var(--font-weight-bold) var(--font-size-display-m)/1 var(--font-family-base);
+  padding: var(--space-5) var(--space-3);
+  text-align: left;
+  cursor: pointer;
+  color: var(--color-text-primary);
+  font: var(--font-weight-bold) 17px/1.4 var(--font-family-base);
 }
-.contact-tel svg { stroke: var(--color-white); }
+.faq-num {
+  color: var(--color-primary-600);
+  font: var(--font-weight-bold) 17px/1 var(--font-family-base);
+  flex-shrink: 0;
+}
+.faq-text {
+  flex: 1;
+  word-break: keep-all;
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+.faq-chevron {
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  transition: transform 0.2s ease;
+}
+.faq-chevron.is-open { transform: rotate(180deg); }
+.faq-answer { padding: 0 var(--space-3) var(--space-5) var(--space-3); color: var(--color-text-secondary); }
+.faq-answer p {
+  margin: 0;
+  color: var(--color-gray-600);
+  font-size: 15px;
+  line-height: 1.7;
+  word-break: keep-all;
+}
 @media (max-width: 1024px) {
-  .contact-banner { height: 200px; border-radius: var(--radius-lg); }
-  .contact-tel { font-size: var(--font-size-heading-xxl); }
+  .faq-question { padding: var(--space-4) var(--space-2); }
+  .faq-num { font-size: 17px !important; }
+  .faq-text { font-size: 17px !important; line-height: 1.4 !important; }
+  .faq-answer { padding: 0 var(--space-2) var(--space-4) var(--space-2); }
+  .faq-answer p { font-size: 15px !important; line-height: 1.6 !important; }
 }
 
 /* ============================================
