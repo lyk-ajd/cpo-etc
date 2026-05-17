@@ -552,7 +552,7 @@ const reviews = [
 const reviewSlides = [...reviews, ...reviews, ...reviews]
 
 const experts = [
-  { img: 'pro-01.webp', title: '대표', bio: '홍익대학교 건축학과 졸업 스타필드, 인스파이어 등<br class="only-mo" />대규모 상업공간 디자인 및 시공관리', tags: ['#상업공간', '#공간 브랜딩'] },
+  { img: 'pro-01.webp', title: '대표', bio: '홍익대학교 건축학과 졸업 스타필드, 인스파이어 등<br class="only-mo" />대규모 상업공간 디자인 및 시공관리', tags: ['#주거공간', '#상업공간', '#공간기획', '#브랜딩'] },
   { img: 'pro-02.webp', title: '인테리어 스토리텔러', bio: '인테리어 공간 기획 19년<br>상업, 병원, 어린이 시설 특화', tags: ['#특성화 인테리어', '#동선연출'] },
   { img: 'pro-03.webp', title: '현장 시공 디렉터', bio: '시공 총괄 16년<br>오피스·상업공간·프랜차이즈', tags: ['#시공 총괄', '#프랜차이즈 마스터'] },
   { img: 'pro-04.webp', title: '현장 시공 디렉터', bio: '시공 총괄 20년<br>주거공간·상업공간', tags: ['#시공총괄', '#주거공간 마스터'] },
@@ -1385,6 +1385,10 @@ br.only-mo {
   margin: var(--space-3) 0 0;
 }
 
+.expert-lead .hashtags {
+  justify-content: flex-start;
+}
+
 .hashtag {
   color: var(--color-text-accent);
   background: var(--color-bg-accent);
@@ -1429,6 +1433,13 @@ br.only-mo {
   .expert-lead .hashtags {
     margin-top: var(--space-2);
     justify-content: center;
+    flex-wrap: nowrap;
+    gap: var(--space-1);
+  }
+  .expert-lead .hashtag {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--font-size-body-xxs);
+    white-space: nowrap;
   }
   .experts-grid {
     grid-template-columns: repeat(2, 1fr);
