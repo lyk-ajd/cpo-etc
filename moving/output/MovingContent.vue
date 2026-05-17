@@ -25,10 +25,13 @@
     <!-- v-reveal 미부착: hero 바로 다음 섹션은 첫 화면 진입 시 즉시 보이도록 (component-rules §9) -->
     <section class="insurance" aria-labelledby="insurance-title">
       <header class="section-header center">
-        <p class="section-eyebrow">실랑이 하느라 많이 답답하셨죠?<br class="only-mo" /> 파손 걱정 없는 정당한 이사</p>
+        <p class="section-eyebrow insurance-eyebrow">
+          <span><span class="eyebrow-quote">「 사고나면 무책임 」</span><br class="only-mo" /> 실랑이 하느라 많이 답답하셨죠?</span>
+          <span class="text-highlight insurance-eyebrow-mark"><span>파손, 부담 추가비용 걱정 없는 정당한 이사</span></span>
+        </p>
         <h2 id="insurance-title" class="section-title insurance-title">
-          본사 책임 제도로 스트레스<br />
-          <span class="insurance-mark">싹- 다 잊으세요!</span>
+          ‘안심케어’ 로 스트레스<br />
+          <span class="insurance-mark">싹 - 다 잊으세요!</span>
         </h2>
       </header>
       <ul class="insurance-grid">
@@ -40,6 +43,23 @@
           <p v-if="card.desc" class="insurance-tile-desc" v-html="card.desc"></p>
         </li>
       </ul>
+      <div class="insurance-more-wrap">
+        <a class="sub-cta"
+           href="https://www.ajd.co.kr/contents/basic-tip/detail/%EC%95%84%EC%A0%95%EB%8B%B9%EC%9D%B4%EC%82%AC%EB%A5%BC_%EC%9D%B4%EC%9A%A9%ED%95%B4%EC%95%BC_%ED%95%98%EB%8A%94_%EC%9D%B4%EC%9C%A0l%EC%95%88%EC%8B%AC%EC%BC%80%EC%96%B4_%EC%84%9C%EB%B9%84%EC%8A%A4_%EA%B0%80%EC%9D%B4%EB%93%9C_%EB%A7%A1%EC%9D%84_%EC%88%98_%EC%9E%88%EB%8A%94_%EC%9D%B4%EC%82%AC%EC%97%85%EC%B2%B4-86451"
+           target="_blank" rel="noopener">
+          안심케어 보장범위 확인하기
+        </a>
+      </div>
+      <div class="insurance-video">
+        <iframe
+          src="https://www.youtube.com/embed/NuZt2H50ntI?rel=0"
+          title="아정당 안심케어 영상"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
     </section>
 
     <!-- ③ 솔직후기 — stars + highlighter rating, borderless cards with light bg body -->
@@ -71,71 +91,25 @@
           </div>
         </li>
       </ul>
-    </section>
-
-    <!-- ④ Specials — image-rich cards (no emoji, no navy) -->
-    <section v-reveal class="specials" aria-labelledby="specials-title">
-      <header class="section-header center specials-header">
-        <p class="section-eyebrow specials-eyebrow">왜 유명하냐고요?</p>
-        <h2 id="specials-title" class="section-title">
-          아정당 이사는 <span class="accent">특별합니다!</span>
-        </h2>
-      </header>
-      <div class="specials-grid">
-        <article class="special-card">
-          <span class="special-label">Special 01</span>
-          <h3 class="special-q">
-            <span class="accent">물품 파손 되면 책임</span>져 주나요?
-          </h3>
-          <div class="special-visual">
-            <img :src="cdn(assets.specialBadge37806)" alt="본사 안심 보장제" class="special-visual-img" />
-          </div>
-          <div class="special-fact">
-            <p class="special-fact-headline">
-              이삿짐 파손 시 본사 <strong class="accent">최대 1,000만 원 보상</strong>
-            </p>
-            <p class="special-fact-note">(운송 500만 원 + 상·하차 500만 원)</p>
-          </div>
-        </article>
-        <article class="special-card">
-          <span class="special-label">Special 02</span>
-          <h3 class="special-q">
-            <span class="accent">절차는 간편</span>한가요?
-          </h3>
-          <div class="special-visual">
-            <img :src="cdn(assets.specialConsult1585)" alt="비대면 무료 견적 상담" class="special-visual-img" />
-          </div>
-          <div class="special-fact">
-            <p class="special-fact-headline">
-              사진만 찍어도 <strong class="accent">비대면 무료 견적 가능</strong>
-            </p>
-            <p class="special-fact-note">365일 밤 10시까지 상담 가능</p>
-          </div>
-        </article>
-      </div>
-      <div class="specials-policy-wrap">
-        <a class="specials-policy"
-           href="https://drive.google.com/file/d/1w-gQ7Wvf_alPrh5sSdXR9CDWxufVNdPf/view"
-           target="_blank" rel="noopener">
-          <span>아정당 이사 약관 확인하기</span>
-          <span class="arrow" aria-hidden="true">›</span>
+      <div class="reviews-more-wrap">
+        <a class="sub-cta" href="https://www.ajd.co.kr/community/review?hashtags=0&sort=createdDateTime&ih=0&categories=137&page=0&title=" target="_blank" rel="noopener">
+          더 많은 후기 보러가기
         </a>
       </div>
     </section>
 
-    <!-- ⑤ Compare A사 vs 아정당 — softer styling, no black -->
+    <!-- ④ Compare 타사 vs 아정당 — 후기 바로 다음, 보장범위 비교 (수정요청1.PNG) -->
     <section v-reveal class="compare" aria-labelledby="compare-title">
       <header class="section-header center">
         <h2 id="compare-title" class="section-title compare-title">
-          이사 고수들만 모인 아정당의 자부심
+          <span class="text-highlight"><span>아정당 이사</span></span>는 <span class="text-highlight"><span>'확실히'</span></span> 다릅니다.
         </h2>
-        <span class="compare-badge">안심 인증 이사</span>
+        <p class="compare-sub">타 사 VS 아정당이사의 차이점을<br class="only-mo" /> 한눈에 비교해 보세요</p>
       </header>
       <div class="compare-grid">
         <article class="compare-panel compare-panel--other">
           <header class="compare-panel-head">
-            <span class="compare-tag">A사</span>
-            <h3 class="compare-panel-title">일반 포장 이사</h3>
+            <h3 class="compare-panel-title">타사 보장범위</h3>
           </header>
           <ul class="compare-list">
             <li v-for="x in compare.other" :key="x" v-html="x"></li>
@@ -143,11 +117,7 @@
         </article>
         <article class="compare-panel compare-panel--ours">
           <header class="compare-panel-head">
-            <span class="compare-tag">아정당</span>
-            <h3 class="compare-panel-title">
-              <span class="only-pc">아정당 안심 인증 이사</span>
-              <span class="only-mo">아정당 안심 인증</span>
-            </h3>
+            <h3 class="compare-panel-title">아정당 보장범위</h3>
           </header>
           <ul class="compare-list">
             <li v-for="x in compare.ours" :key="x" v-html="x"></li>
@@ -156,55 +126,50 @@
       </div>
     </section>
 
-    <!-- ⑥ 안심바로케어 — inline header on white BG (no dark card) + point cards with images -->
-    <section v-reveal class="barocare" aria-labelledby="barocare-title">
+    <!-- ⑤ Promise — "특별합니다" + "안심바로케어" 통합 (섹션2개 통합 내용.PNG) -->
+    <section v-reveal class="promise" aria-labelledby="promise-title">
       <header class="section-header center">
-        <p class="section-eyebrow">아정당 고객은 <strong class="accent">본사 책임 보상</strong></p>
-        <h2 id="barocare-title" class="section-title">
-          아정당 이사 고객이라면 누구나!<br />
-          <span class="accent">안심바로케어 서비스</span>
+        <h2 id="promise-title" class="section-title">
+          아정당 이사 고객이라면 <span class="accent">무조건</span><br />
+          안심이사 혜택을 제공합니다.
         </h2>
       </header>
-      <img :src="cdn(assets.specialBadge37806)" alt="" class="barocare-mo-badge" aria-hidden="true" />
-      <div class="barocare-points">
-        <article class="barocare-point">
-          <div class="barocare-point-text">
-            <span class="barocare-point-tag">첫째</span>
-            <p class="barocare-point-eyebrow">아정당 이사는 이사 중 파손 시,</p>
-            <p class="barocare-point-title">
-              <span class="accent">100% 안심, 신속 보장</span>해드립니다
-            </p>
-            <p class="barocare-point-note">* 안심 이사 점검표를 제출해 주시면 더욱 신속한 보상 가능</p>
+      <ul class="promise-grid">
+        <li class="promise-card">
+          <div class="promise-visual promise-visual--badge">
+            <img :src="cdn(assets.specialBadge37806)" alt="본사 안심 보장제 뱃지" class="promise-img promise-img--badge" />
           </div>
-          <img :src="cdn(assets.specialBadge37806)" alt="본사 안심 보장제 뱃지" class="barocare-point-img" />
-        </article>
-        <article class="barocare-point">
-          <div class="barocare-point-text">
-            <span class="barocare-point-tag">둘째</span>
-            <p class="barocare-point-eyebrow">업체 사고로 계약이 취소 되더라도</p>
-            <p class="barocare-point-title">
-              <span class="only-pc"><span class="accent">동일한 가격으로</span> 아정당 이사 파트너 재배정</span>
-              <span class="only-mo"><span class="accent">동일한 가격으로</span> 파트너 재배정</span>
-            </p>
-            <p class="barocare-point-note">* 단, 화물운송 약정일 기준 7일 이내 업체 측 일방 취소 시 보장</p>
+          <p class="promise-text">
+            <span class="promise-cond">이삿짐 파손 시,</span>
+            <strong class="promise-key"><span class="accent">1,000만원</span>까지 보상</strong>
+          </p>
+        </li>
+        <li class="promise-card">
+          <div class="promise-visual">
+            <img :src="cdn(assets.specialConsult1585)" alt="아정당 상담원" class="promise-img" loading="lazy" />
           </div>
-          <img :src="cdn(assets.barocarePoint2)" alt="아정당 이사 파트너" class="barocare-point-img" loading="lazy" />
-        </article>
-      </div>
-      <p class="barocare-disclaimer">
-        * 아정당 이사 홈페이지·앱을 통해 접수하신 이사 건만 보장 가능합니다. 반드시 보고 계시는 화면에서 이사 신청해주세요.
+          <p class="promise-text">
+            <span class="promise-cond">부당하게 추가요금이 발생하면</span>
+            <strong class="promise-key"><span class="accent">120% 무조건</span> 보상</strong>
+          </p>
+        </li>
+        <li class="promise-card">
+          <div class="promise-visual">
+            <img :src="cdn(assets.barocarePoint2)" alt="같은 계약 조건으로 매칭" class="promise-img" loading="lazy" />
+          </div>
+          <p class="promise-text">
+            <span class="promise-cond">업체 사고로 계약 취소 시,</span>
+            <strong class="promise-key"><span class="accent">같은 계약 조건</span>으로 매칭</strong>
+          </p>
+        </li>
+      </ul>
+      <p class="promise-footer">
+        아정당은 <span class="text-highlight"><span>본사가 책임지고 끝까지</span></span> 보상합니다.<br />
+        고객센터 <strong>1522-9777</strong>로 바로 문의해 주세요.
       </p>
-      <p class="barocare-cta-pre"><span class="barocare-cta-pre-mark"><span>아정당 이사 보상범위가 궁금하다면?</span></span></p>
-      <div class="barocare-cta-wrap">
-        <a class="barocare-tip-link"
-           href="https://www.ajd.co.kr/contents/basic-tip/detail/%EC%95%84%EC%A0%95%EB%8B%B9%EC%9D%B4%EC%82%AC%EB%A5%BC_%EC%9D%B4%EC%9A%A9%ED%95%B4%EC%95%BC_%ED%95%98%EB%8A%94_%EC%9D%B4%EC%9C%A0!_'%EC%95%88%EC%8B%AC%EB%B0%94%EB%A1%9C%EC%BC%80%EC%96%B4'_%EC%84%9C%EB%B9%84%EC%8A%A4_%EA%B0%80%EC%9D%B4%EB%93%9C%EB%AF%BF%EC%9D%84_%EC%88%98_%EC%9E%88%EB%8A%94_%EC%9D%B4%EC%82%AC%EC%97%85%EC%B2%B4-59417"
-           target="_blank" rel="noopener">
-          안심바로케어 꿀팁 보러가기 ›
-        </a>
-      </div>
     </section>
 
-    <!-- ⑦ 체크리스트 무료 제공 — eyebrow ↑ font, ref docs spread + ref customer reactions -->
+    <!-- ⑥ 체크리스트 무료 제공 — eyebrow ↑ font, ref docs spread + ref customer reactions -->
     <section v-reveal class="checklist" aria-labelledby="checklist-title">
       <header class="section-header center checklist-header">
         <p class="checklist-eyebrow">아정당만의</p>
@@ -260,26 +225,6 @@
           allowfullscreen
         ></iframe>
       </div>
-    </section>
-
-    <!-- ⑪ 이사절차 4-step — shorter tel CTA, scroll to form -->
-    <section v-reveal class="process" aria-labelledby="process-title">
-      <header class="section-header center process-header">
-        <p class="section-eyebrow process-eyebrow">처음부터 끝까지 쉽고 빠르게</p>
-        <h2 id="process-title" class="section-title">
-          아정당 <span class="accent">이사절차</span>
-        </h2>
-      </header>
-      <ol class="process-steps">
-        <li v-for="(s, i) in processSteps" :key="s.title" class="process-step">
-          <div class="process-step-icon-bg">
-            <span class="process-step-emoji" aria-hidden="true">{{ s.emoji }}</span>
-          </div>
-          <span class="process-step-num">{{ String(i + 1).padStart(2, '0') }}</span>
-          <h3 class="process-step-title">{{ s.title }}</h3>
-          <p class="process-step-sub" v-html="s.sub"></p>
-        </li>
-      </ol>
     </section>
 
     <!-- ⑬ 잠깐! 이사하면서 아정당에서 한번에 — sindorim_moneycomix 자방 CTA UI 그대로 -->
@@ -362,6 +307,26 @@
       </div>
     </section>
 
+    <!-- ⑪ 이사절차 4-step — FAQ 직전으로 이동 -->
+    <section v-reveal class="process" aria-labelledby="process-title">
+      <header class="section-header center process-header">
+        <p class="section-eyebrow process-eyebrow">처음부터 끝까지 쉽고 빠르게</p>
+        <h2 id="process-title" class="section-title">
+          아정당 <span class="accent">이사절차</span>
+        </h2>
+      </header>
+      <ol class="process-steps">
+        <li v-for="(s, i) in processSteps" :key="s.title" class="process-step">
+          <div class="process-step-icon-bg">
+            <span class="process-step-emoji" aria-hidden="true">{{ s.emoji }}</span>
+          </div>
+          <span class="process-step-num">{{ String(i + 1).padStart(2, '0') }}</span>
+          <h3 class="process-step-title">{{ s.title }}</h3>
+          <p class="process-step-sub" v-html="s.sub"></p>
+        </li>
+      </ol>
+    </section>
+
     <!-- ⑮ FAQ — closed by default + click to expand -->
     <section v-reveal class="faq" aria-labelledby="faq-title">
       <header class="section-header center">
@@ -427,7 +392,7 @@
 <script setup>
 import { ref } from 'vue'
 
-// PNG/JPG 는 사전 webp 변환됨 → 호출 시 자동 매핑. BASE_URL 로 GH Pages sub-path 호환.
+// Assets in public/landing/moving/ (Vercel static). PNG/JPG 는 사전 webp 변환됨 → 호출 시 자동 매핑.
 const cdn = (name) => `${import.meta.env.BASE_URL}landing/moving/${name.replace(/\.(png|jpe?g)$/i, '.webp')}`
 
 const assets = {
@@ -504,17 +469,17 @@ const reviews = [
   },
 ]
 
-// §5 비교
+// §4 비교 — 후기 다음 보장범위 비교 (수정요청1.PNG)
 const compare = {
   other: [
-    '영업배상책임보험 가입 의무 없음',
-    '이삿팀에 따라 부당한<br />추가 금액 발생 가능성 <strong>有</strong>',
-    'A/S 발생 시 직접 해결',
+    '보험 가입 의무 없음',
+    '추가금액 보상 없음',
+    'A/S 발생 시<br />고객 직접 해결',
   ],
   ours: [
-    '<strong>최대 1,000만 원</strong> 파손 보상',
-    '식사비, 수고비 등 부당지출<br />금액의 <strong>120% 보상</strong>',
-    'A/S 발생 시 책임 중재',
+    '<strong>최대 1,000만 원</strong> 파손<br />보상 보험 가입 <strong>100%</strong>',
+    '식사비, 수고비 등 부당<br />추가요금 <strong>120% 보상</strong>',
+    'A/S 발생 시<br />본사가 해결',
   ],
 }
 
@@ -759,6 +724,26 @@ br.only-mo { display: none; }
 .accent { color: var(--color-text-accent); }
 .accent-yellow { color: var(--color-yellow-500); }
 
+/* Highlighter utility — primary-100 strip behind bottom 50% of text.
+   Usage: <span class="text-highlight"><span>{text}</span></span>
+   The inner <span> sits above the strip via z-index. See component-rules.md §48. */
+.text-highlight {
+  position: relative;
+  display: inline-block;
+}
+.text-highlight::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  height: 50%;
+  background: var(--color-primary-100);
+  z-index: 0;
+  border-radius: 2px;
+}
+.text-highlight > span { position: relative; z-index: 1; }
+
 /* ============================================
    Shared CTAs
    ============================================ */
@@ -936,6 +921,16 @@ br.only-mo { display: none; }
 /* ============================================
    ② 보험/허가 — uniform tile, tight title-desc
    ============================================ */
+.insurance-eyebrow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.eyebrow-quote {
+  color: var(--color-text-tertiary);
+  font-size: 0.92em;
+  letter-spacing: -0.02em;
+}
 .insurance-title { line-height: 1.35; }
 .insurance-mark {
   display: inline-block;
@@ -1005,6 +1000,30 @@ br.only-mo { display: none; }
     height: 140px;
   }
   .insurance-tile-img { height: 100%; width: 100%; object-fit: cover; }
+}
+.insurance-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-6);
+}
+.insurance-more-wrap .sub-cta {
+  width: 280px;
+  max-width: 100%;
+}
+.insurance-video {
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-gray-900);
+  margin: var(--space-8) auto 0;
+}
+.insurance-video iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
 }
 
 /* ============================================
@@ -1089,6 +1108,15 @@ br.only-mo { display: none; }
   list-style: none;
   padding: 0;
   margin: 0;
+}
+.reviews-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-6);
+}
+.reviews-more-wrap .sub-cta {
+  width: 280px;
+  max-width: 100%;
 }
 @media (max-width: 1024px) {
   .reviews-grid {
@@ -1238,48 +1266,47 @@ br.only-mo { display: none; }
 /* ============================================
    ⑤ Compare A vs 아정당
    ============================================ */
-.compare-badge {
-  display: inline-block;
-  background: var(--color-primary-600);
-  color: var(--color-white);
-  padding: var(--space-2) var(--space-6);
-  border-radius: var(--radius-md);
-  font: var(--font-weight-bold) 1.875rem/1.2 var(--font-family-base);  /* 30px */
-  letter-spacing: -0.02em;
-  margin-top: var(--space-3);
+.compare-sub {
+  margin: var(--space-3) 0 0;
+  color: var(--color-text-secondary);
+  font: var(--font-weight-regular) var(--font-size-body-l)/1.55 var(--font-family-base);
 }
 @media (max-width: 1024px) {
-  .compare-badge { font-size: 1.25rem; padding: var(--space-1) var(--space-4); margin-top: var(--space-1); }
+  .compare-sub { font-size: 14px; line-height: 1.5; margin-top: var(--space-2); }
   .compare-title { font-size: 24px !important; line-height: 1.3 !important; }
 }
+/* 원래 표 디자인(헤더 컬러 + white 본체 + divider) 유지 + 오버랩 + 아정당이 더 큼 */
 .compare-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-4);
-}
-@media (max-width: 1024px) {
-  .compare-grid { gap: var(--space-3); }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 720px;
+  margin: 0 auto;
 }
 .compare-panel {
   background: var(--color-white);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 20px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+}
+.compare-panel--other {
+  flex: 0 0 280px;
+  z-index: 1;
 }
 .compare-panel--ours {
+  flex: 0 0 340px;
   border: 2px solid var(--color-primary-600);
-  transform: translateY(-8px);
-}
-@media (max-width: 1024px) {
-  .compare-panel--ours { transform: none; }
+  margin-left: -28px;
+  transform: translateY(-12px);
+  z-index: 2;
+  position: relative;
+  box-shadow: 0 14px 32px rgba(0,0,0,0.14), 0 2px 6px rgba(0,0,0,0.06);
 }
 .compare-panel-head {
   padding: var(--space-5) var(--space-3);
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
   background: var(--color-gray-50);
   color: var(--color-text-primary);
 }
@@ -1287,22 +1314,10 @@ br.only-mo { display: none; }
   background: var(--color-primary-600);
   color: var(--color-white);
 }
-.compare-tag {
-  display: inline-block;
-  background: var(--color-white);
-  color: var(--color-text-secondary);
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-pill);
-  font: var(--font-weight-medium) var(--font-size-body-s)/1.2 var(--font-family-base);
-}
-.compare-panel--ours .compare-tag { color: var(--color-primary-600); }
 .compare-panel-title {
   font: var(--font-weight-bold) var(--font-size-heading-l)/1.3 var(--font-family-base);
   margin: 0;
   color: inherit;
-}
-@media (max-width: 1024px) {
-  .compare-panel-title { font-size: 18px !important; line-height: 1.3 !important; white-space: nowrap; }
 }
 .compare-list {
   list-style: none;
@@ -1314,6 +1329,9 @@ br.only-mo { display: none; }
   text-align: center;
   color: var(--color-text-secondary);
 }
+.compare-panel--ours .compare-list {
+  padding: var(--space-7) var(--space-5);
+}
 .compare-list li {
   font: var(--font-weight-medium) var(--font-size-body-l)/1.5 var(--font-family-base);
   padding-bottom: var(--space-3);
@@ -1322,8 +1340,126 @@ br.only-mo { display: none; }
 .compare-list li:last-child { border-bottom: none; padding-bottom: 0; }
 .compare-panel--ours .compare-list strong { color: var(--color-primary-600); }
 .compare-panel--other .compare-list strong { color: var(--color-gray-900); }
+
 @media (max-width: 1024px) {
-  .compare-list li { font-size: 15px !important; line-height: 1.4 !important; }
+  .compare-grid { max-width: 100%; }
+  .compare-panel--other {
+    flex: 0 0 44%;
+  }
+  .compare-panel--ours {
+    flex: 0 0 52%;
+    margin-left: -16px;
+    transform: translateY(-8px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.14), 0 2px 4px rgba(0,0,0,0.06);
+  }
+  .compare-panel-head { padding: var(--space-4) var(--space-2); }
+  .compare-panel-title {
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+    white-space: nowrap;
+  }
+  .compare-list {
+    padding: var(--space-5) var(--space-3);
+    gap: var(--space-3);
+  }
+  .compare-panel--ours .compare-list { padding: var(--space-6) var(--space-3); }
+  .compare-list li { font-size: 13px !important; line-height: 1.4 !important; }
+}
+
+/* ============================================
+   ⑤ Promise — 통합 카드 (이삿짐 파손/부당 추가요금/계약 매칭)
+   ============================================ */
+.promise {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+}
+.promise-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  width: 100%;
+}
+.promise-card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 20px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+}
+.promise-visual {
+  aspect-ratio: 4 / 3;
+  background: var(--color-gray-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.promise-visual--badge {
+  background: var(--color-primary-50);
+}
+.promise-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.promise-img--badge {
+  width: auto;
+  height: 78%;
+  max-width: 80%;
+  object-fit: contain;
+}
+.promise-text {
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+  margin: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+.promise-cond {
+  font: var(--font-weight-regular) var(--font-size-body-m)/1.4 var(--font-family-base);
+  color: var(--color-text-secondary);
+}
+.promise-key {
+  font: var(--font-weight-bold) var(--font-size-heading-m)/1.4 var(--font-family-base);
+  color: var(--color-text-primary);
+}
+.promise-footer {
+  text-align: center;
+  font: var(--font-weight-regular) var(--font-size-body-l)/1.65 var(--font-family-base);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+.promise-footer strong {
+  color: var(--color-primary-600);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 1024px) {
+  .promise { gap: var(--space-6); }
+  .promise-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  .promise-visual { aspect-ratio: 16 / 9; }
+  .promise-img--badge { height: 72%; }
+  .promise-text {
+    padding: var(--space-5) var(--space-4);
+    gap: var(--space-1);
+  }
+  .promise-cond { font-size: 13px; }
+  .promise-key { font-size: 18px; }
+  .promise-footer { font-size: 13px; line-height: 1.6; }
 }
 
 /* ============================================
@@ -1633,11 +1769,12 @@ br.only-mo { display: none; }
 }
 .real-scene-video {
   width: 100%;
+  max-width: 800px;
   aspect-ratio: 16 / 9;
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--color-gray-900);
-  margin-bottom: var(--space-6);
+  margin: 0 auto var(--space-6);
 }
 .real-scene-video iframe {
   width: 100%;
