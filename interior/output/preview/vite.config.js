@@ -1,19 +1,47 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
+import fs from 'node:fs'
+import path from 'node:path'
 
 const here = (p) => fileURLToPath(new URL(p, import.meta.url))
 const projectRoot = here('../../..')
-
-// The SFC at ../InteriorContent.vue lives outside this preview's project root,
-// so Vite's normal node_modules walk can't find swiper/vue there.
-// Map the bare specifiers to absolute paths inside this preview's node_modules.
+const imagesDir = here('../../source/images')
 const swiperBase = here('./node_modules/swiper')
+
+// Dev: serve /landing/interior/<file> from ../../source/images/<file>.
+// Build: copy all source/images/* into dist/landing/interior/ so the SFC's
+// BASE_URL-aware cdn() helper resolves to <base>/landing/interior/<file>.
+const interiorImagesPlugin = {
+  name: 'serve-interior-images',
+  configureServer(server) {
+    server.middlewares.use('/landing/interior', (req, res, next) => {
+      const filename = decodeURIComponent(req.url.split('?')[0]).replace(/^\//, '')
+      const filepath = path.join(imagesDir, filename)
+      if (filepath.startsWith(imagesDir) && fs.existsSync(filepath)) {
+        const ext = path.extname(filepath).slice(1).toLowerCase()
+        const mime = { png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', svg: 'image/svg+xml', webp: 'image/webp' }[ext] || 'application/octet-stream'
+        res.setHeader('Content-Type', mime)
+        fs.createReadStream(filepath).pipe(res)
+        return
+      }
+      next()
+    })
+  },
+  closeBundle() {
+    const distLandingDir = path.resolve(here('./dist'), 'landing/interior')
+    if (!fs.existsSync(here('./dist'))) return
+    fs.mkdirSync(distLandingDir, { recursive: true })
+    for (const f of fs.readdirSync(imagesDir)) {
+      fs.copyFileSync(path.join(imagesDir, f), path.join(distLandingDir, f))
+    }
+  },
+}
 
 export default defineConfig(({ command }) => ({
   // dev: '/' (local). build: '/cpo-etc/interior/' (GitHub Pages subpath).
   base: command === 'build' ? '/cpo-etc/interior/' : '/',
-  plugins: [vue()],
+  plugins: [vue(), interiorImagesPlugin],
   resolve: {
     alias: [
       // ORDER MATTERS: more specific paths first

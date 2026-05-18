@@ -477,8 +477,10 @@ import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/autoplay'
 
+// Assets in interior/source/images/ (다이어트 webp 본). vite.config 의 closeBundle 훅이
+// build 시 dist/landing/interior/ 로 복사. BASE_URL 은 GitHub Pages subpath (/cpo-etc/interior/).
 const cdn = (file) =>
-  `https://cdn.ajd.kr/images/platform/landing/interior/${file}?q=80&f=webp`
+  `${import.meta.env.BASE_URL}landing/interior/${file.replace(/\.(png|jpe?g)$/i, '.webp')}`
 
 const youtubeUrl =
   'https://www.youtube.com/@%EC%95%84%EC%A0%95%EB%8B%B9%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4'
